@@ -1,99 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Derrick Mawira Jobs Parlour - Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derrick Mawira Jobs Parlour - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ffffff, #fface3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 10px rgba(255, 204, 0, 0.4);
+}
 
-  <!-- TailwindCSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+.brand-subtitle-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
 
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-xyz" crossorigin="anonymous">
-
-  <!-- SEO -->
-  <meta name="description" content="Login or sign up to Derrick Mawira Jobs Parlour - Your career gateway." />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/css/login.css">
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .input-field:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        .btn-google {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .btn-google:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 1);
+        }
+        .tab-active {
+            border-bottom: 3px solid #6366f1;
+            color: #6366f1;
+            font-weight: 600;
+        }
+        .form-panel {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .form-panel.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .form-panel.inactive {
+            transform: translateX(100%);
+            opacity: 0;
+            position: absolute;
+        }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .brand-text {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        .toast {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+        .toast-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .toast-error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        footer {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #cbd5e1;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .brand-logo {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        @media (max-width: 640px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .form-card {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 1rem;
+            }
+            .brand-logo {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            .brand-title {
+                font-size: 1.75rem !important;
+            }
+            .brand-subtitle-text {
+                font-size: 1rem !important;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-gray-900 flex flex-col min-h-screen font-[Poppins]">
-  <main class="flex flex-1 items-center justify-center p-4">
-    <div class="w-full max-w-md">
-      <!-- Brand -->
-      <div class="text-center mb-6">
-        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full shadow-xl bg-gradient-to-tr from-indigo-500 to-pink-500 mb-4 animate-bounce">
-          <i class="fas fa-briefcase text-white text-3xl"></i>
-        </div>
-        <h1 class="text-3xl font-bold">Derrick Mawira</h1>
-        <p class="text-indigo-300 font-medium">Jobs Parlour</p>
-        <p class="text-sm text-indigo-400 mt-1">Your Career Gateway</p>
-      </div>
-
-      <!-- Auth Card -->
-      <section class="bg-white/90 backdrop-blur-xl rounded-xl shadow-lg overflow-hidden">
-        <!-- Tabs -->
-        <div class="flex border-b border-gray-200">
-          <button id="signin-tab" class="flex-1 py-3 text-center font-medium border-b-2 border-indigo-500 text-indigo-600" onclick="showSignIn()">Sign In</button>
-          <button id="signup-tab" class="flex-1 py-3 text-center font-medium text-gray-500 hover:text-gray-700" onclick="showSignUp()">Sign Up</button>
-        </div>
-
-        <!-- Forms -->
-        <div class="p-6 relative" style="min-height: 400px;">
-          <!-- Sign In -->
-          <form id="signin-form" onsubmit="handleSignIn(event)" class="space-y-4">
-            <div>
-              <label for="signin-email" class="block text-sm font-medium">Email</label>
-              <div class="relative">
-                <i class="fas fa-envelope absolute left-3 top-3 text-indigo-400"></i>
-                <input id="signin-email" type="email" autocomplete="username" required
-                  class="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  placeholder="you@example.com">
-              </div>
+<body>
+    <div class="gradient-bg">
+        <div class="main-container flex items-center justify-center p-4">
+            <div class="w-full max-w-md">
+                <div class="brand-section text-center mb-6">
+                    <div class="brand-logo inline-flex items-center justify-center w-20 h-20 rounded-full mb-4 floating">
+                        <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+                        </svg>
+                    </div>
+                    <h1 class="brand-title text-3xl mb-1">Derrick Mawira</h1>
+                    <p class="brand-subtitle-text text-lg font-medium text-indigo-200">Jobs Parlour</p>
+                    <p class="text-sm text-indigo-300 mt-1">Your Career Gateway</p>
+                </div>
+                <div class="form-card glass-effect rounded-xl shadow-lg">
+                    <div class="flex border-b border-gray-200">
+                        <button id="signin-tab" class="tab-button flex-1 py-3 text-center font-medium text-gray-800 tab-active" onclick="showSignIn()">Sign In</button>
+                        <button id="signup-tab" class="tab-button flex-1 py-3 text-center font-medium text-gray-600 hover:text-gray-800" onclick="showSignUp()">Sign Up</button>
+                    </div>
+                    <div class="form-content p-6">
+                        <div class="form-wrapper relative" style="min-height: 400px;">
+                            <div id="signin-form" class="form-panel active">
+                                <form onsubmit="handleSignIn(event)">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signin-email">Email Address</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-indigo-400"></i>
+                                            </div>
+                                            <input id="signin-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="signin-email-error">
+                                            <p id="signin-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signin-password">Password</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-indigo-400"></i>
+                                            </div>
+                                            <input id="signin-password" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signin-password-error">
+                                            <button type="button" onclick="togglePassword('signin-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <p id="signin-password-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <input id="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                            <label for="remember-me" class="ml-2 text-sm text-gray-800">Remember me</label>
+                                        </div>
+                                        <a href="#" onclick="showForgotPassword()" class="text-sm text-indigo-600 hover:text-indigo-800">Forgot password?</a>
+                                    </div>
+                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Sign In</button>
+                                </form>
+                                <div class="mt-4">
+                                    <div class="relative">
+                                        <div class="absolute inset-0 flex items-center">
+                                            <div class="w-full border-t border-gray-200"></div>
+                                        </div>
+                                        <div class="relative flex justify-center text-sm">
+                                            <span class="px-2 bg-white text-gray-600">Or continue with</span>
+                                        </div>
+                                    </div>
+                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-2 px-4 rounded-lg text-gray-800 font-medium mt-4">
+                                        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                        </svg>
+                                        Sign in with Google
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="signup-form" class="form-panel inactive">
+                                <form onsubmit="handleSignUp(event)">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-name">Full Name</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-user text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-name" type="text" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="John Doe" required aria-describedby="signup-name-error">
+                                            <p id="signup-name-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-email">Email Address</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="signup-email-error">
+                                            <p id="signup-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-password">Password</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-password" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signup-password-error">
+                                            <button type="button" onclick="togglePassword('signup-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <p id="signup-password-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                        <!-- Password strength indicator will be added here by JavaScript -->
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-confirm">Confirm Password</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-confirm" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signup-confirm-error">
+                                            <button type="button" onclick="togglePassword('signup-confirm')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <p id="signup-confirm-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="flex items-start">
+                                            <input id="terms-agree" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded mt-1" required>
+                                            <label for="terms-agree" class="ml-2 text-sm text-gray-800">
+                                                I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Create Account</button>
+                                </form>
+                                <div class="mt-4">
+                                    <div class="relative">
+                                        <div class="absolute inset-0 flex items-center">
+                                            <div class="w-full border-t border-gray-200"></div>
+                                        </div>
+                                        <div class="relative flex justify-center text-sm">
+                                            <span class="px-2 bg-white text-gray-600">Or continue with</span>
+                                        </div>
+                                    </div>
+                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-2 px-4 rounded-lg text-gray-800 font-medium mt-4">
+                                        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                        </svg>
+                                        Sign up with Google
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="forgot-form" class="form-panel inactive">
+                                <div class="text-center mb-6">
+                                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 mb-4 floating">
+                                        <svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800">Forgot Password?</h3>
+                                    <p class="text-gray-600 text-sm mt-2">Enter your email to receive a password reset link</p>
+                                </div>
+                                <form onsubmit="handleForgotPassword(event)">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="forgot-email">Email Address</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-indigo-400"></i>
+                                            </div>
+                                            <input id="forgot-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="forgot-email-error">
+                                            <p id="forgot-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Send Reset Link</button>
+                                </form>
+                                <div class="text-center mt-4">
+                                    <a href="#" onclick="showSignIn()" class="text-sm text-indigo-600 hover:text-indigo-800">
+                                        <i class="fas fa-arrow-left mr-1"></i> Back to Sign In
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <label for="signin-password" class="block text-sm font-medium">Password</label>
-              <div class="relative">
-                <i class="fas fa-lock absolute left-3 top-3 text-indigo-400"></i>
-                <input id="signin-password" type="password" autocomplete="current-password" required
-                  class="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  placeholder="••••••••">
-                <button type="button" onclick="togglePassword('signin-password')" class="absolute right-3 top-2 text-indigo-500">
-                  <i class="fas fa-eye"></i>
-                </button>
-              </div>
-            </div>
-            <div class="flex justify-between items-center">
-              <label class="flex items-center space-x-2 text-sm">
-                <input type="checkbox" id="remember-me" class="rounded text-indigo-600">
-                <span>Remember me</span>
-              </label>
-              <a href="#" onclick="showForgotPassword()" class="text-indigo-600 hover:underline text-sm">Forgot?</a>
-            </div>
-            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition">Sign In</button>
-            <button type="button" onclick="handleGoogleSignIn()" class="w-full flex justify-center items-center gap-2 border py-2 rounded-lg hover:bg-gray-50">
-              <i class="fab fa-google"></i> Sign in with Google
-            </button>
-          </form>
         </div>
-      </section>
     </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-gray-400 py-4 text-center text-sm">
-    © 2025 Derrick Mawira Jobs Parlour. All rights reserved.
-  </footer>
-
-  <!-- JS -->
-  <script src="./js/login.js" defer></script>
+    <footer>
+        <p>© 2025 Derrick Mawira Jobs Parlour. All rights reserved.</p>
+    </footer>
+    <script src="./Js/login.js"></script>
 </body>
 </html>

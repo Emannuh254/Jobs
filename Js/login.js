@@ -24,22 +24,23 @@ function showForgotPassword() { switchForm('forgot-form'); }
 // Toggle password visibility
 function togglePassword(fieldId) {
   const field = document.getElementById(fieldId);
+  if (!field) return;
   const icon = field.parentElement.querySelector('button i');
   const isPassword = field.type === 'password';
   field.type = isPassword ? 'text' : 'password';
-  icon.classList.toggle('fa-eye', !isPassword);
-  icon.classList.toggle('fa-eye-slash', isPassword);
+  if (icon) {
+    icon.classList.toggle('fa-eye', !isPassword);
+    icon.classList.toggle('fa-eye-slash', isPassword);
+  }
 }
 
 // Validators
 const validateEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const validateFullName = name => /^[A-Za-z]+(?:\s+[A-Za-z]+)+$/.test(name.trim());
-const validatePassword = pass => {
-  return {
-    valid: pass.length >= 8 && /[A-Z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass),
-    strength: getPasswordStrength(pass)
-  };
-};
+const validatePassword = pass => ({
+  valid: pass.length >= 8 && /[A-Z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass),
+  strength: getPasswordStrength(pass)
+});
 
 // Password Strength Helper
 function getPasswordStrength(pass) {
@@ -55,13 +56,15 @@ function getPasswordStrength(pass) {
 
 // Show Password Strength Live
 function showPasswordStrength(inputId, strengthId) {
-  const pass = document.getElementById(inputId).value;
+  const pass = document.getElementById(inputId)?.value || '';
   const strengthText = document.getElementById(strengthId);
+  if (!strengthText) return;
   const { strength } = validatePassword(pass);
   strengthText.textContent = pass ? `Strength: ${strength}` : '';
-  strengthText.className = strength === 'Weak' ? 'text-red-500 text-sm'
-                      : strength === 'Medium' ? 'text-yellow-500 text-sm'
-                      : 'text-green-500 text-sm';
+  strengthText.className =
+    strength === 'Weak' ? 'text-red-500 text-sm' :
+    strength === 'Medium' ? 'text-yellow-500 text-sm' :
+    'text-green-500 text-sm';
 }
 
 // Error Handling
@@ -75,6 +78,7 @@ function showError(fieldId, message) {
 
 function clearErrors(formId) {
   const form = document.getElementById(formId);
+  if (!form) return;
   form.querySelectorAll('p[id$="-error"]').forEach(el => {
     el.textContent = '';
     el.classList.add('hidden');
@@ -85,6 +89,7 @@ function clearErrors(formId) {
 function handleSubmit(event, action, onSuccess) {
   event.preventDefault();
   const btn = event.target.querySelector('button[type="submit"]');
+  if (!btn) return;
   const original = btn.innerHTML;
   btn.innerHTML = '<div class="spinner mx-auto"></div>';
   btn.disabled = true;
@@ -100,8 +105,8 @@ function handleSubmit(event, action, onSuccess) {
 // Sign In
 function handleSignIn(event) {
   clearErrors('signin-form');
-  const email = document.getElementById('signin-email').value;
-  const password = document.getElementById('signin-password').value;
+  const email = document.getElementById('signin-email')?.value || '';
+  const password = document.getElementById('signin-password')?.value || '';
   if (!validateEmail(email)) return showError('signin-email', 'Invalid email address');
   if (!password.trim()) return showError('signin-password', 'Password is required');
   handleSubmit(event, 'Sign in successful! Redirecting...', () => console.log('Redirecting...'));
@@ -110,10 +115,10 @@ function handleSignIn(event) {
 // Sign Up
 function handleSignUp(event) {
   clearErrors('signup-form');
-  const name = document.getElementById('signup-name').value.trim();
-  const email = document.getElementById('signup-email').value;
-  const password = document.getElementById('signup-password').value;
-  const confirm = document.getElementById('signup-confirm').value;
+  const name = document.getElementById('signup-name')?.value.trim() || '';
+  const email = document.getElementById('signup-email')?.value || '';
+  const password = document.getElementById('signup-password')?.value || '';
+  const confirm = document.getElementById('signup-confirm')?.value || '';
 
   if (!validateFullName(name)) return showError('signup-name', 'Enter first and last name');
   if (!validateEmail(email)) return showError('signup-email', 'Invalid email address');
@@ -128,7 +133,7 @@ function handleSignUp(event) {
 // Forgot Password
 function handleForgotPassword(event) {
   clearErrors('forgot-form');
-  const email = document.getElementById('forgot-email').value;
+  const email = document.getElementById('forgot-email')?.value || '';
   if (!validateEmail(email)) return showError('forgot-email', 'Invalid email address');
   handleSubmit(event, 'Password reset link sent!', showSignIn);
 }
