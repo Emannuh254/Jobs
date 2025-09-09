@@ -144,13 +144,20 @@ function handleGoogleSignIn() {
     const original = btn.innerHTML;
     btn.innerHTML = '<div class="spinner mx-auto"></div>';
     btn.disabled = true;
+
     setTimeout(() => {
       btn.innerHTML = original;
       btn.disabled = false;
       showToast('Google Sign-In successful!', 'success');
+
+      // Redirect after success
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 1000); // wait 1s for toast to show
     }, 1000);
   });
 }
+
 
 // Toasts
 function showToast(message, type) {
