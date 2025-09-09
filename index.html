@@ -8,79 +8,215 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
-        .brand-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: linear-gradient(90deg, #ffffff, #fface3);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 2px 10px rgba(255, 204, 0, 0.4);
-}
-
-.brand-subtitle-text {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #ffffff;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
-}
-
+        
         .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
             overflow: hidden;
         }
+        
         .gradient-bg::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-            animation: pulse 8s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            z-index: 1;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+        
+        .main-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 420px;
+            padding: 1.5rem;
         }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
+        
+        .brand-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .brand-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .brand-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: linear-gradient(90deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(79, 70, 229, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        
+        .brand-subtitle-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e0e7ff;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .brand-subtitle-text + p {
+            font-size: 0.9rem;
+            color: #a5b4fc;
+            margin-top: 0.25rem;
+        }
+        
+        .form-card {
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
         }
+        
+        .tab-button {
+            padding: 1rem;
+            font-weight: 600;
+            color: #64748b;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-active {
+            color: var(--primary);
+        }
+        
+        .tab-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .form-content {
+            padding: 1.75rem;
+        }
+        
+        .form-wrapper {
+            position: relative;
+            min-height: 380px;
+        }
+        
+        .form-panel {
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .form-panel.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .form-panel.inactive {
+            opacity: 0;
+            transform: translateX(30px);
+            position: absolute;
+            width: 100%;
+            pointer-events: none;
+        }
+        
         .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            color: #334155;
             transition: all 0.3s ease;
-            border: 2px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.8);
         }
+        
         .input-field:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
             outline: none;
-            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background-color: #fff;
         }
+        
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+        
         .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            transition: all 0.3s ease;
+            width: 100%;
+            padding: 0.875rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(79, 70, 229, 0.4);
+        }
+        
         .btn-primary::before {
             content: '';
             position: absolute;
@@ -89,352 +225,425 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            transition: left 0.6s;
         }
+        
         .btn-primary:hover::before {
             left: 100%;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-        }
+        
         .btn-google {
-            transition: all 0.3s ease;
-            border: 2px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.9);
-        }
-        .btn-google:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 1);
-        }
-        .tab-active {
-            border-bottom: 3px solid #6366f1;
-            color: #6366f1;
-            font-weight: 600;
-        }
-        .form-panel {
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .form-panel.active {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        .form-panel.inactive {
-            transform: translateX(100%);
-            opacity: 0;
-            position: absolute;
-        }
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        .brand-text {
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
-        .toast {
-            position: fixed;
-            top: 16px;
-            right: 16px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
-            gap: 8px;
-            max-width: 400px;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            background-color: white;
+            color: #334155;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 1rem;
         }
+        
+        .btn-google:hover {
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn-google svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.75rem;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #e2e8f0;
+        }
+        
+        .divider span {
+            padding: 0 1rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+        
+        .checkbox-group input {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.25rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .checkbox-group label {
+            font-size: 0.875rem;
+            color: #475569;
+            cursor: pointer;
+        }
+        
+        .checkbox-group a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .checkbox-group a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 0.875rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            transition: color 0.2s ease;
+        }
+        
+        .forgot-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            transition: color 0.2s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .back-link i {
+            margin-right: 0.5rem;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 400px;
+            z-index: 1000;
+            animation: slideInRight 0.4s ease-out;
+        }
+        
         .toast-success {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
         }
+        
         .toast-error {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
         }
+        
         footer {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: #cbd5e1;
-  padding: 1.3rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: center;
-  font-size: 1rem;
-  width: 100%;
-  border-radius: 12px 12px 0 0;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Text Scaling */
-footer p {
-  margin: 0.5rem 0;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-}
-
-/* Footer Links */
-footer a {
-  color: #38bdf8;
-  text-decoration: none;
-  margin: 0 0.5rem;
-  transition: color 0.3s ease;
-}
-
-footer a:hover {
-  color: #60a5fa;
-  text-decoration: underline;
-}
-
-/* Make Footer Layout Flexible */
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Larger Screens - Horizontal Layout */
-@media (min-width: 768px) {
-  .footer-container {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-  }
-}
-
-
-        .brand-logo {
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #cbd5e1;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 2;
         }
-        .form-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+        
+        footer p {
+            margin: 0;
         }
+        
+        footer a {
+            color: #818cf8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        footer a:hover {
+            color: #a5b4fc;
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 640px) {
             .main-container {
                 padding: 1rem;
             }
-            .form-card {
-                width: 100%;
-                max-width: 100%;
-                border-radius: 1rem;
-            }
+            
             .brand-logo {
-                width: 80px !important;
-                height: 80px !important;
+                width: 70px;
+                height: 70px;
             }
+            
             .brand-title {
-                font-size: 1.75rem !important;
+                font-size: 1.75rem;
             }
+            
             .brand-subtitle-text {
-                font-size: 1rem !important;
+                font-size: 1rem;
+            }
+            
+            .form-content {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="gradient-bg">
-        <div class="main-container flex items-center justify-center p-4">
-            <div class="w-full max-w-md">
-                <div class="brand-section text-center mb-6">
-                    <div class="brand-logo inline-flex items-center justify-center w-20 h-20 rounded-full mb-4 floating">
-                        <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
-                        </svg>
-                    </div>
-                    <h1 class="brand-title text-3xl mb-1">Derrick Mawira</h1>
-                    <p class="brand-subtitle-text text-lg font-medium text-indigo-200">Jobs Parlour</p>
-                    <p class="text-sm text-indigo-300 mt-1">Your Career Gateway</p>
+        <div class="main-container">
+            <div class="brand-section">
+                <div class="brand-logo">
+                    <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+                    </svg>
                 </div>
-                <div class="form-card glass-effect rounded-xl shadow-lg">
-                    <div class="flex border-b border-gray-200">
-                        <button id="signin-tab" class="tab-button flex-1 py-3 text-center font-medium text-gray-800 tab-active" onclick="showSignIn()">Sign In</button>
-                        <button id="signup-tab" class="tab-button flex-1 py-3 text-center font-medium text-gray-600 hover:text-gray-800" onclick="showSignUp()">Sign Up</button>
-                    </div>
-                    <div class="form-content p-6">
-                        <div class="form-wrapper relative" style="min-height: 400px;">
-                            <div id="signin-form" class="form-panel active">
-                                <form onsubmit="handleSignIn(event)">
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signin-email">Email Address</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-envelope text-indigo-400"></i>
-                                            </div>
-                                            <input id="signin-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="signin-email-error">
-                                            <p id="signin-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signin-password">Password</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-lock text-indigo-400"></i>
-                                            </div>
-                                            <input id="signin-password" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signin-password-error">
-                                            <button type="button" onclick="togglePassword('signin-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <p id="signin-password-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center">
-                                            <input id="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                            <label for="remember-me" class="ml-2 text-sm text-gray-800">Remember me</label>
-                                        </div>
-                                        <a href="#" onclick="showForgotPassword()" class="text-sm text-indigo-600 hover:text-indigo-800">Forgot password?</a>
-                                    </div>
-                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Sign In</button>
-                                </form>
-                                <div class="mt-4">
+                <h1 class="brand-title">Derrick Mawira</h1>
+                <p class="brand-subtitle-text">Jobs Parlour</p>
+                <p>Your Career Gateway</p>
+            </div>
+            
+            <div class="form-card">
+                <div class="flex border-b border-gray-100">
+                    <button id="signin-tab" class="tab-button flex-1 tab-active" onclick="showSignIn()">Sign In</button>
+                    <button id="signup-tab" class="tab-button flex-1" onclick="showSignUp()">Sign Up</button>
+                </div>
+                
+                <div class="form-content">
+                    <div class="form-wrapper">
+                        <div id="signin-form" class="form-panel active">
+                            <form onsubmit="handleSignIn(event)">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="signin-email">Email Address</label>
                                     <div class="relative">
-                                        <div class="absolute inset-0 flex items-center">
-                                            <div class="w-full border-t border-gray-200"></div>
-                                        </div>
-                                        <div class="relative flex justify-center text-sm">
-                                            <span class="px-2 bg-white text-gray-600">Or continue with</span>
-                                        </div>
+                                        <i class="fas fa-envelope input-icon"></i>
+                                        <input id="signin-email" type="email" class="input-field" placeholder="you@example.com" required aria-describedby="signin-email-error">
+                                        <p id="signin-email-error" class="error-message hidden"></p>
                                     </div>
-                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-2 px-4 rounded-lg text-gray-800 font-medium mt-4">
-                                        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
-                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                        </svg>
-                                        Sign in with Google
-                                    </button>
                                 </div>
-                            </div>
-                            <div id="signup-form" class="form-panel inactive">
-                                <form onsubmit="handleSignUp(event)">
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-name">Full Name</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-user text-indigo-400"></i>
-                                            </div>
-                                            <input id="signup-name" type="text" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="John Doe" required aria-describedby="signup-name-error">
-                                            <p id="signup-name-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-email">Email Address</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-envelope text-indigo-400"></i>
-                                            </div>
-                                            <input id="signup-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="signup-email-error">
-                                            <p id="signup-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-password">Password</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-lock text-indigo-400"></i>
-                                            </div>
-                                            <input id="signup-password" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signup-password-error">
-                                            <button type="button" onclick="togglePassword('signup-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <p id="signup-password-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
-                                        <!-- Password strength indicator will be added here by JavaScript -->
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-confirm">Confirm Password</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-lock text-indigo-400"></i>
-                                            </div>
-                                            <input id="signup-confirm" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signup-confirm-error">
-                                            <button type="button" onclick="togglePassword('signup-confirm')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <p id="signup-confirm-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="flex items-start">
-                                            <input id="terms-agree" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded mt-1" required>
-                                            <label for="terms-agree" class="ml-2 text-sm text-gray-800">
-                                                I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Create Account</button>
-                                </form>
-                                <div class="mt-4">
+                                
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="signin-password">Password</label>
                                     <div class="relative">
-                                        <div class="absolute inset-0 flex items-center">
-                                            <div class="w-full border-t border-gray-200"></div>
-                                        </div>
-                                        <div class="relative flex justify-center text-sm">
-                                            <span class="px-2 bg-white text-gray-600">Or continue with</span>
-                                        </div>
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <input id="signin-password" type="password" class="input-field" placeholder="••••••••" required aria-describedby="signin-password-error">
+                                        <button type="button" onclick="togglePassword('signin-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <p id="signin-password-error" class="error-message hidden"></p>
                                     </div>
-                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-2 px-4 rounded-lg text-gray-800 font-medium mt-4">
-                                        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
-                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                        </svg>
-                                        Sign up with Google
-                                    </button>
                                 </div>
+                                
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="checkbox-group">
+                                        <input id="remember-me" type="checkbox">
+                                        <label for="remember-me">Remember me</label>
+                                    </div>
+                                    <a href="#" onclick="showForgotPassword()" class="forgot-link">Forgot password?</a>
+                                </div>
+                                
+                                <button type="submit" class="btn-primary">Sign In</button>
+                            </form>
+                            
+                            <div class="divider">
+                                <span>Or continue with</span>
                             </div>
-                            <div id="forgot-form" class="form-panel inactive">
-                                <div class="text-center mb-6">
-                                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 mb-4 floating">
-                                        <svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                                        </svg>
+                            
+                            <button onclick="handleGoogleSignIn()" class="btn-google">
+                                <svg viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                                Sign in with Google
+                            </button>
+                        </div>
+                        
+                        <div id="signup-form" class="form-panel inactive">
+                            <form onsubmit="handleSignUp(event)">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-name">Full Name</label>
+                                    <div class="relative">
+                                        <i class="fas fa-user input-icon"></i>
+                                        <input id="signup-name" type="text" class="input-field" placeholder="John Doe" required aria-describedby="signup-name-error">
+                                        <p id="signup-name-error" class="error-message hidden"></p>
                                     </div>
-                                    <h3 class="text-xl font-bold text-gray-800">Forgot Password?</h3>
-                                    <p class="text-gray-600 text-sm mt-2">Enter your email to receive a password reset link</p>
                                 </div>
-                                <form onsubmit="handleForgotPassword(event)">
-                                    <div class="mb-4">
-                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="forgot-email">Email Address</label>
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i class="fas fa-envelope text-indigo-400"></i>
-                                            </div>
-                                            <input id="forgot-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="forgot-email-error">
-                                            <p id="forgot-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
-                                        </div>
+                                
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-email">Email Address</label>
+                                    <div class="relative">
+                                        <i class="fas fa-envelope input-icon"></i>
+                                        <input id="signup-email" type="email" class="input-field" placeholder="you@example.com" required aria-describedby="signup-email-error">
+                                        <p id="signup-email-error" class="error-message hidden"></p>
                                     </div>
-                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Send Reset Link</button>
-                                </form>
-                                <div class="text-center mt-4">
-                                    <a href="#" onclick="showSignIn()" class="text-sm text-indigo-600 hover:text-indigo-800">
-                                        <i class="fas fa-arrow-left mr-1"></i> Back to Sign In
-                                    </a>
                                 </div>
+                                
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-password">Password</label>
+                                    <div class="relative">
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <input id="signup-password" type="password" class="input-field" placeholder="••••••••" required aria-describedby="signup-password-error">
+                                        <button type="button" onclick="togglePassword('signup-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <p id="signup-password-error" class="error-message hidden"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="signup-confirm">Confirm Password</label>
+                                    <div class="relative">
+                                        <i class="fas fa-lock input-icon"></i>
+                                        <input id="signup-confirm" type="password" class="input-field" placeholder="••••••••" required aria-describedby="signup-confirm-error">
+                                        <button type="button" onclick="togglePassword('signup-confirm')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <p id="signup-confirm-error" class="error-message hidden"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="checkbox-group">
+                                        <input id="terms-agree" type="checkbox" required>
+                                        <label for="terms-agree">I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a></label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn-primary">Create Account</button>
+                            </form>
+                            
+                            <div class="divider">
+                                <span>Or continue with</span>
+                            </div>
+                            
+                            <button onclick="handleGoogleSignIn()" class="btn-google">
+                                <svg viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                                Sign up with Google
+                            </button>
+                        </div>
+                        
+                        <div id="forgot-form" class="form-panel inactive">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 mb-4 floating">
+                                    <svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800">Forgot Password?</h3>
+                                <p class="text-gray-600 text-sm mt-2">Enter your email to receive a password reset link</p>
+                            </div>
+                            
+                            <form onsubmit="handleForgotPassword(event)">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="forgot-email">Email Address</label>
+                                    <div class="relative">
+                                        <i class="fas fa-envelope input-icon"></i>
+                                        <input id="forgot-email" type="email" class="input-field" placeholder="you@example.com" required aria-describedby="forgot-email-error">
+                                        <p id="forgot-email-error" class="error-message hidden"></p>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn-primary">Send Reset Link</button>
+                            </form>
+                            
+                            <div class="text-center">
+                                <a href="#" onclick="showSignIn()" class="back-link">
+                                    <i class="fas fa-arrow-left"></i> Back to Sign In
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -442,12 +651,11 @@ footer a:hover {
             </div>
         </div>
     </div>
+    
     <footer>
-  <div class="footer-container">
-    <p>&copy; 2025 Derrick Mawira Jobs Parlour.. All Rights Reserved.</p>
-</footer>
-
-
+        <p>&copy; 2025 Derrick Mawira Jobs Parlour. All Rights Reserved.</p>
+    </footer>
+    
     <script src="./Js/login.js"></script>
 </body>
 </html>
