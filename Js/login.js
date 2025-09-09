@@ -5,13 +5,15 @@ function switchForm(activeId) {
 
   forms.forEach(id => {
     const el = document.getElementById(id);
+    if (!el) return;
     el.classList.toggle('active', id === activeId);
     el.classList.toggle('inactive', id !== activeId);
   });
 
   tabs.forEach(id => {
     const tab = document.getElementById(id);
-    tab?.classList.toggle('tab-active', `${id}-form` === activeId);
+    if (!tab) return;
+    tab.classList.toggle('tab-active', `${id}-form` === activeId);
   });
 }
 
@@ -22,18 +24,47 @@ function showForgotPassword() { switchForm('forgot-form'); }
 // Toggle password visibility
 function togglePassword(fieldId) {
   const field = document.getElementById(fieldId);
-  const icon = field.nextElementSibling?.querySelector('i') || field.parentElement.querySelector('i');
+  const icon = field.parentElement.querySelector('button i');
   const isPassword = field.type === 'password';
   field.type = isPassword ? 'text' : 'password';
-  icon?.classList.toggle('fa-eye', !isPassword);
-  icon?.classList.toggle('fa-eye-slash', isPassword);
+  icon.classList.toggle('fa-eye', !isPassword);
+  icon.classList.toggle('fa-eye-slash', isPassword);
 }
 
 // Validators
 const validateEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-const validatePassword = pass => pass.length >= 8 && /[A-Z]/.test(pass) && /[0-9]/.test(pass);
+const validateFullName = name => /^[A-Za-z]+(?:\s+[A-Za-z]+)+$/.test(name.trim());
+const validatePassword = pass => {
+  return {
+    valid: pass.length >= 8 && /[A-Z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass),
+    strength: getPasswordStrength(pass)
+  };
+};
 
-// Error handling
+// Password Strength Helper
+function getPasswordStrength(pass) {
+  let score = 0;
+  if (pass.length >= 8) score++;
+  if (/[A-Z]/.test(pass)) score++;
+  if (/[0-9]/.test(pass)) score++;
+  if (/[^A-Za-z0-9]/.test(pass)) score++;
+  if (score <= 1) return 'Weak';
+  if (score === 2) return 'Medium';
+  return 'Strong';
+}
+
+// Show Password Strength Live
+function showPasswordStrength(inputId, strengthId) {
+  const pass = document.getElementById(inputId).value;
+  const strengthText = document.getElementById(strengthId);
+  const { strength } = validatePassword(pass);
+  strengthText.textContent = pass ? `Strength: ${strength}` : '';
+  strengthText.className = strength === 'Weak' ? 'text-red-500 text-sm'
+                      : strength === 'Medium' ? 'text-yellow-500 text-sm'
+                      : 'text-green-500 text-sm';
+}
+
+// Error Handling
 function showError(fieldId, message) {
   const errorElement = document.getElementById(`${fieldId}-error`);
   if (!errorElement) return false;
@@ -50,7 +81,7 @@ function clearErrors(formId) {
   });
 }
 
-// Simulate async actions with spinners
+// Async Simulation
 function handleSubmit(event, action, onSuccess) {
   event.preventDefault();
   const btn = event.target.querySelector('button[type="submit"]');
@@ -84,9 +115,11 @@ function handleSignUp(event) {
   const password = document.getElementById('signup-password').value;
   const confirm = document.getElementById('signup-confirm').value;
 
-  if (!name) return showError('signup-name', 'Enter your full name');
-  if (!validateEmail(email)) return showError('signup-email', 'Invalid email');
-  if (!validatePassword(password)) return showError('signup-password', 'Password needs 8+ chars, uppercase, number');
+  if (!validateFullName(name)) return showError('signup-name', 'Enter first and last name');
+  if (!validateEmail(email)) return showError('signup-email', 'Invalid email address');
+
+  const { valid } = validatePassword(password);
+  if (!valid) return showError('signup-password', 'Password must have 8+ chars, uppercase, number, symbol');
   if (password !== confirm) return showError('signup-confirm', 'Passwords do not match');
 
   handleSubmit(event, 'Account created! Please sign in.', showSignIn);
@@ -96,7 +129,7 @@ function handleSignUp(event) {
 function handleForgotPassword(event) {
   clearErrors('forgot-form');
   const email = document.getElementById('forgot-email').value;
-  if (!validateEmail(email)) return showError('forgot-email', 'Invalid email');
+  if (!validateEmail(email)) return showError('forgot-email', 'Invalid email address');
   handleSubmit(event, 'Password reset link sent!', showSignIn);
 }
 
