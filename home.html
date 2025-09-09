@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Derrick Mawira Jobs Parlour</title>
+    <meta name="description" content="Find your dream job at Derrick Mawira Jobs Parlour">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <!-- Header -->
@@ -28,16 +28,17 @@
                     <a href="#" class="nav-link" onclick="showPage('about')">About</a>
                     <a href="#" class="nav-link" onclick="showPage('profile')">Profile</a>
                     <a href="#" class="nav-link" onclick="showPage('settings')">Settings</a>
+                    <a href="#" class="nav-link" onclick="showPage('help')">Help</a>
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <button class="text-white hover:text-indigo-200">
+                    <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Notifications">
                         <i class="fas fa-bell"></i>
                     </button>
-                    <button class="text-white hover:text-indigo-200">
+                    <button class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
                         <i class="fas fa-user-circle text-xl"></i>
                     </button>
-                    <button class="md:hidden text-white">
+                    <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
@@ -56,19 +57,19 @@
                     <p class="text-lg mb-6">Discover thousands of job opportunities from top companies</p>
                     
                     <div class="search-box">
-                        <input type="text" class="search-input" placeholder="Job title, company, or keywords">
-                        <button class="search-button">
+                        <input type="text" class="search-input" placeholder="Job title, company, or keywords" aria-label="Search jobs">
+                        <button class="search-button" aria-label="Submit search">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                     
                     <div class="mt-6">
-                        <div class="filter-chip active">All Jobs</div>
-                        <div class="filter-chip">Remote</div>
-                        <div class="filter-chip">Full-time</div>
-                        <div class="filter-chip">Part-time</div>
-                        <div class="filter-chip">Contract</div>
-                        <div class="filter-chip">Internship</div>
+                        <div class="filter-chip active" tabindex="0" role="button" aria-pressed="true">All Jobs</div>
+                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Remote</div>
+                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Full-time</div>
+                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Part-time</div>
+                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Contract</div>
+                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Internship</div>
                     </div>
                 </div>
                 
@@ -77,7 +78,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Job Card 1 -->
-                    <div class="job-card p-6">
+                    <article class="job-card p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">Senior Frontend Developer</h3>
@@ -87,7 +88,7 @@
                         </div>
                         
                         <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
                             <span>San Francisco, CA</span>
                         </div>
                         
@@ -97,10 +98,10 @@
                             <span class="font-bold text-indigo-600">$120k - $150k</span>
                             <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Job Card 2 -->
-                    <div class="job-card p-6">
+                    <article class="job-card p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">UX/UI Designer</h3>
@@ -110,7 +111,7 @@
                         </div>
                         
                         <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
                             <span>Remote</span>
                         </div>
                         
@@ -120,10 +121,10 @@
                             <span class="font-bold text-indigo-600">$90k - $120k</span>
                             <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Job Card 3 -->
-                    <div class="job-card p-6">
+                    <article class="job-card p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">Product Manager</h3>
@@ -133,7 +134,7 @@
                         </div>
                         
                         <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
                             <span>New York, NY</span>
                         </div>
                         
@@ -143,10 +144,10 @@
                             <span class="font-bold text-indigo-600">$130k - $160k</span>
                             <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Job Card 4 -->
-                    <div class="job-card p-6">
+                    <article class="job-card p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">Data Scientist</h3>
@@ -156,7 +157,7 @@
                         </div>
                         
                         <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
                             <span>Austin, TX</span>
                         </div>
                         
@@ -166,10 +167,10 @@
                             <span class="font-bold text-indigo-600">$100k - $130k</span>
                             <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Job Card 5 -->
-                    <div class="job-card p-6">
+                    <article class="job-card p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">Marketing Specialist</h3>
@@ -179,7 +180,7 @@
                         </div>
                         
                         <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
                             <span>Chicago, IL</span>
                         </div>
                         
@@ -189,10 +190,10 @@
                             <span class="font-bold text-indigo-600">$60k - $80k</span>
                             <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
                         </div>
-                    </div>
+                    </article>
                     
                     <!-- Job Card 6 -->
-                    <div class="job-card p-6">
+                    <article class="job-card p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">Backend Developer</h3>
@@ -202,7 +203,7 @@
                         </div>
                         
                         <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
                             <span>Remote</span>
                         </div>
                         
@@ -212,7 +213,7 @@
                             <span class="font-bold text-indigo-600">$110k - $140k</span>
                             <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 
                 <div class="mt-8 text-center">
@@ -235,20 +236,20 @@
                             <form>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label class="form-label">Candidate Name</label>
-                                        <input type="text" class="form-input" placeholder="Full name">
+                                        <label class="form-label" for="candidate-name">Candidate Name</label>
+                                        <input type="text" id="candidate-name" class="form-input" placeholder="Full name">
                                     </div>
                                     <div>
-                                        <label class="form-label">Candidate Email</label>
-                                        <input type="email" class="form-input" placeholder="Email address">
+                                        <label class="form-label" for="candidate-email">Candidate Email</label>
+                                        <input type="email" id="candidate-email" class="form-input" placeholder="Email address">
                                     </div>
                                     <div>
-                                        <label class="form-label">Candidate Phone</label>
-                                        <input type="tel" class="form-input" placeholder="Phone number">
+                                        <label class="form-label" for="candidate-phone">Candidate Phone</label>
+                                        <input type="tel" id="candidate-phone" class="form-input" placeholder="Phone number">
                                     </div>
                                     <div>
-                                        <label class="form-label">Position</label>
-                                        <select class="form-input">
+                                        <label class="form-label" for="position">Position</label>
+                                        <select id="position" class="form-input">
                                             <option>Select a position</option>
                                             <option>Frontend Developer</option>
                                             <option>Backend Developer</option>
@@ -258,8 +259,8 @@
                                         </select>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label class="form-label">Why are you referring this candidate?</label>
-                                        <textarea class="form-input" rows="4" placeholder="Tell us why this candidate would be a good fit"></textarea>
+                                        <label class="form-label" for="referral-reason">Why are you referring this candidate?</label>
+                                        <textarea id="referral-reason" class="form-input" rows="4" placeholder="Tell us why this candidate would be a good fit"></textarea>
                                     </div>
                                 </div>
                                 
@@ -438,25 +439,25 @@
                     <h2 class="text-2xl font-bold mb-6">Meet Our Team</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="text-center">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team member" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Derrick Mawira" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
                             <h3 class="font-bold">Derrick Mawira</h3>
                             <p class="text-gray-600 text-sm">Founder & CEO</p>
                         </div>
                         
                         <div class="text-center">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team member" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
                             <h3 class="font-bold">Sarah Johnson</h3>
                             <p class="text-gray-600 text-sm">Head of Operations</p>
                         </div>
                         
                         <div class="text-center">
-                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Team member" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Chen" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
                             <h3 class="font-bold">Michael Chen</h3>
                             <p class="text-gray-600 text-sm">CTO</p>
                         </div>
                         
                         <div class="text-center">
-                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Team member" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Emily Rodriguez" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
                             <h3 class="font-bold">Emily Rodriguez</h3>
                             <p class="text-gray-600 text-sm">Marketing Director</p>
                         </div>
@@ -470,16 +471,16 @@
                             <h3 class="text-lg font-bold mb-4">Get in Touch</h3>
                             <form>
                                 <div class="mb-4">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-input" placeholder="Your name">
+                                    <label class="form-label" for="contact-name">Name</label>
+                                    <input type="text" id="contact-name" class="form-input" placeholder="Your name">
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-input" placeholder="Your email">
+                                    <label class="form-label" for="contact-email">Email</label>
+                                    <input type="email" id="contact-email" class="form-input" placeholder="Your email">
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label">Message</label>
-                                    <textarea class="form-input" rows="4" placeholder="Your message"></textarea>
+                                    <label class="form-label" for="contact-message">Message</label>
+                                    <textarea id="contact-message" class="form-input" rows="4" placeholder="Your message"></textarea>
                                 </div>
                                 <button type="submit" class="btn-primary">Send Message</button>
                             </form>
@@ -489,7 +490,7 @@
                             <h3 class="text-lg font-bold mb-4">Our Information</h3>
                             <div class="space-y-4">
                                 <div class="flex items-start">
-                                    <i class="fas fa-map-marker-alt text-indigo-600 mt-1 mr-3"></i>
+                                    <i class="fas fa-map-marker-alt text-indigo-600 mt-1 mr-3" aria-hidden="true"></i>
                                     <div>
                                         <p class="font-medium">Address</p>
                                         <p class="text-gray-600">123 Business Avenue, Suite 100<br>New York, NY 10001</p>
@@ -497,7 +498,7 @@
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <i class="fas fa-phone text-indigo-600 mt-1 mr-3"></i>
+                                    <i class="fas fa-phone text-indigo-600 mt-1 mr-3" aria-hidden="true"></i>
                                     <div>
                                         <p class="font-medium">Phone</p>
                                         <p class="text-gray-600">+1 (555) 123-4567</p>
@@ -505,7 +506,7 @@
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <i class="fas fa-envelope text-indigo-600 mt-1 mr-3"></i>
+                                    <i class="fas fa-envelope text-indigo-600 mt-1 mr-3" aria-hidden="true"></i>
                                     <div>
                                         <p class="font-medium">Email</p>
                                         <p class="text-gray-600">info@derrickmawirajobs.com</p>
@@ -513,7 +514,7 @@
                                 </div>
                                 
                                 <div class="flex items-start">
-                                    <i class="fas fa-clock text-indigo-600 mt-1 mr-3"></i>
+                                    <i class="fas fa-clock text-indigo-600 mt-1 mr-3" aria-hidden="true"></i>
                                     <div>
                                         <p class="font-medium">Business Hours</p>
                                         <p class="text-gray-600">Monday - Friday: 9am - 6pm<br>Saturday: 10am - 4pm</p>
@@ -547,7 +548,7 @@
                             <div class="flex justify-center md:justify-start space-x-4">
                                 <button class="btn-primary">Edit Profile</button>
                                 <button class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">
-                                    <i class="fas fa-download mr-2"></i>Download Resume
+                                    <i class="fas fa-download mr-2" aria-hidden="true"></i>Download Resume
                                 </button>
                             </div>
                         </div>
@@ -620,27 +621,27 @@
                             
                             <div class="space-y-4">
                                 <div class="flex items-center">
-                                    <i class="fas fa-envelope text-indigo-600 w-6"></i>
+                                    <i class="fas fa-envelope text-indigo-600 w-6" aria-hidden="true"></i>
                                     <span class="ml-3">john.doe@example.com</span>
                                 </div>
                                 
                                 <div class="flex items-center">
-                                    <i class="fas fa-phone text-indigo-600 w-6"></i>
+                                    <i class="fas fa-phone text-indigo-600 w-6" aria-hidden="true"></i>
                                     <span class="ml-3">+1 (555) 123-4567</span>
                                 </div>
                                 
                                 <div class="flex items-center">
-                                    <i class="fas fa-map-marker-alt text-indigo-600 w-6"></i>
+                                    <i class="fas fa-map-marker-alt text-indigo-600 w-6" aria-hidden="true"></i>
                                     <span class="ml-3">San Francisco, CA</span>
                                 </div>
                                 
                                 <div class="flex items-center">
-                                    <i class="fab fa-linkedin text-indigo-600 w-6"></i>
+                                    <i class="fab fa-linkedin text-indigo-600 w-6" aria-hidden="true"></i>
                                     <span class="ml-3">linkedin.com/in/johndoe</span>
                                 </div>
                                 
                                 <div class="flex items-center">
-                                    <i class="fab fa-github text-indigo-600 w-6"></i>
+                                    <i class="fab fa-github text-indigo-600 w-6" aria-hidden="true"></i>
                                     <span class="ml-3">github.com/johndoe</span>
                                 </div>
                             </div>
@@ -906,6 +907,8 @@
             </div>
         </div>
     </main>
+
+    <!-- WhatsApp-like Chatbot -->
     <div class="chatbot-container">
         <div class="chatbot-window" id="chatbot-window">
             <div class="chatbot-header">
@@ -918,7 +921,7 @@
                         <div class="chatbot-header-status">Online</div>
                     </div>
                 </div>
-                <button class="chatbot-close" id="chatbot-close">
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -933,18 +936,17 @@
             </div>
             
             <div class="chatbot-input-container">
-                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type a message...">
-                <button class="chatbot-send" id="chatbot-send">
+                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type a message..." aria-label="Type a message">
+                <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
         </div>
         
-        <button class="chatbot-button" id="chatbot-button">
+        <button class="chatbot-button" id="chatbot-button" aria-label="Open chat">
             <i class="fab fa-whatsapp"></i>
         </button>
     </div>
-
 
     <!-- Footer -->
     <footer class="footer">
@@ -966,7 +968,7 @@
                         <li><a href="#" class="footer-link" onclick="showPage('jobs')">Jobs</a></li>
                         <li><a href="#" class="footer-link" onclick="showPage('referrals')">Referrals</a></li>
                         <li><a href="#" class="footer-link" onclick="showPage('about')">About Us</a></li>
-                        <li><a href="#" class="footer-link">Contact</a></li>
+                        <li><a href="#" class="footer-link" onclick="showPage('help')">Help</a></li>
                     </ul>
                 </div>
                 
@@ -983,14 +985,22 @@
                 <div>
                     <h3 class="text-white font-bold mb-4">Connect With Us</h3>
                     <div class="flex space-x-4 mb-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                     <p class="text-gray-400">Subscribe to our newsletter for the latest job updates.</p>
                     <div class="mt-4 flex">
-                        <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l-lg w-full focus:outline-none">
+                        <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l-lg w-full focus:outline-none" aria-label="Your email">
                         <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-700">Subscribe</button>
                     </div>
                 </div>
@@ -1031,8 +1041,14 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             showPage('jobs');
-
-       
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            mobileMenuButton.addEventListener('click', function() {
+                // Implementation for mobile menu toggle would go here
+                console.log('Mobile menu clicked');
+            });
+            
             // Chatbot functionality
             const chatbotButton = document.getElementById('chatbot-button');
             const chatbotWindow = document.getElementById('chatbot-window');
@@ -1125,7 +1141,20 @@
                     sendMessage();
                 }
             });
-        
+            
+            // Filter chips functionality
+            const filterChips = document.querySelectorAll('.filter-chip');
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    // Toggle active state
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update aria-pressed attribute
+                    filterChips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+                    this.setAttribute('aria-pressed', 'true');
+                });
+            });
         });
     </script>
 </body>
