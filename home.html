@@ -1155,6 +1155,19 @@
                     this.setAttribute('aria-pressed', 'true');
                 });
             });
+            // Detect keyboard open on mobile devices
+let originalViewportHeight = window.innerHeight;
+let chatWindow = document.querySelector('.chatbot-window');
+
+window.addEventListener('resize', function() {
+    if (window.innerHeight < originalViewportHeight * 0.8) {
+        // Keyboard is likely open
+        chatWindow.classList.add('keyboard-open');
+    } else {
+        // Keyboard is closed
+        chatWindow.classList.remove('keyboard-open');
+    }
+});
         });
     </script>
 </body>
