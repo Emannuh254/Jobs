@@ -6,461 +6,256 @@
     <title>Derrick Mawira Jobs Parlour - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            overflow-y: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        
         .gradient-bg {
-            background: linear-gradient(135deg, #3931c7 0%, #7C3AED 50%, #EC4899 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
-            min-height: 100vh;
         }
-        
         .gradient-bg::before {
-            content: "";
+            content: '';
             position: absolute;
             top: -50%;
-            right: -50%;
+            left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-            animation: pulse 20s ease-in-out infinite;
-            will-change: transform;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
         }
-        
         @keyframes pulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(180deg); }
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
-        
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
-            will-change: transform;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
-        
-        .form-container {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform, opacity;
-        }
-        
         .input-field {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             border: 2px solid #e2e8f0;
-            will-change: transform, border-color, box-shadow;
+            background: rgba(255, 255, 255, 0.8);
         }
-        
         .input-field:focus {
-            transform: translateY(-2px);
-            border-color: #4F46E5;
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2), 0 4px 6px -2px rgba(79, 70, 229, 0.1);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
         }
-        
         .btn-primary {
-            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
-            transition: all 0.2s ease;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            will-change: transform, box-shadow;
         }
-        
         .btn-primary::before {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.4s;
-            will-change: transform;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
         }
-        
         .btn-primary:hover::before {
             left: 100%;
         }
-        
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -2px rgba(79, 70, 229, 0.2);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
-        
         .btn-google {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             border: 2px solid #e2e8f0;
-            will-change: transform, border-color, box-shadow;
+            background: rgba(255, 255, 255, 0.9);
         }
-        
         .btn-google:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border-color: #cbd5e1;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 1);
         }
-        
         .tab-active {
-            border-bottom: 3px solid #4F46E5;
-            color: #4F46E5;
+            border-bottom: 3px solid #6366f1;
+            color: #6366f1;
+            font-weight: 600;
         }
-        
-        .form-wrapper {
-            position: relative;
-            overflow: hidden;
-            will-change: transform;
-        }
-        
         .form-panel {
-            position: absolute;
-            width: 100%;
-            transition: transform 0.3s ease, opacity 0.2s ease;
-            will-change: transform, opacity;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        
         .form-panel.active {
             transform: translateX(0);
             opacity: 1;
-            z-index: 2;
         }
-        
-        .form-panel.inactive-left {
-            transform: translateX(-100%);
-            opacity: 0;
-            z-index: 1;
-        }
-        
-        .form-panel.inactive-right {
+        .form-panel.inactive {
             transform: translateX(100%);
             opacity: 0;
-            z-index: 1;
+            position: absolute;
         }
-        
         .spinner {
             border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
             border-top: 3px solid white;
+            border-radius: 50%;
             width: 20px;
             height: 20px;
             animation: spin 1s linear infinite;
-            will-change: transform;
         }
-        
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
         }
-        
         .floating {
             animation: float 3s ease-in-out infinite;
-            will-change: transform;
         }
-        
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
-        
         .brand-text {
-            background: linear-gradient(135deg, #4F46E5, #EC4899);
+            background: linear-gradient(135deg, #6366f1, #ec4899);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 2px 10px rgba(79, 70, 229, 0.3);
+            color: transparent;
+            font-weight: 700;
         }
-        
-        .brand-subtitle {
-            background: linear-gradient(135deg, #7C3AED, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* Toast notifications */
         .toast {
             position: fixed;
-            z-index: 9999;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            top: 16px;
+            right: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
-            gap: 12px;
-            max-width: 90%;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform, opacity;
+            gap: 8px;
+            max-width: 400px;
+            transition: all 0.3s ease;
         }
-        
         .toast-success {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
         }
-        
         .toast-error {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
         }
-        
-        .toast-enter {
-            opacity: 0;
-            transform: translateY(20px);
+        footer {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #cbd5e1;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .toast-enter-active {
-            opacity: 1;
-            transform: translateY(0);
+        .brand-logo {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
-        
-        .toast-exit {
-            opacity: 1;
-            transform: translateY(0);
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
         }
-        
-        .toast-exit-active {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        /* Performance optimizations */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             .main-container {
                 padding: 1rem;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
-            
             .form-card {
                 width: 100%;
                 max-width: 100%;
-                margin: 0;
                 border-radius: 1rem;
-                height: auto;
-                min-height: 85vh;
             }
-            
-            .form-wrapper {
-                height: auto !important;
-                min-height: calc(85vh - 200px);
-            }
-            
-            .brand-section {
-                margin-bottom: 1.5rem !important;
-            }
-            
             .brand-logo {
-                width: 20vw !important;
-                height: 20vw !important;
-                max-width: 100px !important;
-                max-height: 100px !important;
+                width: 80px !important;
+                height: 80px !important;
             }
-            
-            .brand-logo svg {
-                width: 12vw !important;
-                height: 12vw !important;
-                max-width: 60px !important;
-                max-height: 60px !important;
-            }
-            
-            .brand-title {
-                font-size: 2rem !important;
-                line-height: 1.2 !important;
-            }
-            
-            .brand-subtitle-text {
-                font-size: 1.25rem !important;
-            }
-            
-            .brand-tagline {
-                font-size: 1rem !important;
-            }
-            
-            .form-content {
-                padding: 1rem !important;
-            }
-            
-            .form-panel {
-                padding: 0 !important;
-            }
-            
-            .input-field {
-                padding: 0.75rem !important;
-                font-size: 1rem !important;
-            }
-            
-            .btn-primary, .btn-google {
-                padding: 0.875rem !important;
-                font-size: 1rem !important;
-            }
-            
-            .tab-button {
-                padding: 1rem !important;
-                font-size: 1rem !important;
-            }
-            
-            /* Toast adjustments for mobile */
-            .toast {
-                left: 5% !important;
-                right: 5% !important;
-                top: 20px !important;
-                max-width: none !important;
-                padding: 14px !important;
-                font-size: 0.875rem !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .form-card {
-                min-height: 90vh;
-            }
-            
-            .form-wrapper {
-                min-height: calc(90vh - 180px);
-            }
-            
             .brand-title {
                 font-size: 1.75rem !important;
             }
-            
             .brand-subtitle-text {
-                font-size: 1.125rem !important;
-            }
-            
-            .toast {
-                padding: 12px !important;
-                font-size: 0.813rem !important;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .toast {
-                top: 20px;
-                right: 20px;
-                max-width: 400px;
+                font-size: 1rem !important;
             }
         }
     </style>
 </head>
-<body class="gradient-bg">
-    <!-- Main Content Container -->
-    <div class="main-container min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <div class="w-full max-w-md relative z-10">
-            <!-- Logo and Brand -->
-            <div class="brand-section text-center mb-6 sm:mb-8">
-                <div class="brand-logo inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white mb-4 sm:mb-6 shadow-2xl floating">
-                    <!-- Briefcase Icon -->
-                    <svg class="w-14 h-14 sm:w-16 sm:h-16 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
-                    </svg>
+<body>
+    <div class="gradient-bg">
+        <div class="main-container flex items-center justify-center p-4">
+            <div class="w-full max-w-md">
+                <div class="brand-section text-center mb-6">
+                    <div class="brand-logo inline-flex items-center justify-center w-20 h-20 rounded-full mb-4 floating">
+                        <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+                        </svg>
+                    </div>
+                    <h1 class="brand-title text-3xl mb-1">Derrick Mawira</h1>
+                    <p class="brand-subtitle-text text-lg font-medium text-indigo-200">Jobs Parlour</p>
+                    <p class="text-sm text-indigo-300 mt-1">Your Career Gateway</p>
                 </div>
-                <h1 class="brand-title text-4xl sm:text-5xl font-extrabold brand-text mb-1 sm:mb-2">Derrick Mawira</h1>
-                <p class="brand-subtitle-text text-xl sm:text-2xl font-semibold brand-subtitle">Jobs Parlour</p>
-                <p class="brand-tagline text-purple-100 mt-1 sm:mt-2 text-base sm:text-lg">Your Career Gateway</p>
-            </div>
-            
-            <!-- Main Card -->
-            <div class="form-card glass-effect rounded-2xl shadow-xl overflow-hidden">
-                <!-- Tabs -->
-                <div class="flex border-b border-purple-100">
-                    <button id="signin-tab" class="tab-button flex-1 py-3 sm:py-4 text-center font-medium text-purple-900 tab-active transition-all" onclick="showSignIn()">
-                        Sign In
-                    </button>
-                    <button id="signup-tab" class="tab-button flex-1 py-3 sm:py-4 text-center font-medium text-purple-600 hover:text-purple-900 transition-all" onclick="showSignUp()">
-                        Sign Up
-                    </button>
-                </div>
-                
-                <!-- Forms Container -->
-                <div class="form-content p-4 sm:p-6 md:p-8">
-                    <div class="form-wrapper relative" style="height: 520px;">
-                        <!-- Sign In Form -->
-                        <div id="signin-form" class="form-panel active">
-                            <form onsubmit="handleSignIn(event)">
-                                <div class="mb-4 sm:mb-5">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="signin-email">
-                                        Email Address
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-envelope text-purple-400"></i>
+                <div class="form-card glass-effect rounded-xl shadow-lg">
+                    <div class="flex border-b border-gray-200">
+                        <button id="signin-tab" class="tab-button flex-1 py-3 text-center font-medium text-gray-800 tab-active" onclick="showSignIn()">Sign In</button>
+                        <button id="signup-tab" class="tab-button flex-1 py-3 text-center font-medium text-gray-600 hover:text-gray-800" onclick="showSignUp()">Sign Up</button>
+                    </div>
+                    <div class="form-content p-6">
+                        <div class="form-wrapper relative" style="min-height: 400px;">
+                            <div id="signin-form" class="form-panel active">
+                                <form onsubmit="handleSignIn(event)">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signin-email">Email Address</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-indigo-400"></i>
+                                            </div>
+                                            <input id="signin-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="signin-email-error">
+                                            <p id="signin-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
                                         </div>
-                                        <input 
-                                            id="signin-email" 
-                                            type="email" 
-                                            class="input-field w-full pl-10 pr-3 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="you@example.com" 
-                                            required
-                                        >
                                     </div>
-                                </div>
-                                
-                                <div class="mb-5 sm:mb-6">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="signin-password">
-                                        Password
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-lock text-purple-400"></i>
-                                        </div>
-                                        <input 
-                                            id="signin-password" 
-                                            type="password" 
-                                            class="input-field w-full pl-10 pr-10 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="••••••••" 
-                                            required
-                                        >
-                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                            <button type="button" onclick="togglePassword('signin-password')" class="text-purple-400 hover:text-purple-600">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signin-password">Password</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-indigo-400"></i>
+                                            </div>
+                                            <input id="signin-password" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signin-password-error">
+                                            <button type="button" onclick="togglePassword('signin-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
                                                 <i class="fas fa-eye"></i>
                                             </button>
+                                            <p id="signin-password-error" class="text-red-500 text-xs mt-1 hidden"></p>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="flex items-center justify-between mb-5 sm:mb-6">
-                                    <div class="flex items-center">
-                                        <input id="remember-me" type="checkbox" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-purple-300 rounded">
-                                        <label for="remember-me" class="ml-2 block text-sm text-purple-900">
-                                            Remember me
-                                        </label>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <input id="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                            <label for="remember-me" class="ml-2 text-sm text-gray-800">Remember me</label>
+                                        </div>
+                                        <a href="#" onclick="showForgotPassword()" class="text-sm text-indigo-600 hover:text-indigo-800">Forgot password?</a>
                                     </div>
-                                    <div>
-                                        <a href="#" onclick="showForgotPassword()" class="text-sm font-medium text-purple-600 hover:text-purple-800">
-                                            Forgot password?
-                                        </a>
+                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Sign In</button>
+                                </form>
+                                <div class="mt-4">
+                                    <div class="relative">
+                                        <div class="absolute inset-0 flex items-center">
+                                            <div class="w-full border-t border-gray-200"></div>
+                                        </div>
+                                        <div class="relative flex justify-center text-sm">
+                                            <span class="px-2 bg-white text-gray-600">Or continue with</span>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <button type="submit" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-md">
-                                    Sign In
-                                </button>
-                            </form>
-                            
-                            <div class="mt-5 sm:mt-6">
-                                <div class="relative">
-                                    <div class="absolute inset-0 flex items-center">
-                                        <div class="w-full border-t border-purple-200"></div>
-                                    </div>
-                                    <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 bg-white text-purple-600">Or continue with</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-5 sm:mt-6">
-                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-3 px-4 bg-white rounded-lg text-purple-900 font-medium shadow-sm">
+                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-2 px-4 rounded-lg text-gray-800 font-medium mt-4">
                                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -471,119 +266,74 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Sign Up Form -->
-                        <div id="signup-form" class="form-panel inactive-right">
-                            <form onsubmit="handleSignUp(event)">
-                                <div class="mb-4 sm:mb-5">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="signup-name">
-                                        Full Name
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-user text-purple-400"></i>
+                            <div id="signup-form" class="form-panel inactive">
+                                <form onsubmit="handleSignUp(event)">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-name">Full Name</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-user text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-name" type="text" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="John Doe" required aria-describedby="signup-name-error">
+                                            <p id="signup-name-error" class="text-red-500 text-xs mt-1 hidden"></p>
                                         </div>
-                                        <input 
-                                            id="signup-name" 
-                                            type="text" 
-                                            class="input-field w-full pl-10 pr-3 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="John Doe" 
-                                            required
-                                        >
                                     </div>
-                                </div>
-                                
-                                <div class="mb-4 sm:mb-5">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="signup-email">
-                                        Email Address
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-envelope text-purple-400"></i>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-email">Email Address</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="signup-email-error">
+                                            <p id="signup-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
                                         </div>
-                                        <input 
-                                            id="signup-email" 
-                                            type="email" 
-                                            class="input-field w-full pl-10 pr-3 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="you@example.com" 
-                                            required
-                                        >
                                     </div>
-                                </div>
-                                
-                                <div class="mb-4 sm:mb-5">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="signup-password">
-                                        Password
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-lock text-purple-400"></i>
-                                        </div>
-                                        <input 
-                                            id="signup-password" 
-                                            type="password" 
-                                            class="input-field w-full pl-10 pr-10 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="••••••••" 
-                                            required
-                                        >
-                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                            <button type="button" onclick="togglePassword('signup-password')" class="text-purple-400 hover:text-purple-600">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-password">Password</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-password" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signup-password-error">
+                                            <button type="button" onclick="togglePassword('signup-password')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
                                                 <i class="fas fa-eye"></i>
                                             </button>
+                                            <p id="signup-password-error" class="text-red-500 text-xs mt-1 hidden"></p>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="mb-5 sm:mb-6">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="signup-confirm">
-                                        Confirm Password
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-lock text-purple-400"></i>
-                                        </div>
-                                        <input 
-                                            id="signup-confirm" 
-                                            type="password" 
-                                            class="input-field w-full pl-10 pr-10 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="••••••••" 
-                                            required
-                                        >
-                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                            <button type="button" onclick="togglePassword('signup-confirm')" class="text-purple-400 hover:text-purple-600">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="signup-confirm">Confirm Password</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-indigo-400"></i>
+                                            </div>
+                                            <input id="signup-confirm" type="password" class="input-field w-full pl-10 pr-10 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="••••••••" required aria-describedby="signup-confirm-error">
+                                            <button type="button" onclick="togglePassword('signup-confirm')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-indigo-400 hover:text-indigo-600">
                                                 <i class="fas fa-eye"></i>
                                             </button>
+                                            <p id="signup-confirm-error" class="text-red-500 text-xs mt-1 hidden"></p>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="mb-5 sm:mb-6">
-                                    <div class="flex items-start">
-                                        <input id="terms-agree" type="checkbox" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-purple-300 rounded mt-1" required>
-                                        <label for="terms-agree" class="ml-2 block text-sm text-purple-900">
-                                            I agree to the <a href="#" class="text-purple-600 hover:text-purple-800">Terms of Service</a> and <a href="#" class="text-purple-600 hover:text-purple-800">Privacy Policy</a>
-                                        </label>
+                                    <div class="mb-4">
+                                        <div class="flex items-start">
+                                            <input id="terms-agree" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded mt-1" required>
+                                            <label for="terms-agree" class="ml-2 text-sm text-gray-800">
+                                                I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <button type="submit" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-md">
-                                    Create Account
-                                </button>
-                            </form>
-                            
-                            <div class="mt-5 sm:mt-6">
-                                <div class="relative">
-                                    <div class="absolute inset-0 flex items-center">
-                                        <div class="w-full border-t border-purple-200"></div>
+                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Create Account</button>
+                                </form>
+                                <div class="mt-4">
+                                    <div class="relative">
+                                        <div class="absolute inset-0 flex items-center">
+                                            <div class="w-full border-t border-gray-200"></div>
+                                        </div>
+                                        <div class="relative flex justify-center text-sm">
+                                            <span class="px-2 bg-white text-gray-600">Or continue with</span>
+                                        </div>
                                     </div>
-                                    <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 bg-white text-purple-600">Or continue with</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-5 sm:mt-6">
-                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-3 px-4 bg-white rounded-lg text-purple-900 font-medium shadow-sm">
+                                    <button onclick="handleGoogleSignIn()" class="btn-google w-full flex items-center justify-center py-2 px-4 rounded-lg text-gray-800 font-medium mt-4">
                                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -594,375 +344,206 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Forgot Password Form -->
-                        <div id="forgot-form" class="form-panel inactive-right">
-                            <div class="text-center mb-5 sm:mb-6">
-                                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-100 mb-4 floating">
-                                    <!-- Key Icon -->
-                                    <svg class="w-10 h-10 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold text-purple-900">Forgot Password?</h3>
-                                <p class="text-purple-600 mt-2">Enter your email and we'll send you a link to reset your password</p>
-                            </div>
-                            
-                            <form onsubmit="handleForgotPassword(event)">
-                                <div class="mb-5 sm:mb-6">
-                                    <label class="block text-purple-900 text-sm font-medium mb-2" for="forgot-email">
-                                        Email Address
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <i class="fas fa-envelope text-purple-400"></i>
-                                        </div>
-                                        <input 
-                                            id="forgot-email" 
-                                            type="email" 
-                                            class="input-field w-full pl-10 pr-3 py-3 bg-white rounded-lg text-purple-900 placeholder-purple-400 focus:outline-none" 
-                                            placeholder="you@example.com" 
-                                            required
-                                        >
+                            <div id="forgot-form" class="form-panel inactive">
+                                <div class="text-center mb-6">
+                                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 mb-4 floating">
+                                        <svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                                        </svg>
                                     </div>
+                                    <h3 class="text-xl font-bold text-gray-800">Forgot Password?</h3>
+                                    <p class="text-gray-600 text-sm mt-2">Enter your email to receive a password reset link</p>
                                 </div>
-                                
-                                <button type="submit" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-md mb-4">
-                                    Send Reset Link
-                                </button>
-                            </form>
-                            
-                            <div class="text-center">
-                                <a href="#" onclick="showSignIn()" class="text-sm font-medium text-purple-600 hover:text-purple-800">
-                                    <i class="fas fa-arrow-left mr-1"></i> Back to Sign In
-                                </a>
+                                <form onsubmit="handleForgotPassword(event)">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-800 text-sm font-medium mb-2" for="forgot-email">Email Address</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-indigo-400"></i>
+                                            </div>
+                                            <input id="forgot-email" type="email" class="input-field w-full pl-10 pr-3 py-2 rounded-lg text-gray-800 placeholder-gray-400" placeholder="you@example.com" required aria-describedby="forgot-email-error">
+                                            <p id="forgot-email-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-primary w-full py-2 px-4 rounded-lg text-white font-medium">Send Reset Link</button>
+                                </form>
+                                <div class="text-center mt-4">
+                                    <a href="#" onclick="showSignIn()" class="text-sm text-indigo-600 hover:text-indigo-800">
+                                        <i class="fas fa-arrow-left mr-1"></i> Back to Sign In
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center mt-4 sm:mt-6 text-purple-100 text-xs sm:text-sm">
-                <p>© 2025 Derrick Mawira Jobs Parlour. All rights reserved.</p>
-            </div>
         </div>
     </div>
-
+    <footer>
+        <p>© 2025 Derrick Mawira Jobs Parlour. All rights reserved.</p>
+    </footer>
     <script>
-        // Performance optimizations
-        let animationFrameId = null;
-        let lastTime = 0;
-        
-        // Form switching functions with animation
         function showSignIn() {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            
             const signinForm = document.getElementById('signin-form');
             const signupForm = document.getElementById('signup-form');
             const forgotForm = document.getElementById('forgot-form');
-            
-            // Update tabs
             document.getElementById('signin-tab').classList.add('tab-active');
             document.getElementById('signup-tab').classList.remove('tab-active');
-            
-            // Animate forms
-            if (signupForm.classList.contains('active')) {
-                signupForm.classList.remove('active');
-                signupForm.classList.add('inactive-right');
-                
-                requestAnimationFrame(() => {
-                    signinForm.classList.remove('inactive-left');
-                    signinForm.classList.add('active');
-                });
-            } else if (forgotForm.classList.contains('active')) {
-                forgotForm.classList.remove('active');
-                forgotForm.classList.add('inactive-left');
-                
-                requestAnimationFrame(() => {
-                    signinForm.classList.remove('inactive-right');
-                    signinForm.classList.add('active');
-                });
-            }
+            signinForm.classList.add('active');
+            signinForm.classList.remove('inactive');
+            signupForm.classList.remove('active');
+            signupForm.classList.add('inactive');
+            forgotForm.classList.remove('active');
+            forgotForm.classList.add('inactive');
         }
-        
         function showSignUp() {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            
             const signinForm = document.getElementById('signin-form');
             const signupForm = document.getElementById('signup-form');
             const forgotForm = document.getElementById('forgot-form');
-            
-            // Update tabs
             document.getElementById('signin-tab').classList.remove('tab-active');
             document.getElementById('signup-tab').classList.add('tab-active');
-            
-            // Animate forms
-            if (signinForm.classList.contains('active')) {
-                signinForm.classList.remove('active');
-                signinForm.classList.add('inactive-left');
-                
-                requestAnimationFrame(() => {
-                    signupForm.classList.remove('inactive-right');
-                    signupForm.classList.add('active');
-                });
-            } else if (forgotForm.classList.contains('active')) {
-                forgotForm.classList.remove('active');
-                forgotForm.classList.add('inactive-left');
-                
-                requestAnimationFrame(() => {
-                    signupForm.classList.remove('inactive-right');
-                    signupForm.classList.add('active');
-                });
-            }
+            signinForm.classList.remove('active');
+            signinForm.classList.add('inactive');
+            signupForm.classList.add('active');
+            signupForm.classList.remove('inactive');
+            forgotForm.classList.remove('active');
+            forgotForm.classList.add('inactive');
         }
-        
         function showForgotPassword() {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            
             const signinForm = document.getElementById('signin-form');
             const signupForm = document.getElementById('signup-form');
             const forgotForm = document.getElementById('forgot-form');
-            
-            // Update tabs
             document.getElementById('signin-tab').classList.remove('tab-active');
             document.getElementById('signup-tab').classList.remove('tab-active');
-            
-            // Animate forms
-            if (signinForm.classList.contains('active')) {
-                signinForm.classList.remove('active');
-                signinForm.classList.add('inactive-left');
-                
-                requestAnimationFrame(() => {
-                    forgotForm.classList.remove('inactive-right');
-                    forgotForm.classList.add('active');
-                });
-            } else if (signupForm.classList.contains('active')) {
-                signupForm.classList.remove('active');
-                signupForm.classList.add('inactive-left');
-                
-                requestAnimationFrame(() => {
-                    forgotForm.classList.remove('inactive-right');
-                    forgotForm.classList.add('active');
-                });
-            }
+            signinForm.classList.remove('active');
+            signinForm.classList.add('inactive');
+            signupForm.classList.remove('active');
+            signupForm.classList.add('inactive');
+            forgotForm.classList.add('active');
+            forgotForm.classList.remove('inactive');
         }
-        
-        // Password visibility toggle
         function togglePassword(fieldId) {
             const field = document.getElementById(fieldId);
-            const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
-            field.setAttribute('type', type);
-            
-            // Toggle eye icon
-            const icon = event.currentTarget.querySelector('i');
+            const icon = field.nextElementSibling?.querySelector('i') || field.parentElement.querySelector('i');
+            field.type = field.type === 'password' ? 'text' : 'password';
             icon.classList.toggle('fa-eye');
             icon.classList.toggle('fa-eye-slash');
         }
-        
-        // Form handlers
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        function validatePassword(password) {
+            return password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password);
+        }
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+            return false;
+        }
+        function clearErrors(formId) {
+            const form = document.getElementById(formId);
+            const errorElements = form.querySelectorAll('p[id$="-error"]');
+            errorElements.forEach(el => {
+                el.textContent = '';
+                el.classList.add('hidden');
+            });
+        }
         function handleSignIn(event) {
             event.preventDefault();
+            clearErrors('signin-form');
             const email = document.getElementById('signin-email').value;
             const password = document.getElementById('signin-password').value;
-            
-            // Show loading state
+            if (!validateEmail(email)) {
+                return showError('signin-email', 'Please enter a valid email address');
+            }
             const submitButton = event.target.querySelector('button[type="submit"]');
             const originalContent = submitButton.innerHTML;
             submitButton.innerHTML = '<div class="spinner mx-auto"></div>';
             submitButton.disabled = true;
-            
-            // Simulate API call
             setTimeout(() => {
-                // In a real app, you would send this data to your API
-                console.log('Sign In:', { email, password });
-                
-                // Reset button
                 submitButton.innerHTML = originalContent;
                 submitButton.disabled = false;
-                
-                // Show success message
                 showToast('Sign in successful! Redirecting...', 'success');
-                
-                // Simulate redirect after successful login
-                setTimeout(() => {
-                    // In a real app, redirect to dashboard
-                    console.log('Redirecting to dashboard...');
-                }, 1000);
+                setTimeout(() => console.log('Redirecting to dashboard...'), 1000);
             }, 1000);
         }
-        
         function handleSignUp(event) {
             event.preventDefault();
+            clearErrors('signup-form');
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             const confirm = document.getElementById('signup-confirm').value;
-            
-            // Check if passwords match
-            if (password !== confirm) {
-                showToast('Passwords do not match!', 'error');
-                return;
+            if (!name.trim()) {
+                return showError('signup-name', 'Please enter your full name');
             }
-            
-            // Show loading state
+            if (!validateEmail(email)) {
+                return showError('signup-email', 'Please enter a valid email address');
+            }
+            if (!validatePassword(password)) {
+                return showError('signup-password', 'Password must be at least 8 characters with uppercase and number');
+            }
+            if (password !== confirm) {
+                return showError('signup-confirm', 'Passwords do not match');
+            }
             const submitButton = event.target.querySelector('button[type="submit"]');
             const originalContent = submitButton.innerHTML;
             submitButton.innerHTML = '<div class="spinner mx-auto"></div>';
             submitButton.disabled = true;
-            
-            // Simulate API call
             setTimeout(() => {
-                // In a real app, you would send this data to your API
-                console.log('Sign Up:', { name, email, password });
-                
-                // Reset button
                 submitButton.innerHTML = originalContent;
                 submitButton.disabled = false;
-                
-                // Show success message
                 showToast('Account created successfully! Please sign in.', 'success');
-                
-                // Switch to sign in form after successful registration
-                setTimeout(() => {
-                    showSignIn();
-                }, 1000);
+                setTimeout(showSignIn, 1000);
             }, 1000);
         }
-        
         function handleForgotPassword(event) {
             event.preventDefault();
+            clearErrors('forgot-form');
             const email = document.getElementById('forgot-email').value;
-            
-            // Show loading state
+            if (!validateEmail(email)) {
+                return showError('forgot-email', 'Please enter a valid email address');
+            }
             const submitButton = event.target.querySelector('button[type="submit"]');
             const originalContent = submitButton.innerHTML;
             submitButton.innerHTML = '<div class="spinner mx-auto"></div>';
             submitButton.disabled = true;
-            
-            // Simulate API call
             setTimeout(() => {
-                // In a real app, you would send this data to your API
-                console.log('Forgot Password:', { email });
-                
-                // Reset button
                 submitButton.innerHTML = originalContent;
                 submitButton.disabled = false;
-                
-                // Show success message
                 showToast('Password reset link sent to your email!', 'success');
-                
-                // Switch back to sign in form
-                setTimeout(() => {
-                    showSignIn();
-                }, 1500);
+                setTimeout(showSignIn, 1500);
             }, 1000);
         }
-        
-        // Google Sign-In handler
         function handleGoogleSignIn() {
-            // Show loading state
             const buttons = document.querySelectorAll('button[onclick="handleGoogleSignIn()"]');
             buttons.forEach(button => {
                 const originalContent = button.innerHTML;
                 button.innerHTML = '<div class="spinner mx-auto"></div>';
                 button.disabled = true;
-                
-                // Simulate API call
                 setTimeout(() => {
-                    // Reset button
                     button.innerHTML = originalContent;
                     button.disabled = false;
-                    
-                    // In a real app, you would initialize Google Sign-In with your client ID
-                    console.log('Google Sign-In clicked');
-                    
-                    // For demo purposes, we'll simulate a successful Google sign-in
                     showToast('Google Sign-In successful! Redirecting...', 'success');
-                    
-                    // Simulate redirect after successful login
-                    setTimeout(() => {
-                        // In a real app, redirect to dashboard
-                        console.log('Redirecting to dashboard...');
-                    }, 1000);
+                    setTimeout(() => console.log('Redirecting to dashboard...'), 1000);
                 }, 1000);
             });
         }
-        
-        // Improved Toast notification system
         function showToast(message, type) {
-            // Remove any existing toasts
             const existingToasts = document.querySelectorAll('.toast');
-            existingToasts.forEach(toast => {
-                toast.remove();
-            });
-            
-            // Create toast element
+            existingToasts.forEach(toast => toast.remove());
             const toast = document.createElement('div');
-            toast.className = `toast toast-${type} toast-enter`;
-            
-            // Add icon based on type
-            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-            
-            // Set toast content
+            toast.className = `toast toast-${type}`;
             toast.innerHTML = `
-                <i class="fas ${icon} text-lg"></i>
-                <span class="flex-1">${message}</span>
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-lg"></i>
+                <span>${message}</span>
             `;
-            
-            // Add toast to the DOM
             document.body.appendChild(toast);
-            
-            // Trigger reflow to ensure animation works
-            toast.offsetHeight;
-            
-            // Animate in
-            requestAnimationFrame(() => {
-                toast.classList.remove('toast-enter');
-                toast.classList.add('toast-enter-active');
-            });
-            
-            // Remove toast after 3 seconds
-            setTimeout(() => {
-                toast.classList.remove('toast-enter-active');
-                toast.classList.add('toast-exit-active');
-                
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.parentNode.removeChild(toast);
-                    }
-                }, 300);
-            }, 3000);
+            setTimeout(() => toast.remove(), 3000);
         }
-        
-        // Initialize Google Sign-In (in a real app)
-        function initializeGoogleSignIn() {
-            // This would normally initialize Google Sign-In with your client ID
-            // google.accounts.id.initialize({
-            //     client_id: "57706195065-klr8q7oot7ee889ohh40o9jp1huc7420.apps.googleusercontent.com",
-            //     callback: handleGoogleResponse
-            // });
-            
-            // For demo purposes, we'll just log that it would be initialized
+        document.addEventListener('DOMContentLoaded', () => {
             console.log('Google Sign-In would be initialized with client ID: 57706195065-klr8q7oot7ee889ohh40o9jp1huc7420.apps.googleusercontent.com');
-        }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeGoogleSignIn();
-            
-            // Preload fonts for better performance
-            const fontPreload = document.createElement('link');
-            fontPreload.rel = 'preload';
-            fontPreload.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap';
-            fontPreload.as = 'style';
-            document.head.appendChild(fontPreload);
         });
     </script>
 </body>
