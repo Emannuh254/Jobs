@@ -169,10 +169,43 @@ body {
     pointer-events: none;
 }
 
-.input-group {
+/* Form input styling */
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.block {
+    display: block;
+}
+
+.text-gray-700 {
+    color: #334155;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.relative {
     position: relative;
-    margin-bottom: clamp(1rem, 3vw, 1.5rem);
-    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: clamp(1rem, 3vw, 1.25rem);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    width: clamp(16px, 3vw, 20px);
+    height: clamp(16px, 3vw, 20px);
 }
 
 .input-field {
@@ -200,14 +233,66 @@ body {
     color: #94a3b8;
 }
 
-.input-icon {
-    position: absolute;
-    left: clamp(1rem, 3vw, 1.25rem);
-    top: 50%;
-    transform: translateY(-50%);
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: clamp(0.7rem, 2vw, 0.75rem);
+    margin-top: 0.25rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: clamp(1rem, 3vw, 1.25rem);
+}
+
+.checkbox-group input {
+    width: clamp(1.25rem, 3vw, 1.5rem);
+    height: clamp(1.25rem, 3vw, 1.5rem);
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    margin-right: clamp(0.5rem, 2vw, 0.75rem);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: clamp(0.1rem, 0.5vw, 0.2rem);
+}
+
+.checkbox-group label {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    color: #475569;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.forgot-link {
+    display: block;
+    text-align: right;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
     color: var(--primary);
-    width: clamp(16px, 3vw, 20px);
-    height: clamp(16px, 3vw, 20px);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: clamp(1rem, 3vw, 1.25rem);
+    transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
 }
 
 .btn-primary {
@@ -306,56 +391,80 @@ body {
     white-space: nowrap;
 }
 
-.checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: clamp(1rem, 3vw, 1.25rem);
+.text-center {
+    text-align: center;
 }
 
-.checkbox-group input {
-    width: clamp(1.25rem, 3vw, 1.5rem);
-    height: clamp(1.25rem, 3vw, 1.5rem);
-    border: 1px solid #d1d5db;
-    border-radius: 0.25rem;
-    margin-right: clamp(0.5rem, 2vw, 0.75rem);
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-top: clamp(0.1rem, 0.5vw, 0.2rem);
+.inline-flex {
+    display: inline-flex;
 }
 
-.checkbox-group label {
-    font-size: clamp(0.75rem, 2vw, 0.875rem);
-    color: #475569;
-    cursor: pointer;
-    line-height: 1.5;
+.items-center {
+    align-items: center;
 }
 
-.checkbox-group a {
+.justify-center {
+    justify-content: center;
+}
+
+.w-16 {
+    width: 4rem;
+}
+
+.h-16 {
+    height: 4rem;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+.bg-indigo-100 {
+    background-color: #e0e7ff;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+.w-8 {
+    width: 2rem;
+}
+
+.h-8 {
+    height: 2rem;
+}
+
+.text-indigo-600 {
     color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
 }
 
-.checkbox-group a:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
+.text-xl {
+    font-size: 1.25rem;
 }
 
-.forgot-link {
-    display: block;
-    text-align: right;
-    font-size: clamp(0.75rem, 2vw, 0.875rem);
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-    margin-bottom: clamp(1rem, 3vw, 1.25rem);
-    transition: color 0.2s ease;
+.font-bold {
+    font-weight: 700;
 }
 
-.forgot-link:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
+.text-gray-800 {
+    color: #1f2937;
+}
+
+.text-gray-600 {
+    color: #4b5563;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
 }
 
 .back-link {
@@ -378,36 +487,12 @@ body {
     margin-right: 0.5rem;
 }
 
-.error-message {
-    color: #ef4444;
-    font-size: clamp(0.7rem, 2vw, 0.75rem);
-    margin-top: 0.25rem;
-    display: block;
+.text-indigo-600 {
+    color: var(--primary);
 }
 
-.toast {
-    position: fixed;
-    top: clamp(1rem, 3vw, 1.5rem);
-    right: clamp(1rem, 3vw, 1.5rem);
-    padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.25rem);
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: clamp(0.5rem, 2vw, 0.75rem);
-    max-width: clamp(300px, 80vw, 400px);
-    z-index: 1000;
-    animation: slideInRight 0.4s ease-out;
-}
-
-.toast-success {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-}
-
-.toast-error {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: white;
+.hover\:text-indigo-800:hover {
+    color: var(--primary-dark);
 }
 
 footer {
@@ -496,10 +581,6 @@ footer a:hover {
     
     .form-wrapper {
         min-height: 320px;
-    }
-    
-    .input-group {
-        margin-bottom: 1.25rem;
     }
     
     .btn-primary, .btn-google {
