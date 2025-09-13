@@ -1,3 +1,6 @@
+// === CONFIG ===
+const API_BASE = "http://127.0.0.1:8000/api/accounts";
+
 // Utility: Show a specific form by ID
 function switchForm(activeId) {
   const forms = ['signin-form', 'signup-form', 'forgot-form'];
@@ -85,8 +88,8 @@ function clearErrors(formId) {
   });
 }
 
-// Async Simulation
-function handleSubmit(event, action, onSuccess) {
+// API Wrapper
+async function handleSubmit(event, action, onSuccess, endpoint, data) {
   event.preventDefault();
   const btn = event.target.querySelector('button[type="submit"]');
   if (!btn) return;
@@ -94,12 +97,24 @@ function handleSubmit(event, action, onSuccess) {
   btn.innerHTML = '<div class="spinner mx-auto"></div>';
   btn.disabled = true;
 
-  setTimeout(() => {
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+
+    if (!res.ok) throw new Error(result.error || "Something went wrong");
+
+    showToast(action, 'success');
+    if (onSuccess) setTimeout(() => onSuccess(result), 1000);
+  } catch (err) {
+    showToast(err.message, 'error');
+  } finally {
     btn.innerHTML = original;
     btn.disabled = false;
-    showToast(action, 'success');
-    if (onSuccess) setTimeout(onSuccess, 1000);
-  }, 1000);
+  }
 }
 
 // Sign In
@@ -109,7 +124,20 @@ function handleSignIn(event) {
   const password = document.getElementById('signin-password')?.value || '';
   if (!validateEmail(email)) return showError('signin-email', 'Invalid email address');
   if (!password.trim()) return showError('signin-password', 'Password is required');
-  handleSubmit(event, 'Sign in successful! Redirecting...', () => console.log('Redirecting...'));
+
+  handleSubmit(
+    event,
+    'Sign in successful! Redirecting...',
+    (result) => {
+      // Save JWT tokens
+      localStorage.setItem("access", result.access);
+      localStorage.setItem("refresh", result.refresh);
+      localStorage.setItem("username", result.username);
+      window.location.href = 'home.html';
+    },
+    "/login/",
+    { username: email, password }
+  );
 }
 
 // Sign Up
@@ -127,15 +155,21 @@ function handleSignUp(event) {
   if (!valid) return showError('signup-password', 'Password must have 8+ chars, uppercase, number, symbol');
   if (password !== confirm) return showError('signup-confirm', 'Passwords do not match');
 
-  handleSubmit(event, 'Account created! Please sign in.', showSignIn);
+  handleSubmit(
+    event,
+    'Account created! Please sign in.',
+    showSignIn,
+    "/register/",
+    { username: email, password }
+  );
 }
 
-// Forgot Password
+// Forgot Password (stub for now)
 function handleForgotPassword(event) {
   clearErrors('forgot-form');
   const email = document.getElementById('forgot-email')?.value || '';
   if (!validateEmail(email)) return showError('forgot-email', 'Invalid email address');
-  handleSubmit(event, 'Password reset link sent!', showSignIn);
+  handleSubmit(event, 'Password reset link sent!', showSignIn, "/forgot/", { email });
 }
 
 // Google Sign-In (Mock)
@@ -153,11 +187,10 @@ function handleGoogleSignIn() {
       // Redirect after success
       setTimeout(() => {
         window.location.href = 'home.html';
-      }, 1000); // wait 1s for toast to show
+      }, 1000);
     }, 1000);
   });
 }
-
 
 // Toasts
 function showToast(message, type) {
@@ -173,5 +206,5 @@ function showToast(message, type) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Google Sign-In initialized (mock client ID)');
+  console.log('Frontend Auth JS loaded.');
 });
