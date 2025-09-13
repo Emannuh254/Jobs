@@ -1,5 +1,5 @@
 // API base URL - replace with your actual API URL
-const API_BASE = 'https://your-api-domain.com/api';
+const API_BASE = 'https://jobs-backend-2lsq.onrender.com';
 
 // DOM elements
 const signinTab = document.getElementById('signin-tab');
