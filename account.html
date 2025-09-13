@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Derrick Mawira Jobs Parlour</title>
+    <meta name="description" content="Manage your profile, applications, and career resources">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+     <!-- Header -->
+<header class="header">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-white"></i>
+                </div>
+                <span class="logo">Derrick Mawira Jobs Parlour</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="nav-link">Jobs</a>
+                <a href="referrals.html" class="nav-link">Referrals</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <a href="settings.html" class="nav-link">Settings</a>
+                <a href="help.html" class="nav-link">Help</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button class="text-white hover:text-indigo-200 transition-colors relative" aria-label="Notifications" id="notification-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                </div>
+                <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Dark mode toggle" id="dark-mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="profile.html" class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
+                    <i class="fas fa-user-circle text-xl"></i>
+                </a>
+                <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Notification Panel -->
+<div class="notification-panel" id="notification-panel">
+    <div class="notification-panel-header">
+        <h3>Notifications</h3>
+        <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="notification-panel-content">
+        <div class="notification-item unread">
+            <div class="notification-icon">
+                <i class="fas fa-briefcase text-indigo-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">New job match</p>
+                <p class="text-sm text-gray-500">A new position matches your skills</p>
+            </div>
+            <div class="notification-time">2 hours ago</div>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-icon">
+                <i class="fas fa-user-friends text-green-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">Referral update</p>
+                <p class="text-sm text-gray-500">Your referral has been viewed</p>
+            </div>
+            <div class="notification-time">1 day ago</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-icon">
+                <i class="fas fa-calendar text-blue-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">Interview scheduled</p>
+                <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
+            </div>
+            <div class="notification-time">2 days ago</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-icon">
+                <i class="fas fa-check-circle text-green-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">Application received</p>
+                <p class="text-sm text-gray-500">Your application was successfully submitted</p>
+            </div>
+            <div class="notification-time">3 days ago</div>
+        </div>
+    </div>
+    <div class="notification-panel-footer">
+        <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
+    </div>
+</div>
+
+    <!-- Mobile Side Navbar -->
+<div class="mobile-side-navbar" id="mobile-side-navbar">
+    <div class="mobile-side-navbar-header">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-white text-sm"></i>
+                </div>
+                <span class="text-white font-bold">Derrick Mawira Jobs</span>
+            </div>
+            <button class="text-white" id="close-mobile-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="mobile-side-navbar-content">
+        <div class="mobile-user-profile">
+            <div class="flex items-center space-x-3">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
+                <div>
+                    <div class="text-white font-medium">John Doe</div>
+                    <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="home.html" class="mobile-nav-link active">
+                <i class="fas fa-home mr-3"></i> Jobs
+            </a>
+            <a href="referrals.html" class="mobile-nav-link">
+                <i class="fas fa-user-friends mr-3"></i> Referrals
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+                <i class="fas fa-info-circle mr-3"></i> About
+            </a>
+            <a href="profile.html" class="mobile-nav-link">
+                <i class="fas fa-user mr-3"></i> Profile
+            </a>
+            <a href="settings.html" class="mobile-nav-link">
+                <i class="fas fa-cog mr-3"></i> Settings
+            </a>
+            <a href="help.html" class="mobile-nav-link">
+                <i class="fas fa-question-circle mr-3"></i> Help
+            </a>
+        </nav>
+        
+        <div class="mobile-nav-section">
+            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
+            <a href="account.html" class="mobile-nav-link">
+                <i class="fas fa-user-circle mr-3"></i> My Account
+            </a>
+            <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
+                <i class="fas fa-moon mr-3"></i> Dark Mode
+            </button>
+        </div>
+        
+        <div class="mobile-nav-section">
+            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
+            <button class="mobile-nav-link" id="mobile-chatbot-toggle">
+                <i class="fab fa-whatsapp mr-3"></i> Chat Support
+            </button>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-envelope mr-3"></i> Contact Us
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for mobile menu -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Account Page -->
+        <div id="account-page" class="page active">
+            <div class="container mx-auto px-4 py-8">
+                <!-- User Profile Header -->
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg p-6 mb-8 text-white">
+                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-32 h-32 rounded-full border-4 border-white mb-4 md:mb-0 md:mr-6">
+                        
+                        <div class="text-center md:text-left flex-grow">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-start">
+                                <div>
+                                    <h1 class="text-3xl font-bold mb-2">John Doe</h1>
+                                    <p class="text-xl mb-4">Senior Frontend Developer</p>
+                                    <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
+                                        <span class="bg-white bg-opacity-20 text-white text-sm font-medium px-3 py-1 rounded-full">
+                                            <i class="fas fa-map-marker-alt mr-1"></i> San Francisco, CA
+                                        </span>
+                                        <span class="bg-white bg-opacity-20 text-white text-sm font-medium px-3 py-1 rounded-full">
+                                            <i class="fas fa-envelope mr-1"></i> john.doe@example.com
+                                        </span>
+                                        <span class="bg-white bg-opacity-20 text-white text-sm font-medium px-3 py-1 rounded-full">
+                                            <i class="fas fa-phone mr-1"></i> +1 (555) 123-4567
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 md:mt-0">
+                                    <button class="bg-white text-indigo-600 font-medium py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <i class="fas fa-edit mr-2"></i>Edit Profile
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Left Column -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Bio Section -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold">About Me</h2>
+                                <button class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                            <p class="text-gray-700">
+                                Experienced frontend developer with over 7 years of expertise in building responsive and user-friendly web applications. Passionate about creating intuitive user experiences and writing clean, maintainable code. Currently seeking new opportunities to apply my skills and contribute to innovative projects in a collaborative environment.
+                            </p>
+                        </div>
+                        
+                        <!-- Skills Section -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold">Skills</h2>
+                                <button class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">React</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">TypeScript</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">CSS</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">HTML5</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">Node.js</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">Git</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">Responsive Design</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Jobs Applied For -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold">Jobs Applied For</h2>
+                                <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View All</a>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                    <div>
+                                        <h3 class="font-bold">Senior Frontend Developer</h3>
+                                        <p class="text-gray-600 text-sm">Tech Innovations Inc.</p>
+                                    </div>
+                                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">In Review</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                    <div>
+                                        <h3 class="font-bold">Frontend Architect</h3>
+                                        <p class="text-gray-600 text-sm">Digital Solutions Ltd.</p>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Interview Scheduled</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                    <div>
+                                        <h3 class="font-bold">UI/UX Developer</h3>
+                                        <p class="text-gray-600 text-sm">Creative Agency</p>
+                                    </div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Application Sent</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience Section -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold">Experience</h2>
+                                <button class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                            </div>
+                            <div class="space-y-6">
+                                <div class="border-l-2 border-indigo-500 pl-4 relative">
+                                    <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-indigo-500"></div>
+                                    <h3 class="font-bold">Senior Frontend Developer</h3>
+                                    <p class="text-indigo-600">Tech Innovations Inc.</p>
+                                    <p class="text-gray-600 text-sm">2020 - Present</p>
+                                    <p class="text-gray-700 mt-2">Led the development of the company's flagship product, implementing new features and optimizing performance.</p>
+                                </div>
+                                <div class="border-l-2 border-indigo-500 pl-4 relative">
+                                    <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-indigo-500"></div>
+                                    <h3 class="font-bold">Frontend Developer</h3>
+                                    <p class="text-indigo-600">Digital Solutions Ltd.</p>
+                                    <p class="text-gray-600 text-sm">2017 - 2020</p>
+                                    <p class="text-gray-700 mt-2">Developed and maintained multiple client websites and web applications.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- Token Balance -->
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-md p-6 text-white">
+                            <h2 class="text-xl font-bold mb-4">Token Balance</h2>
+                            <div class="text-3xl font-bold mb-2">1,250 <span class="text-lg font-normal">tokens</span></div>
+                            <p class="text-indigo-100 text-sm mb-4">Earn tokens by completing tasks and referrals</p>
+                            <button class="bg-white text-indigo-600 font-medium py-2 px-4 rounded-lg w-full hover:bg-gray-100 transition-colors">
+                                Redeem Tokens
+                            </button>
+                        </div>
+                        
+                        <!-- Resume/CV -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold">Resume/CV</h2>
+                                <button class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fas fa-upload"></i>
+                                </button>
+                            </div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                <i class="fas fa-file-pdf text-red-500 text-4xl mb-3"></i>
+                                <p class="font-medium mb-1">John_Doe_Resume.pdf</p>
+                                <p class="text-gray-600 text-sm mb-3">Uploaded on May 15, 2023</p>
+                                <div class="flex justify-center space-x-3">
+                                    <button class="bg-indigo-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                                        <i class="fas fa-download mr-2"></i>Download
+                                    </button>
+                                    <button class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <i class="fas fa-eye mr-2"></i>View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Certificates -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold">Certificates</h2>
+                                <button class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
+                                        <i class="fas fa-certificate text-indigo-600"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h3 class="font-medium">React Developer Certification</h3>
+                                        <p class="text-gray-600 text-sm">Meta • 2022</p>
+                                    </div>
+                                    <button class="text-gray-500 hover:text-gray-700">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
+                                        <i class="fas fa-certificate text-indigo-600"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h3 class="font-medium">Advanced CSS Techniques</h3>
+                                        <p class="text-gray-600 text-sm">Udemy • 2021</p>
+                                    </div>
+                                    <button class="text-gray-500 hover:text-gray-700">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
+                                        <i class="fas fa-certificate text-indigo-600"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h3 class="font-medium">JavaScript Algorithms</h3>
+                                        <p class="text-gray-600 text-sm">Coursera • 2020</p>
+                                    </div>
+                                    <button class="text-gray-500 hover:text-gray-700">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Settings -->
+                        <div class="bg-white rounded-xl shadow-md p-6">
+                            <h2 class="text-xl font-bold mb-4">Account Settings</h2>
+                            <div class="space-y-3">
+                                <a href="settings.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="fas fa-cog text-gray-500 w-5 mr-3"></i>
+                                    <span>General Settings</span>
+                                    <i class="fas fa-chevron-right text-gray-400 ml-auto"></i>
+                                </a>
+                                <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="fas fa-shield-alt text-gray-500 w-5 mr-3"></i>
+                                    <span>Privacy & Security</span>
+                                    <i class="fas fa-chevron-right text-gray-400 ml-auto"></i>
+                                </a>
+                                <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+                                    <i class="fas fa-bell text-gray-500 w-5 mr-3"></i>
+                                    <span>Notification Preferences</span>
+                                    <i class="fas fa-chevron-right text-gray-400 ml-auto"></i>
+                                </a>
+                                <a href="#" class="flex items-center p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                    <i class="fas fa-sign-out-alt text-red-500 w-5 mr-3"></i>
+                                    <span>Log Out</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- WhatsApp-like Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-header-avatar">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div>
+                        <div class="chatbot-header-name">Support Team</div>
+                        <div class="chatbot-header-status">Online</div>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message received">
+                    <div>
+                        <div class="message-bubble">Hello! How can I help you today?</div>
+                        <div class="message-time">10:30 AM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type a message..." aria-label="Type a message">
+                <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <button class="chatbot-button" id="chatbot-button" aria-label="Open chat">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <i class="fas fa-briefcase text-white text-sm"></i>
+                        </div>
+                        <span class="text-white font-bold">Derrick Mawira Jobs Parlour</span>
+                    </div>
+                    <p class="text-gray-400">Connecting talented professionals with their dream opportunities.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="footer-link">Jobs</a></li>
+                        <li><a href="referrals.html" class="footer-link">Referrals</a></li>
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="help.html" class="footer-link">Help</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">Career Advice</a></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">Subscribe to our newsletter for the latest job updates.</p>
+                    <div class="mt-4 flex">
+                        <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l-lg w-full focus:outline-none" aria-label="Your email">
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-700">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 Derrick Mawira Jobs Parlour. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src ="Js/tab.js"></script>
+</body>
+</html>

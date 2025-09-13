@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Derrick Mawira Jobs Parlour</title>
-    <meta name="description" content="Find your dream job at Derrick Mawira Jobs Parlour">
+    <title>Settings - Derrick Mawira Jobs Parlour</title>
+    <meta name="description" content="Manage your account settings at Derrick Mawira Jobs Parlour">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!--Header-->
     <!-- Header -->
-     <!-- Header -->
 <header class="header">
     <div class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
@@ -108,9 +108,8 @@
     </div>
 </div>
 
-
+    
     <!-- Mobile Side Navbar -->
-<!-- Mobile Side Navbar -->
 <div class="mobile-side-navbar" id="mobile-side-navbar">
     <div class="mobile-side-navbar-header">
         <div class="flex items-center justify-between">
@@ -138,7 +137,7 @@
         </div>
         
         <nav class="mobile-nav">
-            <a href="home.html" class="mobile-nav-link">
+            <a href="home.html" class="mobile-nav-link active">
                 <i class="fas fa-home mr-3"></i> Jobs
             </a>
             <a href="referrals.html" class="mobile-nav-link">
@@ -147,7 +146,7 @@
             <a href="about.html" class="mobile-nav-link">
                 <i class="fas fa-info-circle mr-3"></i> About
             </a>
-            <a href="profile.html" class="mobile-nav-link active">
+            <a href="profile.html" class="mobile-nav-link">
                 <i class="fas fa-user mr-3"></i> Profile
             </a>
             <a href="settings.html" class="mobile-nav-link">
@@ -182,187 +181,192 @@
 
 <!-- Overlay for mobile menu -->
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-    
-    <!-- Overlay for mobile menu -->
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-
     <!-- Main Content -->
     <main class="flex-grow">
-        <!-- Jobs Page -->
-        <div id="jobs-page" class="page active">
+        <!-- Settings Page -->
+        <div id="settings-page" class="page active">
             <div class="container mx-auto px-4 py-8">
-                <!-- Hero Section -->
-                <div class="hero-section">
-                    <h1 class="text-3xl font-bold mb-4">Find Your Dream Job</h1>
-                    <p class="text-lg mb-6">Discover thousands of job opportunities from top companies</p>
-                    
-                    <div class="search-box">
-                        <input type="text" class="search-input" placeholder="Job title, company, or keywords" aria-label="Search jobs">
-                        <button class="search-button" aria-label="Submit search">
-                            <i class="fas fa-search"></i>
-                        </button>
+                <h1 class="text-3xl font-bold mb-8">Account Settings</h1>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-xl shadow-md p-4">
+                            <div class="space-y-1">
+                                <button class="w-full text-left px-4 py-3 rounded-lg font-medium bg-indigo-50 text-indigo-700">Account</button>
+                                <button class="w-full text-left px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-gray-50">Notifications</button>
+                                <button class="w-full text-left px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-gray-50">Privacy</button>
+                                <button class="w-full text-left px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-gray-50">Security</button>
+                                <button class="w-full text-left px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-gray-50">Billing</button>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="mt-6">
-                        <div class="filter-chip active" tabindex="0" role="button" aria-pressed="true">All Jobs</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Remote</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Full-time</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Part-time</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Contract</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Internship</div>
+                    <div class="lg:col-span-3">
+                        <div class="bg-white rounded-xl shadow-md p-8">
+                            <h2 class="text-2xl font-bold mb-6">Account Settings</h2>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Profile Information</h3>
+                                        <p class="text-gray-600">Update your profile details and contact information</p>
+                                    </div>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Email Address</h3>
+                                        <p class="text-gray-600">john.doe@example.com</p>
+                                    </div>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Phone Number</h3>
+                                        <p class="text-gray-600">+1 (555) 123-4567</p>
+                                    </div>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Password</h3>
+                                        <p class="text-gray-600">Last changed 3 months ago</p>
+                                    </div>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Two-Factor Authentication</h3>
+                                        <p class="text-gray-600">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Language</h3>
+                                        <p class="text-gray-600">English (US)</p>
+                                    </div>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Time Zone</h3>
+                                        <p class="text-gray-600">(GMT-08:00) Pacific Time</p>
+                                    </div>
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item border-0">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Delete Account</h3>
+                                        <p class="text-gray-600">Permanently delete your account and all data</p>
+                                    </div>
+                                    <button class="text-red-600 hover:text-red-800 font-medium">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md p-8 mt-8">
+                            <h2 class="text-2xl font-bold mb-6">Notification Preferences</h2>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Email Notifications</h3>
+                                        <p class="text-gray-600">Receive notifications via email</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Push Notifications</h3>
+                                        <p class="text-gray-600">Receive push notifications on your devices</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Job Alerts</h3>
+                                        <p class="text-gray-600">Get notified about new job matches</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Application Updates</h3>
+                                        <p class="text-gray-600">Receive updates on your job applications</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item border-0">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold">Marketing Communications</h3>
+                                        <p class="text-gray-600">Receive promotional offers and updates</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 text-right">
+                            <button class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg mr-4 hover:bg-gray-50">Cancel</button>
+                            <button class="btn-primary">Save Changes</button>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Job Listings -->
-                <h2 class="text-2xl font-bold mb-6">Latest Job Postings</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Job Card 1 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Senior Frontend Developer</h3>
-                                <p class="text-gray-600">Tech Innovations Inc.</p>
-                            </div>
-                            <div class="job-type">Full-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>San Francisco, CA</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">We're looking for an experienced frontend developer to join our team and help build amazing user experiences.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$120k - $150k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 2 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">UX/UI Designer</h3>
-                                <p class="text-gray-600">Creative Solutions Ltd.</p>
-                            </div>
-                            <div class="job-type remote">Remote</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Remote</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Join our design team to create intuitive and beautiful interfaces for our growing platform.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$90k - $120k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 3 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Product Manager</h3>
-                                <p class="text-gray-600">Global Tech Corp</p>
-                            </div>
-                            <div class="job-type">Full-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>New York, NY</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Lead product development and strategy for our flagship products in a fast-paced environment.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$130k - $160k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 4 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Data Scientist</h3>
-                                <p class="text-gray-600">Data Insights Co.</p>
-                            </div>
-                            <div class="job-type contract">Contract</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Austin, TX</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Help us extract valuable insights from complex datasets to drive business decisions.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$100k - $130k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 5 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Marketing Specialist</h3>
-                                <p class="text-gray-600">Brand Builders Inc.</p>
-                            </div>
-                            <div class="job-type part-time">Part-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Chicago, IL</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Develop and execute marketing campaigns to increase brand awareness and customer engagement.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$60k - $80k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 6 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Backend Developer</h3>
-                                <p class="text-gray-600">Cloud Systems Ltd.</p>
-                            </div>
-                            <div class="job-type remote">Remote</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Remote</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Build scalable and efficient backend systems to support our growing user base.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$110k - $140k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                </div>
-                
-                <div class="mt-8 text-center">
-                    <button class="btn-primary">Load More Jobs</button>
                 </div>
             </div>
         </div>
     </main>
-    
     <!-- WhatsApp-like Chatbot -->
     <div class="chatbot-container">
         <div class="chatbot-window" id="chatbot-window">
@@ -402,7 +406,6 @@
             <i class="fab fa-whatsapp"></i>
         </button>
     </div>
-    
     <!-- Footer -->
     <footer class="footer">
         <div class="container mx-auto px-4">
@@ -466,7 +469,6 @@
             </div>
         </div>
     </footer>
-    
 
     <script src = "Js/tab.js"></script>
 </body>

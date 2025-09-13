@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Derrick Mawira Jobs Parlour</title>
+    <meta name="description" content="Get help and support at Derrick Mawira Jobs Parlour">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+     <!-- Header -->
+<header class="header">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-white"></i>
+                </div>
+                <span class="logo">Derrick Mawira Jobs Parlour</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="nav-link">Jobs</a>
+                <a href="referrals.html" class="nav-link">Referrals</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <a href="settings.html" class="nav-link">Settings</a>
+                <a href="help.html" class="nav-link">Help</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button class="text-white hover:text-indigo-200 transition-colors relative" aria-label="Notifications" id="notification-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                </div>
+                <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Dark mode toggle" id="dark-mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="profile.html" class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
+                    <i class="fas fa-user-circle text-xl"></i>
+                </a>
+                <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Notification Panel -->
+<div class="notification-panel" id="notification-panel">
+    <div class="notification-panel-header">
+        <h3>Notifications</h3>
+        <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="notification-panel-content">
+        <div class="notification-item unread">
+            <div class="notification-icon">
+                <i class="fas fa-briefcase text-indigo-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">New job match</p>
+                <p class="text-sm text-gray-500">A new position matches your skills</p>
+            </div>
+            <div class="notification-time">2 hours ago</div>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-icon">
+                <i class="fas fa-user-friends text-green-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">Referral update</p>
+                <p class="text-sm text-gray-500">Your referral has been viewed</p>
+            </div>
+            <div class="notification-time">1 day ago</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-icon">
+                <i class="fas fa-calendar text-blue-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">Interview scheduled</p>
+                <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
+            </div>
+            <div class="notification-time">2 days ago</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-icon">
+                <i class="fas fa-check-circle text-green-500"></i>
+            </div>
+            <div class="notification-text">
+                <p class="font-medium">Application received</p>
+                <p class="text-sm text-gray-500">Your application was successfully submitted</p>
+            </div>
+            <div class="notification-time">3 days ago</div>
+        </div>
+    </div>
+    <div class="notification-panel-footer">
+        <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
+    </div>
+</div>
+
+    <!-- Mobile Side Navbar -->
+<div class="mobile-side-navbar" id="mobile-side-navbar">
+    <div class="mobile-side-navbar-header">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-white text-sm"></i>
+                </div>
+                <span class="text-white font-bold">Derrick Mawira Jobs</span>
+            </div>
+            <button class="text-white" id="close-mobile-menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="mobile-side-navbar-content">
+        <div class="mobile-user-profile">
+            <div class="flex items-center space-x-3">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
+                <div>
+                    <div class="text-white font-medium">John Doe</div>
+                    <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="home.html" class="mobile-nav-link active">
+                <i class="fas fa-home mr-3"></i> Jobs
+            </a>
+            <a href="referrals.html" class="mobile-nav-link">
+                <i class="fas fa-user-friends mr-3"></i> Referrals
+            </a>
+            <a href="about.html" class="mobile-nav-link">
+                <i class="fas fa-info-circle mr-3"></i> About
+            </a>
+            <a href="profile.html" class="mobile-nav-link">
+                <i class="fas fa-user mr-3"></i> Profile
+            </a>
+            <a href="settings.html" class="mobile-nav-link">
+                <i class="fas fa-cog mr-3"></i> Settings
+            </a>
+            <a href="help.html" class="mobile-nav-link">
+                <i class="fas fa-question-circle mr-3"></i> Help
+            </a>
+        </nav>
+        
+        <div class="mobile-nav-section">
+            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
+            <a href="account.html" class="mobile-nav-link">
+                <i class="fas fa-user-circle mr-3"></i> My Account
+            </a>
+            <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
+                <i class="fas fa-moon mr-3"></i> Dark Mode
+            </button>
+        </div>
+        
+        <div class="mobile-nav-section">
+            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
+            <button class="mobile-nav-link" id="mobile-chatbot-toggle">
+                <i class="fab fa-whatsapp mr-3"></i> Chat Support
+            </button>
+            <a href="#" class="mobile-nav-link">
+                <i class="fas fa-envelope mr-3"></i> Contact Us
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for mobile menu -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Help Page -->
+        <div id="help-page" class="page active">
+            <div class="container mx-auto px-4 py-8">
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg p-8 mb-12 text-white">
+                    <h1 class="text-4xl font-bold mb-4">Help & Support</h1>
+                    <p class="text-xl max-w-3xl">Find answers to common questions or get in touch with our support team</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-question-circle text-indigo-600 text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-3">FAQ</h2>
+                        <p class="text-gray-600 mb-4">Browse our frequently asked questions to find quick answers to common issues.</p>
+                        <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800">View FAQ</a>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-book text-indigo-600 text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-3">User Guides</h2>
+                        <p class="text-gray-600 mb-4">Step-by-step guides to help you make the most of our platform.</p>
+                        <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800">Read Guides</a>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-headset text-indigo-600 text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold mb-3">Contact Support</h2>
+                        <p class="text-gray-600 mb-4">Can't find what you're looking for? Our support team is here to help.</p>
+                        <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800">Contact Us</a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-8 mb-12">
+                    <h2 class="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-xl font-bold mb-2">How do I create an account?</h3>
+                            <p class="text-gray-600">To create an account, click on the "Sign Up" button in the top right corner of the homepage. Fill in your details including your name, email address, and password. Once submitted, you'll receive a confirmation email to verify your account.</p>
+                        </div>
+                        
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-xl font-bold mb-2">How do I search for jobs?</h3>
+                            <p class="text-gray-600">You can search for jobs by using the search bar on the Jobs page. Enter keywords related to the job title, company, or skills you're looking for. You can also filter results by job type, location, and other criteria using the filter chips below the search bar.</p>
+                        </div>
+                        
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-xl font-bold mb-2">How do I apply for a job?</h3>
+                            <p class="text-gray-600">To apply for a job, first make sure you're logged in to your account. Then, click on the job you're interested in to view the full details. Click the "Apply Now" button and follow the instructions to submit your application. You may need to upload your resume and provide additional information.</p>
+                        </div>
+                        
+                        <div class="border-b border-gray-200 pb-6">
+                            <h3 class="text-xl font-bold mb-2">How do the referrals work?</h3>
+                            <p class="text-gray-600">Our referral program allows you to refer candidates for job openings and earn rewards if they're hired. To refer someone, go to the Referrals page and fill out the referral form with the candidate's details. You can track the status of your referrals and see your earnings in the same section.</p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">How do I update my profile?</h3>
+                            <p class="text-gray-600">To update your profile, go to the Profile page and click the "Edit Profile" button. You can update your personal information, work experience, education, skills, and other details. Keeping your profile up to date increases your chances of being noticed by employers.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-8">
+                    <h2 class="text-2xl font-bold mb-6">Contact Our Support Team</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-bold mb-4">Send us a Message</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label class="form-label" for="help-name">Name</label>
+                                    <input type="text" id="help-name" class="form-input" placeholder="Your name">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="help-email">Email</label>
+                                    <input type="email" id="help-email" class="form-input" placeholder="Your email">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="help-subject">Subject</label>
+                                    <select id="help-subject" class="form-input">
+                                        <option>Select a topic</option>
+                                        <option>Account Issues</option>
+                                        <option>Job Search</option>
+                                        <option>Application Problems</option>
+                                        <option>Referral Program</option>
+                                        <option>Technical Issues</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="help-message">Message</label>
+                                    <textarea id="help-message" class="form-input" rows="4" placeholder="Describe your issue or question"></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-bold mb-4">Other Ways to Reach Us</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-envelope text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Email Support</h4>
+                                        <p class="text-gray-600">support@derrickmawirajobs.com</p>
+                                        <p class="text-sm text-gray-500 mt-1">We typically respond within 24 hours</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-phone text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Phone Support</h4>
+                                        <p class="text-gray-600">+1 (555) 123-4567</p>
+                                        <p class="text-sm text-gray-500 mt-1">Monday - Friday: 9am - 6pm EST</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-comments text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Live Chat</h4>
+                                        <p class="text-gray-600">Available on our website</p>
+                                        <p class="text-sm text-gray-500 mt-1">Monday - Friday: 9am - 6pm EST</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-3 rounded-lg mr-4">
+                                        <i class="fab fa-twitter text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Social Media</h4>
+                                        <p class="text-gray-600">@derrickmawirajobs</p>
+                                        <p class="text-sm text-gray-500 mt-1">Follow us for updates and support</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- WhatsApp-like Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-header-avatar">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div>
+                        <div class="chatbot-header-name">Support Team</div>
+                        <div class="chatbot-header-status">Online</div>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message received">
+                    <div>
+                        <div class="message-bubble">Hello! How can I help you today?</div>
+                        <div class="message-time">10:30 AM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type a message..." aria-label="Type a message">
+                <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <button class="chatbot-button" id="chatbot-button" aria-label="Open chat">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <i class="fas fa-briefcase text-white text-sm"></i>
+                        </div>
+                        <span class="text-white font-bold">Derrick Mawira Jobs Parlour</span>
+                    </div>
+                    <p class="text-gray-400">Connecting talented professionals with their dream opportunities.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="home.html" class="footer-link">Jobs</a></li>
+                        <li><a href="referrals.html" class="footer-link">Referrals</a></li>
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="help.html" class="footer-link">Help</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">Career Advice</a></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">Subscribe to our newsletter for the latest job updates.</p>
+                    <div class="mt-4 flex">
+                        <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l-lg w-full focus:outline-none" aria-label="Your email">
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-700">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 Derrick Mawira Jobs Parlour. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            mobileMenuButton.addEventListener('click', function() {
+                // Implementation for mobile menu toggle would go here
+                console.log('Mobile menu clicked');
+            });
+            
+            // Chatbot functionality
+            const chatbotButton = document.getElementById('chatbot-button');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotClose = document.getElementById('chatbot-close');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSend = document.getElementById('chatbot-send');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            
+            chatbotButton.addEventListener('click', () => {
+                chatbotWindow.style.display = 'flex';
+                chatbotInput.focus();
+            });
+            
+            chatbotClose.addEventListener('click', () => {
+                chatbotWindow.style.display = 'none';
+            });
+            
+            function sendMessage() {
+                const message = chatbotInput.value.trim();
+                if (message) {
+                    // Add user message
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'message sent';
+                    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    userMessage.innerHTML = `
+                        <div>
+                            <div class="message-bubble">${message}</div>
+                            <div class="message-time">${time}</div>
+                        </div>
+                    `;
+                    chatbotMessages.appendChild(userMessage);
+                    
+                    // Clear input
+                    chatbotInput.value = '';
+                    
+                    // Scroll to bottom
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    
+                    // Show typing indicator
+                    const typingIndicator = document.createElement('div');
+                    typingIndicator.className = 'message received';
+                    typingIndicator.innerHTML = `
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    `;
+                    chatbotMessages.appendChild(typingIndicator);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    
+                    // Simulate admin response after a delay
+                    setTimeout(() => {
+                        // Remove typing indicator
+                        chatbotMessages.removeChild(typingIndicator);
+                        
+                        const adminMessage = document.createElement('div');
+                        adminMessage.className = 'message received';
+                        const adminTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        
+                        // Simple response logic
+                        let response = "Thank you for your message. Our support team will get back to you soon.";
+                        
+                        if (message.toLowerCase().includes('job') || message.toLowerCase().includes('apply')) {
+                            response = "For job-related questions, please check our Jobs page or contact our recruitment team at recruitment@derrickmawirajobs.com.";
+                        } else if (message.toLowerCase().includes('account') || message.toLowerCase().includes('login') || message.toLowerCase().includes('password')) {
+                            response = "For account issues, you can reset your password from the login page or contact our support team at support@derrickmawirajobs.com.";
+                        } else if (message.toLowerCase().includes('refer') || message.toLowerCase().includes('referral')) {
+                            response = "For referral questions, please visit our Referrals page or email referrals@derrickmawirajobs.com.";
+                        }
+                        
+                        adminMessage.innerHTML = `
+                            <div>
+                                <div class="message-bubble">${response}</div>
+                                <div class="message-time">${adminTime}</div>
+                            </div>
+                        `;
+                        chatbotMessages.appendChild(adminMessage);
+                        
+                        // Scroll to bottom
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 1500);
+                }
+            }
+            
+            chatbotSend.addEventListener('click', sendMessage);
+            
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Detect keyboard open on mobile devices
+            let originalViewportHeight = window.innerHeight;
+            let chatWindow = document.querySelector('.chatbot-window');
+            window.addEventListener('resize', function() {
+                if (window.innerHeight < originalViewportHeight * 0.8) {
+                    // Keyboard is likely open
+                    chatWindow.classList.add('keyboard-open');
+                } else {
+                    // Keyboard is closed
+                    chatWindow.classList.remove('keyboard-open');
+                }
+            });
+        });
+    </script>
+    <script src = "Js/tab.js"></script>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Derrick Mawira Jobs Parlour</title>
-    <meta name="description" content="Find your dream job at Derrick Mawira Jobs Parlour">
+    <title>Referrals - Derrick Mawira Jobs Parlour</title>
+    <meta name="description" content="Refer candidates and earn rewards at Derrick Mawira Jobs Parlour">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -108,9 +108,7 @@
     </div>
 </div>
 
-
     <!-- Mobile Side Navbar -->
-<!-- Mobile Side Navbar -->
 <div class="mobile-side-navbar" id="mobile-side-navbar">
     <div class="mobile-side-navbar-header">
         <div class="flex items-center justify-between">
@@ -138,7 +136,7 @@
         </div>
         
         <nav class="mobile-nav">
-            <a href="home.html" class="mobile-nav-link">
+            <a href="home.html" class="mobile-nav-link active">
                 <i class="fas fa-home mr-3"></i> Jobs
             </a>
             <a href="referrals.html" class="mobile-nav-link">
@@ -147,7 +145,7 @@
             <a href="about.html" class="mobile-nav-link">
                 <i class="fas fa-info-circle mr-3"></i> About
             </a>
-            <a href="profile.html" class="mobile-nav-link active">
+            <a href="profile.html" class="mobile-nav-link">
                 <i class="fas fa-user mr-3"></i> Profile
             </a>
             <a href="settings.html" class="mobile-nav-link">
@@ -182,187 +180,176 @@
 
 <!-- Overlay for mobile menu -->
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-    
-    <!-- Overlay for mobile menu -->
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-
     <!-- Main Content -->
     <main class="flex-grow">
-        <!-- Jobs Page -->
-        <div id="jobs-page" class="page active">
+        <!-- Referrals Page -->
+        <div id="referrals-page" class="page active">
             <div class="container mx-auto px-4 py-8">
-                <!-- Hero Section -->
-                <div class="hero-section">
-                    <h1 class="text-3xl font-bold mb-4">Find Your Dream Job</h1>
-                    <p class="text-lg mb-6">Discover thousands of job opportunities from top companies</p>
-                    
-                    <div class="search-box">
-                        <input type="text" class="search-input" placeholder="Job title, company, or keywords" aria-label="Search jobs">
-                        <button class="search-button" aria-label="Submit search">
-                            <i class="fas fa-search"></i>
-                        </button>
+                <h1 class="text-3xl font-bold mb-6">Referrals</h1>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                            <h2 class="text-xl font-bold mb-4">Refer a Candidate</h2>
+                            <p class="text-gray-600 mb-6">Help us find great talent and earn rewards for successful referrals.</p>
+                            
+                            <form>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="form-label" for="candidate-name">Candidate Name</label>
+                                        <input type="text" id="candidate-name" class="form-input" placeholder="Full name">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="candidate-email">Candidate Email</label>
+                                        <input type="email" id="candidate-email" class="form-input" placeholder="Email address">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="candidate-phone">Candidate Phone</label>
+                                        <input type="tel" id="candidate-phone" class="form-input" placeholder="Phone number">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="position">Position</label>
+                                        <select id="position" class="form-input">
+                                            <option>Select a position</option>
+                                            <option>Frontend Developer</option>
+                                            <option>Backend Developer</option>
+                                            <option>UX/UI Designer</option>
+                                            <option>Product Manager</option>
+                                            <option>Data Scientist</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="form-label" for="referral-reason">Why are you referring this candidate?</label>
+                                        <textarea id="referral-reason" class="form-input" rows="4" placeholder="Tell us why this candidate would be a good fit"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <button type="submit" class="btn-primary">Submit Referral</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <h2 class="text-xl font-bold mb-4">Your Referrals</h2>
+                        
+                        <div class="referral-card">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-lg">Sarah Johnson</h3>
+                                    <p class="text-gray-600">Frontend Developer</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Hired</span>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <p>Referred on: May 15, 2023</p>
+                                <p>Reward earned: $500</p>
+                            </div>
+                        </div>
+                        
+                        <div class="referral-card">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-lg">Michael Chen</h3>
+                                    <p class="text-gray-600">UX/UI Designer</p>
+                                </div>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Interviewing</span>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <p>Referred on: June 2, 2023</p>
+                                <p>Potential reward: $500</p>
+                            </div>
+                        </div>
+                        
+                        <div class="referral-card">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-lg">Emily Rodriguez</h3>
+                                    <p class="text-gray-600">Product Manager</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Under Review</span>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600">
+                                <p>Referred on: June 10, 2023</p>
+                                <p>Potential reward: $750</p>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="mt-6">
-                        <div class="filter-chip active" tabindex="0" role="button" aria-pressed="true">All Jobs</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Remote</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Full-time</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Part-time</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Contract</div>
-                        <div class="filter-chip" tabindex="0" role="button" aria-pressed="false">Internship</div>
+                    <div>
+                        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                            <h2 class="text-xl font-bold mb-4">Referral Program</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-gift text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold">Earn Rewards</h3>
+                                        <p class="text-sm text-gray-600">Get up to $1000 for every successful referral</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-users text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold">Help Us Grow</h3>
+                                        <p class="text-sm text-gray-600">Refer talented professionals to join our team</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-chart-line text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold">Track Progress</h3>
+                                        <p class="text-sm text-gray-600">Monitor your referrals and rewards in real-time</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-md p-6 text-white">
+                            <h2 class="text-xl font-bold mb-4">Your Referral Stats</h2>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Total Referrals</span>
+                                        <span>12</span>
+                                    </div>
+                                    <div class="w-full bg-indigo-200 rounded-full h-2">
+                                        <div class="bg-white h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Successful Hires</span>
+                                        <span>5</span>
+                                    </div>
+                                    <div class="w-full bg-indigo-200 rounded-full h-2">
+                                        <div class="bg-white h-2 rounded-full" style="width: 42%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Rewards Earned</span>
+                                        <span>$2,500</span>
+                                    </div>
+                                    <div class="w-full bg-indigo-200 rounded-full h-2">
+                                        <div class="bg-white h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Job Listings -->
-                <h2 class="text-2xl font-bold mb-6">Latest Job Postings</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Job Card 1 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Senior Frontend Developer</h3>
-                                <p class="text-gray-600">Tech Innovations Inc.</p>
-                            </div>
-                            <div class="job-type">Full-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>San Francisco, CA</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">We're looking for an experienced frontend developer to join our team and help build amazing user experiences.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$120k - $150k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 2 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">UX/UI Designer</h3>
-                                <p class="text-gray-600">Creative Solutions Ltd.</p>
-                            </div>
-                            <div class="job-type remote">Remote</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Remote</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Join our design team to create intuitive and beautiful interfaces for our growing platform.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$90k - $120k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 3 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Product Manager</h3>
-                                <p class="text-gray-600">Global Tech Corp</p>
-                            </div>
-                            <div class="job-type">Full-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>New York, NY</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Lead product development and strategy for our flagship products in a fast-paced environment.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$130k - $160k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 4 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Data Scientist</h3>
-                                <p class="text-gray-600">Data Insights Co.</p>
-                            </div>
-                            <div class="job-type contract">Contract</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Austin, TX</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Help us extract valuable insights from complex datasets to drive business decisions.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$100k - $130k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 5 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Marketing Specialist</h3>
-                                <p class="text-gray-600">Brand Builders Inc.</p>
-                            </div>
-                            <div class="job-type part-time">Part-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Chicago, IL</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Develop and execute marketing campaigns to increase brand awareness and customer engagement.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$60k - $80k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 6 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Backend Developer</h3>
-                                <p class="text-gray-600">Cloud Systems Ltd.</p>
-                            </div>
-                            <div class="job-type remote">Remote</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Remote</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Build scalable and efficient backend systems to support our growing user base.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$110k - $140k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                </div>
-                
-                <div class="mt-8 text-center">
-                    <button class="btn-primary">Load More Jobs</button>
                 </div>
             </div>
         </div>
     </main>
-    
     <!-- WhatsApp-like Chatbot -->
     <div class="chatbot-container">
         <div class="chatbot-window" id="chatbot-window">
@@ -402,7 +389,6 @@
             <i class="fab fa-whatsapp"></i>
         </button>
     </div>
-    
     <!-- Footer -->
     <footer class="footer">
         <div class="container mx-auto px-4">
@@ -466,7 +452,6 @@
             </div>
         </div>
     </footer>
-    
 
     <script src = "Js/tab.js"></script>
 </body>
