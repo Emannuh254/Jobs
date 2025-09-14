@@ -10,18 +10,24 @@ function showLoader(message = "Loading...") {
     
     loaderStartTime = Date.now();
     
+    // Get theme colors from CSS variables
+    const style = getComputedStyle(document.documentElement);
+    const primaryColor = style.getPropertyValue('--primary').trim() || '#ff5e3a';
+    const secondaryColor = style.getPropertyValue('--secondary').trim() || '#6c5ce7';
+    const accentColor = style.getPropertyValue('--accent').trim() || '#00d9ff';
+    
     const loader = document.createElement('div');
     loader.id = 'global-loader';
     loader.style.cssText = `
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.7);
+        background: rgba(10, 14, 39, 0.85);
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 9999;
         flex-direction: column;
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(8px);
     `;
     
     // Modern animated loader with gradient
@@ -42,8 +48,8 @@ function showLoader(message = "Loading...") {
         height: 100%;
         border-radius: 50%;
         border: 4px solid transparent;
-        border-top: 4px solid #4f46e5;
-        border-right: 4px solid #818cf8;
+        border-top: 4px solid ${primaryColor};
+        border-right: 4px solid ${secondaryColor};
         animation: spin 1s linear infinite;
     `;
     
@@ -57,8 +63,8 @@ function showLoader(message = "Loading...") {
         height: calc(100% - 20px);
         border-radius: 50%;
         border: 3px solid transparent;
-        border-bottom: 3px solid #c7d2fe;
-        border-left: 3px solid #a5b4fc;
+        border-bottom: 3px solid ${accentColor};
+        border-left: 3px solid ${secondaryColor};
         animation: spin 1.5s linear infinite reverse;
     `;
     
@@ -70,7 +76,7 @@ function showLoader(message = "Loading...") {
         left: 50%;
         width: 12px;
         height: 12px;
-        background: #4f46e5;
+        background: ${primaryColor};
         border-radius: 50%;
         transform: translate(-50%, -50%);
         animation: pulse 1.5s ease-in-out infinite;
@@ -322,13 +328,36 @@ function showToast(message, type = 'info') {
     const existingToasts = document.querySelectorAll('.toast-notification');
     existingToasts.forEach(toast => toast.remove());
     
+    // Get theme colors
+    const style = getComputedStyle(document.documentElement);
+    const primaryColor = style.getPropertyValue('--primary').trim() || '#ff5e3a';
+    const secondaryColor = style.getPropertyValue('--secondary').trim() || '#6c5ce7';
+    const accentColor = style.getPropertyValue('--accent').trim() || '#00d9ff';
+    
+    // Determine background color based on type
+    let bgColor;
+    switch(type) {
+        case 'success':
+            bgColor = '#10b981'; // Green
+            break;
+        case 'error':
+            bgColor = '#ef4444'; // Red
+            break;
+        case 'warning':
+            bgColor = '#f59e0b'; // Amber
+            break;
+        default:
+            bgColor = primaryColor; // Use theme primary
+    }
+    
     // Create toast element
     const toast = document.createElement('div');
-    toast.className = `toast-notification fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
-        type === 'success' ? 'bg-green-500' : 
-        type === 'error' ? 'bg-red-500' : 
-        'bg-blue-500'
-    } text-white transform transition-transform duration-300 translate-x-full`;
+    toast.className = 'toast-notification fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 text-white transform transition-transform duration-300 translate-x-full';
+    toast.style.cssText = `
+        background-color: ${bgColor};
+        max-width: 320px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    `;
     toast.textContent = message;
     
     // Add progress bar
@@ -351,7 +380,7 @@ function showToast(message, type = 'info') {
         }, 10);
     }, 10);
     
-    // Remove after 2 seconds
+    // Remove after 3 seconds
     setTimeout(() => {
         toast.classList.add('translate-x-full');
         setTimeout(() => {
@@ -359,8 +388,9 @@ function showToast(message, type = 'info') {
                 document.body.removeChild(toast);
             }
         }, 300);
-    }, 2000);
+    }, 3000);
 }
+
 // ===============================
 // API Request Helper
 // ===============================
@@ -389,7 +419,12 @@ async function apiRequest(endpoint, data, timeout = 10000) {
         clearTimeout(loaderTimeoutId);
         
         if (!response.ok) {
-            const errorData = await response.json();
+            let errorData;
+            try {
+                errorData = await response.json();
+            } catch (e) {
+                errorData = { error: `Request failed with status ${response.status}` };
+            }
             throw new Error(errorData.error || `Request failed with status ${response.status}`);
         }
         
@@ -591,259 +626,6 @@ function parseJwt(token) {
     }
 }
 
-function createPasswordModal(email) {
-    return new Promise((resolve, reject) => {
-        // Create modal elements
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm';
-        modal.style.display = 'flex';
-        
-        const modalContent = document.createElement('div');
-        modalContent.className = 'bg-white p-8 rounded-xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-95';
-        
-        const title = document.createElement('h3');
-        title.className = 'text-2xl font-bold mb-6 text-gray-800 text-center';
-        title.textContent = 'Create Your Account';
-        
-        const emailInfo = document.createElement('p');
-        emailInfo.className = 'mb-6 text-gray-600 text-center';
-        emailInfo.textContent = `You're signing in with Google as: ${email}`;
-        
-        const passwordLabel = document.createElement('label');
-        passwordLabel.className = 'block text-gray-700 text-sm font-medium mb-3';
-        passwordLabel.textContent = 'Set a password for your account:';
-        
-        const passwordInput = document.createElement('input');
-        passwordInput.type = 'password';
-        passwordInput.className = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4 transition-all duration-200';
-        passwordInput.placeholder = 'Enter password (min 6 characters)';
-        
-        const passwordError = document.createElement('div');
-        passwordError.className = 'text-red-500 text-sm mb-4 hidden';
-        
-        const requirements = document.createElement('div');
-        requirements.className = 'text-xs text-gray-500 mb-6';
-        requirements.innerHTML = `
-            <p>Password must contain:</p>
-            <ul class="list-disc pl-5 mt-1">
-                <li>At least 6 characters</li>
-                <li>At least one uppercase letter</li>
-                <li>At least one number</li>
-            </ul>
-        `;
-        
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'flex justify-end space-x-3';
-        
-        const cancelButton = document.createElement('button');
-        cancelButton.className = 'px-5 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 font-medium';
-        cancelButton.textContent = 'Cancel';
-        
-        const submitButton = document.createElement('button');
-        submitButton.className = 'px-5 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-medium';
-        submitButton.textContent = 'Create Account';
-        
-        // Assemble modal
-        buttonContainer.appendChild(cancelButton);
-        buttonContainer.appendChild(submitButton);
-        
-        modalContent.appendChild(title);
-        modalContent.appendChild(emailInfo);
-        modalContent.appendChild(passwordLabel);
-        modalContent.appendChild(passwordInput);
-        modalContent.appendChild(passwordError);
-        modalContent.appendChild(requirements);
-        modalContent.appendChild(buttonContainer);
-        
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-        
-        // Animate modal in
-        setTimeout(() => {
-            modalContent.classList.remove('scale-95');
-            modalContent.classList.add('scale-100');
-        }, 10);
-        
-        // Focus on password input
-        passwordInput.focus();
-        
-        // Event handlers
-        cancelButton.addEventListener('click', () => {
-            modalContent.classList.add('scale-95');
-            modalContent.classList.remove('scale-100');
-            setTimeout(() => {
-                if (document.body.contains(modal)) {
-                    document.body.removeChild(modal);
-                }
-            }, 300);
-            reject(new Error('User cancelled password creation'));
-        });
-        
-        submitButton.addEventListener('click', () => {
-            const password = passwordInput.value;
-            
-            if (!password) {
-                passwordError.textContent = 'Password is required';
-                passwordError.classList.remove('hidden');
-                return;
-            }
-            
-            if (password.length < 6) {
-                passwordError.textContent = 'Password must be at least 6 characters';
-                passwordError.classList.remove('hidden');
-                return;
-            }
-            
-            // Validate password strength
-            const hasUpperCase = /[A-Z]/.test(password);
-            const hasNumber = /[0-9]/.test(password);
-            
-            if (!hasUpperCase || !hasNumber) {
-                passwordError.textContent = 'Password must contain at least one uppercase letter and one number';
-                passwordError.classList.remove('hidden');
-                return;
-            }
-            
-            modalContent.classList.add('scale-95');
-            modalContent.classList.remove('scale-100');
-            setTimeout(() => {
-                if (document.body.contains(modal)) {
-                    document.body.removeChild(modal);
-                }
-                resolve(password);
-            }, 300);
-        });
-        
-        // Handle Enter key
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                submitButton.click();
-            }
-        });
-        
-        // Close modal on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                cancelButton.click();
-            }
-        });
-        
-        // Cleanup function to prevent memory leaks
-        const cleanup = () => {
-            if (document.body.contains(modal)) {
-                document.body.removeChild(modal);
-            }
-        };
-        
-        // Add a timeout to ensure cleanup happens even if something goes wrong
-        setTimeout(cleanup, 300000); // 5 minutes
-    });
-}
-
-function handleGoogleSignIn() {
-    showLoader("Connecting to Google...");
-    
-    try {
-        // Initialize Google Sign-In
-        if (typeof google !== 'undefined' && google.accounts) {
-            google.accounts.id.initialize({
-                client_id: "52686426344-omno2e3l9h31dvcgs3c4ghl49n7i36o4.apps.googleusercontent.com",
-                callback: handleGoogleSignInResponse
-            });
-            
-            // Prompt the user to sign in
-            google.accounts.id.prompt();
-        } else {
-            showToast('Google Sign-In not available', 'error');
-            hideLoader();
-        }
-    } catch (error) {
-        console.error('Google Sign-In initialization error:', error);
-        showToast('Failed to initialize Google Sign-In', 'error');
-        hideLoader();
-    }
-}
-
-async function handleGoogleSignInResponse(response) {
-    try {
-        // Parse JWT token to get user data
-        const data = parseJwt(response.credential);
-        if (!data || !data.email) {
-            showToast("Invalid Google Sign-In response", "error");
-            hideLoader();
-            return;
-        }
-        
-        const email = data.email;
-        
-        // Create a modal to set a password
-        createPasswordModal(email)
-            .then(password => {
-                if (!password || password.length < 6) {
-                    showToast("Password must be at least 6 characters", "error");
-                    return Promise.reject("Invalid password");
-                }
-                
-                showLoader("Creating your account...");
-                
-                // Send data to backend
-                return apiRequest('/auth/google-login/', { 
-                    email, 
-                    password,
-                    google_token: response.credential
-                });
-            })
-            .then(result => {
-                if (!result) return Promise.reject("No result from server");
-                
-                if (result.access) {
-                    // Save tokens and user data
-                    saveAuthData(result);
-                    
-                    showToast("Account created successfully! Signing you in...", "success");
-                    
-                    // Preload dashboard
-                    preloadDashboard();
-                    
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = '/dashboard';
-                    }, 800);
-                } else {
-                    showToast(result.error || "Google Sign-In failed", "error");
-                }
-            })
-            .catch(err => {
-                console.error("Google Sign-In error:", err);
-                showToast(err.message || "Google Sign-In failed. Please try again.", "error");
-            })
-            .finally(() => {
-                hideLoader();
-            });
-    } catch (error) {
-        console.error("Error processing Google Sign-In:", error);
-        showToast("An unexpected error occurred. Please try again.", "error");
-        hideLoader();
-    }
-}
-
-// ===============================
-// Google Sign-In Functions
-// ===============================
-function parseJwt(token) {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    } catch (error) {
-        console.error("Error parsing JWT token:", error);
-        return null;
-    }
-}
-
 async function handleGoogleSignInResponse(response) {
     try {
         // Parse JWT token to get user data
@@ -903,6 +685,30 @@ async function handleGoogleSignInResponse(response) {
     }
 }
 
+function handleGoogleSignIn() {
+    showLoader("Connecting to Google...");
+    
+    try {
+        // Initialize Google Sign-In
+        if (typeof google !== 'undefined' && google.accounts) {
+            google.accounts.id.initialize({
+                client_id: "52686426344-omno2e3l9h31dvcgs3c4ghl49n7i36o4.apps.googleusercontent.com",
+                callback: handleGoogleSignInResponse
+            });
+            
+            // Prompt the user to sign in
+            google.accounts.id.prompt();
+        } else {
+            showToast('Google Sign-In not available', 'error');
+            hideLoader();
+        }
+    } catch (error) {
+        console.error('Google Sign-In initialization error:', error);
+        showToast('Failed to initialize Google Sign-In', 'error');
+        hideLoader();
+    }
+}
+
 // ===============================
 // Initialize Google Sign-In
 // ===============================
@@ -928,3 +734,47 @@ function loadGoogleSignIn() {
     };
     document.head.appendChild(script);
 }
+
+// ===============================
+// Initialize on DOM Ready
+// ===============================
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Google Sign-In
+    loadGoogleSignIn();
+    
+    // Add event listeners to forms
+    if (signinForm) {
+        signinForm.addEventListener('submit', handleSignIn);
+    }
+    
+    if (signupForm) {
+        signupForm.addEventListener('submit', handleSignUp);
+    }
+    
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', handleForgotPassword);
+    }
+    
+    // Add event listeners to tabs
+    if (signinTab) {
+        signinTab.addEventListener('click', showSignIn);
+    }
+    
+    if (signupTab) {
+        signupTab.addEventListener('click', showSignUp);
+    }
+    
+    // Add event listeners to password toggle buttons
+    document.querySelectorAll('.password-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const fieldId = this.getAttribute('data-field');
+            togglePassword(fieldId);
+        });
+    });
+    
+    // Add event listener to Google Sign-In button
+    const googleSignInButton = document.getElementById('google-signin-button');
+    if (googleSignInButton) {
+        googleSignInButton.addEventListener('click', handleGoogleSignIn);
+    }
+});
