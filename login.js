@@ -813,6 +813,82 @@ async function handleGoogleSignInResponse(response) {
 }
 
 // ===============================
+// Google Sign-In Functions
+// ===============================
+function parseJwt(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (error) {
+        console.error("Error parsing JWT token:", error);
+        return null;
+    }
+}
+
+async function handleGoogleSignInResponse(response) {
+    try {
+        // Parse JWT token to get user data
+        const data = parseJwt(response.credential);
+        if (!data || !data.email) {
+            showToast("Invalid Google Sign-In response", "error");
+            hideLoader();
+            return;
+        }
+        
+        const email = data.email;
+        const firstName = data.given_name || '';
+        const lastName = data.family_name || '';
+        
+        showLoader("Creating your account...");
+        
+        // Send data to backend
+        const apiResponse = await fetch(`${API_BASE}/auth/google-login/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                email,
+                first_name: firstName,
+                last_name: lastName,
+                token: response.credential
+            })
+        });
+        
+        if (!apiResponse.ok) {
+            const errorData = await apiResponse.json();
+            throw new Error(errorData.error || "Google Sign-In failed");
+        }
+        
+        const result = await apiResponse.json();
+        
+        if (result.access) {
+            // Save tokens and user data
+            saveAuthData(result);
+            
+            showToast("Account created successfully! Signing you in...", "success");
+            
+            // Preload dashboard
+            preloadDashboard();
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 800);
+        } else {
+            showToast(result.error || "Google Sign-In failed", "error");
+        }
+    } catch (error) {
+        console.error("Google Sign-In error:", error);
+        showToast(error.message || "Google Sign-In failed. Please try again.", "error");
+    } finally {
+        hideLoader();
+    }
+}
+
+// ===============================
 // Initialize Google Sign-In
 // ===============================
 function loadGoogleSignIn() {
@@ -837,37 +913,3 @@ function loadGoogleSignIn() {
     };
     document.head.appendChild(script);
 }
-
-// ===============================
-// Initialize when DOM is loaded
-// ===============================
-document.addEventListener('DOMContentLoaded', () => {
-    // Load Google Sign-In
-    loadGoogleSignIn();
-    
-    // Add keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        // Enter key to submit forms
-        if (e.key === 'Enter') {
-            const activeForm = document.querySelector('.form-panel.active form');
-            if (activeForm) {
-                activeForm.dispatchEvent(new Event('submit', { cancelable: true }));
-            }
-        }
-    });
-    
-    // Add event listeners to tabs if they exist
-    if (signinTab) signinTab.addEventListener('click', showSignIn);
-    if (signupTab) signupTab.addEventListener('click', showSignUp);
-    
-    // Add event listeners to forms if they exist
-    if (signinForm) signinForm.addEventListener('submit', handleSignIn);
-    if (signupForm) signupForm.addEventListener('submit', handleSignUp);
-    if (forgotForm) forgotForm.addEventListener('submit', handleForgotPassword);
-    
-    // Prefetch dashboard for faster navigation
-    const prefetchLink = document.createElement('link');
-    prefetchLink.rel = 'prefetch';
-    prefetchLink.href = '/dashboard';
-    document.head.appendChild(prefetchLink);
-});
