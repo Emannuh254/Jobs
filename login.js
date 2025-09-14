@@ -141,8 +141,8 @@ function hideLoader() {
 // API Configuration
 // ===============================
 const API_BASE = window.location.hostname === 'localhost' 
-    ? 'http://127.0.0.1:8000' 
-    : 'https://jobs-backend-2lsq.onrender.com';
+    ? 'http://127.0.0.1:8000/' 
+    : 'https://jobs-backend-1-8pw2.onrender.com/';
 
 // ===============================
 // DOM Elements
@@ -363,6 +363,40 @@ function showToast(message, type = 'info') {
 }
 
 // ===============================
+// API Request Helper
+// ===============================
+async function apiRequest(endpoint, data, timeout = 10000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    try {
+        const response = await fetch(`${API_BASE}${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Request failed with status ${response.status}`);
+        }
+        
+        return await response.json();
+    } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+            throw new Error('Request timeout. Please try again.');
+        }
+        throw error;
+    }
+}
+
+// ===============================
 // Form Submission Handlers
 // ===============================
 async function handleSignIn(event) {
@@ -386,29 +420,7 @@ async function handleSignIn(event) {
     showLoader("Signing in...");
     
     try {
-        // Optimistically assume login will succeed
-        // This makes the UI feel more responsive
-        const loginPromise = fetch(`${API_BASE}/auth/login/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
-        
-        // Set a timeout for the request
-        const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('Request timeout')), 10000);
-        });
-        
-        // Race between the fetch and the timeout
-        const response = await Promise.race([loginPromise, timeoutPromise]);
-        
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
+        const data = await apiRequest('/auth/login/', { email, password });
         
         if (data.access) {
             // Save auth data
@@ -429,9 +441,7 @@ async function handleSignIn(event) {
         }
     } catch (error) {
         console.error('Login error:', error);
-        showToast(error.message === 'Request timeout' 
-            ? 'Server is taking too long to respond. Please try again.' 
-            : error.message || 'Login failed', 'error');
+        showToast(error.message || 'Login failed', 'error');
     } finally {
         hideLoader();
     }
@@ -475,39 +485,26 @@ async function handleSignUp(event) {
     showLoader("Creating account...");
     
     try {
-        const response = await fetch(`${API_BASE}/auth/register/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                username: email, 
-                email, 
-                password, 
-                password2: confirmPassword,
-                first_name: firstName,
-                last_name: lastName
-            }),
+        const data = await apiRequest('/auth/register/', { 
+            username: email, 
+            email, 
+            password, 
+            password2: confirmPassword,
+            first_name: firstName,
+            last_name: lastName
         });
         
-        const data = await response.json();
-        
-        if (response.ok) {
-            showToast('Account created successfully! Please sign in.', 'success');
-            setTimeout(() => {
-                showSignIn();
-            }, 1500);
-        } else {
-            // Display validation errors
-            if (data.errors) {
-                displayErrors(data.errors);
-            } else {
-                showToast(data.error || 'Registration failed', 'error');
-            }
-        }
+        showToast('Account created successfully! Please sign in.', 'success');
+        setTimeout(() => {
+            showSignIn();
+        }, 1500);
     } catch (error) {
         console.error('Registration error:', error);
-        showToast('An error occurred. Please try again.', 'error');
+        if (error.errors) {
+            displayErrors(error.errors);
+        } else {
+            showToast(error.message || 'Registration failed', 'error');
+        }
     } finally {
         hideLoader();
     }
@@ -531,27 +528,14 @@ async function handleForgotPassword(event) {
     showLoader("Sending reset link...");
     
     try {
-        const response = await fetch(`${API_BASE}/auth/forgot-password/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }),
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            showToast('Password reset link sent to your email', 'success');
-            setTimeout(() => {
-                showSignIn();
-            }, 2000);
-        } else {
-            showToast(data.error || 'Failed to send reset link', 'error');
-        }
+        await apiRequest('/auth/forgot-password/', { email });
+        showToast('Password reset link sent to your email', 'success');
+        setTimeout(() => {
+            showSignIn();
+        }, 2000);
     } catch (error) {
         console.error('Forgot password error:', error);
-        showToast('An error occurred. Please try again.', 'error');
+        showToast(error.message || 'Failed to send reset link', 'error');
     } finally {
         hideLoader();
     }
@@ -788,20 +772,11 @@ async function handleGoogleSignInResponse(response) {
                 showLoader("Creating your account...");
                 
                 // Send data to backend
-                return fetch(`${API_BASE}/auth/google-login/`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        email, 
-                        password,
-                        google_token: response.credential
-                    })
+                return apiRequest('/auth/google-login/', { 
+                    email, 
+                    password,
+                    google_token: response.credential
                 });
-            })
-            .then(res => {
-                if (!res) return Promise.reject("No response from server");
-                if (!res.ok) throw new Error(`Server responded with ${res.status}`);
-                return res.json();
             })
             .then(result => {
                 if (!result) return Promise.reject("No result from server");
