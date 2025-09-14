@@ -141,8 +141,8 @@ function hideLoader() {
 // API Configuration
 // ===============================
 const API_BASE = window.location.hostname === 'localhost' 
-    ? 'http://127.0.0.1:8000/' 
-    : 'https://jobs-backend-1-8pw2.onrender.com/';
+    ? 'http://127.0.0.1:8000' 
+    : 'https://jobs-backend-1-8pw2.onrender.com';
 
 // ===============================
 // DOM Elements
