@@ -361,13 +361,19 @@ function showToast(message, type = 'info') {
         }, 300);
     }, 2000);
 }
-
 // ===============================
 // API Request Helper
 // ===============================
 async function apiRequest(endpoint, data, timeout = 10000) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    // Set a maximum loader time of 3 seconds
+    const maxLoaderTime = 3000;
+    const loaderTimeoutId = setTimeout(() => {
+        hideLoader();
+        showToast('Request is taking longer than expected. Please wait...', 'info');
+    }, maxLoaderTime);
     
     try {
         const response = await fetch(`${API_BASE}${endpoint}`, {
@@ -380,6 +386,7 @@ async function apiRequest(endpoint, data, timeout = 10000) {
         });
         
         clearTimeout(timeoutId);
+        clearTimeout(loaderTimeoutId);
         
         if (!response.ok) {
             const errorData = await response.json();
@@ -389,9 +396,17 @@ async function apiRequest(endpoint, data, timeout = 10000) {
         return await response.json();
     } catch (error) {
         clearTimeout(timeoutId);
+        clearTimeout(loaderTimeoutId);
+        
         if (error.name === 'AbortError') {
             throw new Error('Request timeout. Please try again.');
         }
+        
+        // Handle CORS errors specifically
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            throw new Error('Network error. Please check your connection and try again.');
+        }
+        
         throw error;
     }
 }
