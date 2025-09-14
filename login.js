@@ -1,9 +1,14 @@
 // ===============================
 // Loader Utility
 // ===============================
+let loaderStartTime = 0;
+const MIN_LOADER_TIME = 500; // Minimum time to show loader in ms
+
 function showLoader(message = "Loading...") {
     // Prevent multiple loaders
     if (document.getElementById('global-loader')) return;
+    
+    loaderStartTime = Date.now();
     
     const loader = document.createElement('div');
     loader.id = 'global-loader';
@@ -16,32 +21,79 @@ function showLoader(message = "Loading...") {
         align-items: center;
         z-index: 9999;
         flex-direction: column;
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(5px);
     `;
     
+    // Modern animated loader with gradient
+    const loaderContainer = document.createElement('div');
+    loaderContainer.style.cssText = `
+        position: relative;
+        width: 80px;
+        height: 80px;
+    `;
+    
+    // Main spinner
     const spinner = document.createElement('div');
     spinner.style.cssText = `
-        border: 6px solid rgba(255, 255, 255, 0.3);
-        border-top: 6px solid #4f46e5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
-        width: 60px;
-        height: 60px;
+        border: 4px solid transparent;
+        border-top: 4px solid #4f46e5;
+        border-right: 4px solid #818cf8;
         animation: spin 1s linear infinite;
     `;
+    
+    // Inner spinner
+    const innerSpinner = document.createElement('div');
+    innerSpinner.style.cssText = `
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-bottom: 3px solid #c7d2fe;
+        border-left: 3px solid #a5b4fc;
+        animation: spin 1.5s linear infinite reverse;
+    `;
+    
+    // Pulsing dot in center
+    const dot = document.createElement('div');
+    dot.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        background: #4f46e5;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulse 1.5s ease-in-out infinite;
+    `;
+    
+    loaderContainer.appendChild(spinner);
+    loaderContainer.appendChild(innerSpinner);
+    loaderContainer.appendChild(dot);
     
     const text = document.createElement('span');
     text.textContent = message;
     text.style.cssText = `
         color: white;
-        margin-top: 16px;
+        margin-top: 24px;
         font-weight: 600;
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
         text-align: center;
         max-width: 80%;
+        animation: fadeIn 0.5s ease-in-out;
     `;
     
-    loader.appendChild(spinner);
+    loader.appendChild(loaderContainer);
     loader.appendChild(text);
     document.body.appendChild(loader);
     
@@ -54,6 +106,14 @@ function showLoader(message = "Loading...") {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.2); }
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
         `;
         document.head.appendChild(style);
     }
@@ -62,16 +122,27 @@ function showLoader(message = "Loading...") {
 function hideLoader() {
     const loader = document.getElementById('global-loader');
     if (loader) {
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => loader.remove(), 300);
+        const elapsedTime = Date.now() - loaderStartTime;
+        const remainingTime = Math.max(0, MIN_LOADER_TIME - elapsedTime);
+        
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            loader.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                if (document.body.contains(loader)) {
+                    loader.remove();
+                }
+            }, 300);
+        }, remainingTime);
     }
 }
 
 // ===============================
 // API Configuration
 // ===============================
-const API_BASE = 'https://jobs-backend-2lsq.onrender.com';
+const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://127.0.0.1:8000' 
+    : 'https://jobs-backend-2lsq.onrender.com';
 
 // ===============================
 // DOM Elements
@@ -86,48 +157,66 @@ const forgotForm = document.getElementById('forgot-form');
 // Tab Switching Functions
 // ===============================
 function showSignIn() {
-    signinTab.classList.add('tab-active');
-    signupTab.classList.remove('tab-active');
+    if (signinTab) signinTab.classList.add('tab-active');
+    if (signupTab) signupTab.classList.remove('tab-active');
     
-    signinForm.classList.remove('inactive');
-    signinForm.classList.add('active');
+    if (signinForm) {
+        signinForm.classList.remove('inactive');
+        signinForm.classList.add('active');
+    }
     
-    signupForm.classList.remove('active');
-    signupForm.classList.add('inactive');
+    if (signupForm) {
+        signupForm.classList.remove('active');
+        signupForm.classList.add('inactive');
+    }
     
-    forgotForm.classList.remove('active');
-    forgotForm.classList.add('inactive');
+    if (forgotForm) {
+        forgotForm.classList.remove('active');
+        forgotForm.classList.add('inactive');
+    }
     
     // Clear any error messages
     clearErrorMessages();
 }
 
 function showSignUp() {
-    signupTab.classList.add('tab-active');
-    signinTab.classList.remove('tab-active');
+    if (signupTab) signupTab.classList.add('tab-active');
+    if (signinTab) signinTab.classList.remove('tab-active');
     
-    signupForm.classList.remove('inactive');
-    signupForm.classList.add('active');
+    if (signupForm) {
+        signupForm.classList.remove('inactive');
+        signupForm.classList.add('active');
+    }
     
-    signinForm.classList.remove('active');
-    signinForm.classList.add('inactive');
+    if (signinForm) {
+        signinForm.classList.remove('active');
+        signinForm.classList.add('inactive');
+    }
     
-    forgotForm.classList.remove('active');
-    forgotForm.classList.add('inactive');
+    if (forgotForm) {
+        forgotForm.classList.remove('active');
+        forgotForm.classList.add('inactive');
+    }
     
     // Clear any error messages
     clearErrorMessages();
 }
 
 function showForgotPassword() {
-    signinForm.classList.remove('active');
-    signinForm.classList.add('inactive');
+    if (signinForm) {
+        signinForm.classList.remove('active');
+        signinForm.classList.add('inactive');
+    }
     
-    signupForm.classList.remove('active');
-    signupForm.classList.add('inactive');
+    if (signupForm) {
+        signupForm.classList.remove('active');
+        signupForm.classList.add('inactive');
+    }
     
-    forgotForm.classList.remove('inactive');
-    forgotForm.classList.add('active');
+    if (forgotForm) {
+        forgotForm.classList.remove('inactive');
+        forgotForm.classList.add('active');
+    }
     
     // Clear any error messages
     clearErrorMessages();
@@ -138,8 +227,13 @@ function showForgotPassword() {
 // ===============================
 function togglePassword(fieldId) {
     const passwordField = document.getElementById(fieldId);
+    if (!passwordField) return;
+    
     const toggleButton = passwordField.nextElementSibling;
+    if (!toggleButton) return;
+    
     const icon = toggleButton.querySelector('i');
+    if (!icon) return;
     
     if (passwordField.type === 'password') {
         passwordField.type = 'text';
@@ -170,6 +264,12 @@ function displayErrors(errors) {
             errorElement.classList.remove('hidden');
         }
     });
+}
+
+// Email validation helper
+function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
 }
 
 // ===============================
@@ -231,15 +331,27 @@ function showToast(message, type = 'info') {
     } text-white transform transition-transform duration-300 translate-x-full`;
     toast.textContent = message;
     
+    // Add progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'absolute bottom-0 left-0 h-1 bg-white bg-opacity-30';
+    progressBar.style.cssText = 'width: 100%; transition: width 2s linear;';
+    toast.style.position = 'relative';
+    toast.style.overflow = 'hidden';
+    toast.appendChild(progressBar);
+    
     // Add to DOM
     document.body.appendChild(toast);
     
     // Animate in
     setTimeout(() => {
         toast.classList.remove('translate-x-full');
+        // Start progress bar animation
+        setTimeout(() => {
+            progressBar.style.width = '0%';
+        }, 10);
     }, 10);
     
-    // Remove after 3 seconds
+    // Remove after 2 seconds
     setTimeout(() => {
         toast.classList.add('translate-x-full');
         setTimeout(() => {
@@ -247,7 +359,7 @@ function showToast(message, type = 'info') {
                 document.body.removeChild(toast);
             }
         }, 300);
-    }, 3000);
+    }, 2000);
 }
 
 // ===============================
@@ -256,13 +368,27 @@ function showToast(message, type = 'info') {
 async function handleSignIn(event) {
     event.preventDefault();
     
-    const email = document.getElementById('signin-email').value;
-    const password = document.getElementById('signin-password').value;
+    const email = document.getElementById('signin-email')?.value || '';
+    const password = document.getElementById('signin-password')?.value || '';
     
+    // Client-side validation
+    if (!email || !password) {
+        showToast('Please enter both email and password', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showToast('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Show loader immediately for better UX
     showLoader("Signing in...");
     
     try {
-        const response = await fetch(`${API_BASE}/auth/login/`, {
+        // Optimistically assume login will succeed
+        // This makes the UI feel more responsive
+        const loginPromise = fetch(`${API_BASE}/auth/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -270,20 +396,42 @@ async function handleSignIn(event) {
             body: JSON.stringify({ email, password }),
         });
         
+        // Set a timeout for the request
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Request timeout')), 10000);
+        });
+        
+        // Race between the fetch and the timeout
+        const response = await Promise.race([loginPromise, timeoutPromise]);
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
         const data = await response.json();
         
-        if (response.ok) {
+        if (data.access) {
+            // Save auth data
             saveAuthData(data);
+            
+            // Show success message
             showToast('Login successful! Redirecting...', 'success');
+            
+            // Preload dashboard while showing success message
+            preloadDashboard();
+            
+            // Redirect after a short delay
             setTimeout(() => {
                 window.location.href = '/dashboard';
-            }, 1500);
+            }, 800);
         } else {
-            showToast(data.error || 'Login failed', 'error');
+            throw new Error(data.error || 'Login failed');
         }
     } catch (error) {
         console.error('Login error:', error);
-        showToast('An error occurred. Please try again.', 'error');
+        showToast(error.message === 'Request timeout' 
+            ? 'Server is taking too long to respond. Please try again.' 
+            : error.message || 'Login failed', 'error');
     } finally {
         hideLoader();
     }
@@ -292,14 +440,35 @@ async function handleSignIn(event) {
 async function handleSignUp(event) {
     event.preventDefault();
     
-    const name = document.getElementById('signup-name').value;
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
-    const confirmPassword = document.getElementById('signup-confirm').value;
+    const name = document.getElementById('signup-name')?.value || '';
+    const email = document.getElementById('signup-email')?.value || '';
+    const password = document.getElementById('signup-password')?.value || '';
+    const confirmPassword = document.getElementById('signup-confirm')?.value || '';
+    
+    // Client-side validation
+    if (!name || !email || !password || !confirmPassword) {
+        showToast('Please fill in all fields', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showToast('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Split name into first and last names
+    const nameParts = name.trim().split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
     
     // Validate passwords match
     if (password !== confirmPassword) {
         showToast('Passwords do not match', 'error');
+        return;
+    }
+    
+    if (password.length < 8) {
+        showToast('Password must be at least 8 characters', 'error');
         return;
     }
     
@@ -315,7 +484,9 @@ async function handleSignUp(event) {
                 username: email, 
                 email, 
                 password, 
-                password2: confirmPassword 
+                password2: confirmPassword,
+                first_name: firstName,
+                last_name: lastName
             }),
         });
         
@@ -345,7 +516,17 @@ async function handleSignUp(event) {
 async function handleForgotPassword(event) {
     event.preventDefault();
     
-    const email = document.getElementById('forgot-email').value;
+    const email = document.getElementById('forgot-email')?.value || '';
+    
+    if (!email) {
+        showToast('Please enter your email address', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showToast('Please enter a valid email address', 'error');
+        return;
+    }
     
     showLoader("Sending reset link...");
     
@@ -374,6 +555,24 @@ async function handleForgotPassword(event) {
     } finally {
         hideLoader();
     }
+}
+
+// ===============================
+// Preload Dashboard
+// ===============================
+function preloadDashboard() {
+    // Create a hidden iframe to preload the dashboard
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position: absolute; width: 0; height: 0; border: none; visibility: hidden;';
+    iframe.src = '/dashboard';
+    document.body.appendChild(iframe);
+    
+    // Remove the iframe after a short time to free resources
+    setTimeout(() => {
+        if (document.body.contains(iframe)) {
+            document.body.removeChild(iframe);
+        }
+    }, 3000);
 }
 
 // ===============================
@@ -572,6 +771,7 @@ async function handleGoogleSignInResponse(response) {
         const data = parseJwt(response.credential);
         if (!data || !data.email) {
             showToast("Invalid Google Sign-In response", "error");
+            hideLoader();
             return;
         }
         
@@ -582,7 +782,7 @@ async function handleGoogleSignInResponse(response) {
             .then(password => {
                 if (!password || password.length < 6) {
                     showToast("Password must be at least 6 characters", "error");
-                    return;
+                    return Promise.reject("Invalid password");
                 }
                 
                 showLoader("Creating your account...");
@@ -599,12 +799,12 @@ async function handleGoogleSignInResponse(response) {
                 });
             })
             .then(res => {
-                if (!res) return; // Early return if previous step failed
+                if (!res) return Promise.reject("No response from server");
                 if (!res.ok) throw new Error(`Server responded with ${res.status}`);
                 return res.json();
             })
             .then(result => {
-                if (!result) return; // Early return if previous step failed
+                if (!result) return Promise.reject("No result from server");
                 
                 if (result.access) {
                     // Save tokens and user data
@@ -612,10 +812,13 @@ async function handleGoogleSignInResponse(response) {
                     
                     showToast("Account created successfully! Signing you in...", "success");
                     
+                    // Preload dashboard
+                    preloadDashboard();
+                    
                     // Redirect to dashboard
                     setTimeout(() => {
                         window.location.href = '/dashboard';
-                    }, 1500);
+                    }, 800);
                 } else {
                     showToast(result.error || "Google Sign-In failed", "error");
                 }
@@ -677,4 +880,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+    
+    // Add event listeners to tabs if they exist
+    if (signinTab) signinTab.addEventListener('click', showSignIn);
+    if (signupTab) signupTab.addEventListener('click', showSignUp);
+    
+    // Add event listeners to forms if they exist
+    if (signinForm) signinForm.addEventListener('submit', handleSignIn);
+    if (signupForm) signupForm.addEventListener('submit', handleSignUp);
+    if (forgotForm) forgotForm.addEventListener('submit', handleForgotPassword);
+    
+    // Prefetch dashboard for faster navigation
+    const prefetchLink = document.createElement('link');
+    prefetchLink.rel = 'prefetch';
+    prefetchLink.href = '/dashboard';
+    document.head.appendChild(prefetchLink);
 });
