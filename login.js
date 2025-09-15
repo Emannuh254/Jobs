@@ -178,7 +178,7 @@
         // ===============================
         const API_BASE = window.location.hostname === 'localhost' 
             ? 'http://127.0.0.1:8000' 
-            : 'https://jobs-backend-1-8pw2.onrender.com';
+            : "https://jobs-backend-2-c16a.onrender.com";
         
         // ===============================
         // DOM Elements
