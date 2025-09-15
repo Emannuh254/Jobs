@@ -755,7 +755,7 @@ async function handleGoogleSignInResponse(response) {
             
             // Redirect to dashboard
             setTimeout(() => {
-                window.location.href = '/dashboard';
+                window.location.href = '/Jobs/home.html';
             }, 800);
         } else {
             showToast(result.error || "Google Sign-In failed", "error");
