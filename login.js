@@ -1,10 +1,15 @@
 // ===============================
-// Particle Background (Optimized for mobile)
+// Particle Background (Optimized)
 // ===============================
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
+    if (!particlesContainer) return;
+    
     // Reduce particle count for better performance on mobile
     const particleCount = window.innerWidth < 768 ? 15 : 30;
+    
+    // Clear existing particles
+    particlesContainer.innerHTML = '';
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -19,8 +24,8 @@ function createParticles() {
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
         
-        // Random animation delay
-        particle.style.animationDelay = `${Math.random() * 15}s`;
+        // Random animation delay and duration for more natural movement
+        particle.style.animationDelay = `${Math.random() * 5}s`;
         particle.style.animationDuration = `${15 + Math.random() * 15}s`;
         
         particlesContainer.appendChild(particle);
@@ -28,23 +33,28 @@ function createParticles() {
 }
 
 // ===============================
-// Loader Utility (Improved)
+// Loader Utility (Enhanced)
 // ===============================
 let loaderStartTime = 0;
-const MIN_LOADER_TIME = 300; // Reduced minimum time to show loader
+const MIN_LOADER_TIME = 500; // Increased minimum time for better UX
 let loaderTimeout;
+let activeRequests = 0;
 
 function showLoader(message = "Loading...") {
     // Prevent multiple loaders
-    if (document.getElementById('global-loader')) return;
+    if (document.getElementById('global-loader')) {
+        activeRequests++;
+        return;
+    }
     
     loaderStartTime = Date.now();
+    activeRequests = 1;
     
-    // Auto-hide loader after 5 seconds max
+    // Auto-hide loader after 10 seconds max (increased timeout)
     loaderTimeout = setTimeout(() => {
         hideLoader();
         showToast('Request is taking longer than expected. Please check your connection.', 'warning');
-    }, 5000);
+    }, 10000);
     
     // Get theme colors from CSS variables
     const style = getComputedStyle(document.documentElement);
@@ -54,80 +64,31 @@ function showLoader(message = "Loading...") {
     
     const loader = document.createElement('div');
     loader.id = 'global-loader';
-    loader.style.cssText = 
-        `position: fixed;
-        inset: 0;
-        background: rgba(10, 14, 39, 0.85);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        flex-direction: column;
-        backdrop-filter: blur(8px);`;
+    loader.className = 'global-loader';
     
     // Modern animated loader with gradient
     const loaderContainer = document.createElement('div');
-    loaderContainer.style.cssText = 
-        `position: relative;
-        width: 80px;
-        height: 80px;`;
+    loaderContainer.className = 'loader-container';
     
     // Main spinner
     const spinner = document.createElement('div');
-    spinner.style.cssText = 
-        `position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        border: 4px solid transparent;
-        border-top: 4px solid ${primaryColor};
-        border-right: 4px solid ${secondaryColor};
-        animation: spin 1s linear infinite;`;
+    spinner.className = 'spinner-main';
     
     // Inner spinner
     const innerSpinner = document.createElement('div');
-    innerSpinner.style.cssText = 
-        `position: absolute;
-        top: 10px;
-        left: 10px;
-        width: calc(100% - 20px);
-        height: calc(100% - 20px);
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-bottom: 3px solid ${accentColor};
-        border-left: 3px solid ${secondaryColor};
-        animation: spin 1.5s linear infinite reverse;`;
+    innerSpinner.className = 'spinner-inner';
     
     // Pulsing dot in center
     const dot = document.createElement('div');
-    dot.style.cssText = 
-        `position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 12px;
-        height: 12px;
-        background: ${primaryColor};
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        animation: pulse 1.5s ease-in-out infinite;`;
+    dot.className = 'pulse-dot';
     
     loaderContainer.appendChild(spinner);
     loaderContainer.appendChild(innerSpinner);
     loaderContainer.appendChild(dot);
     
     const text = document.createElement('span');
+    text.className = 'loader-text';
     text.textContent = message;
-    text.style.cssText = 
-        `color: white;
-        margin-top: 24px;
-        font-weight: 600;
-        font-family: 'Poppins', sans-serif;
-        font-size: 16px;
-        text-align: center;
-        max-width: 80%;
-        animation: fadeIn 0.5s ease-in-out;`;
     
     loader.appendChild(loaderContainer);
     loader.appendChild(text);
@@ -137,8 +98,8 @@ function showLoader(message = "Loading...") {
     if (!document.getElementById('loader-keyframes')) {
         const style = document.createElement('style');
         style.id = 'loader-keyframes';
-        style.textContent = 
-            `@keyframes spin {
+        style.textContent = `
+            @keyframes spin {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
@@ -149,12 +110,79 @@ function showLoader(message = "Loading...") {
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(10px); }
                 to { opacity: 1; transform: translateY(0); }
-            }`;
+            }
+            .global-loader {
+                position: fixed;
+                inset: 0;
+                background: rgba(10, 14, 39, 0.85);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                flex-direction: column;
+                backdrop-filter: blur(8px);
+                animation: fadeIn 0.3s ease-out;
+            }
+            .loader-container {
+                position: relative;
+                width: 80px;
+                height: 80px;
+            }
+            .spinner-main {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 4px solid transparent;
+                border-top: 4px solid ${primaryColor};
+                border-right: 4px solid ${secondaryColor};
+                animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            }
+            .spinner-inner {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: calc(100% - 20px);
+                height: calc(100% - 20px);
+                border-radius: 50%;
+                border: 3px solid transparent;
+                border-bottom: 3px solid ${accentColor};
+                border-left: 3px solid ${secondaryColor};
+                animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+            }
+            .pulse-dot {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 12px;
+                height: 12px;
+                background: ${primaryColor};
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                animation: pulse 1.5s ease-in-out infinite;
+            }
+            .loader-text {
+                color: white;
+                margin-top: 24px;
+                font-weight: 600;
+                font-family: 'Poppins', sans-serif;
+                font-size: 16px;
+                text-align: center;
+                max-width: 80%;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+        `;
         document.head.appendChild(style);
     }
 }
 
 function hideLoader() {
+    activeRequests--;
+    
+    if (activeRequests > 0) return; // Still have active requests
+    
     const loader = document.getElementById('global-loader');
     if (loader) {
         clearTimeout(loaderTimeout);
@@ -188,7 +216,7 @@ const signupForm = document.getElementById('signup-form');
 const forgotForm = document.getElementById('forgot-form');
 
 // ===============================
-// Tab Switching Functions
+// Tab Switching Functions (Enhanced)
 // ===============================
 function showSignIn() {
     if (signinTab) signinTab.classList.add('tab-active');
@@ -260,7 +288,7 @@ function showForgotPassword() {
 }
 
 // ===============================
-// Utility Functions
+// Utility Functions (Enhanced)
 // ===============================
 function togglePassword(fieldId) {
     const passwordField = document.getElementById(fieldId);
@@ -322,7 +350,7 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-// Password strength checker
+// Password strength checker (Enhanced)
 function checkPasswordStrength(password) {
     const strengthMeter = document.getElementById('password-strength-meter-fill');
     if (!strengthMeter) return;
@@ -346,18 +374,23 @@ function checkPasswordStrength(password) {
     if (password.match(/[0-9]+/)) strength += 1;
     if (password.match(/[$@#&!]+/)) strength += 1;
     
-    // Set strength meter
+    // Set strength meter with smooth transition
+    strengthMeter.style.transition = 'width 0.3s ease, background-color 0.3s ease';
+    
     if (strength <= 2) {
         strengthMeter.classList.add('strength-weak');
+        strengthMeter.style.width = '33%';
     } else if (strength === 3) {
         strengthMeter.classList.add('strength-medium');
+        strengthMeter.style.width = '66%';
     } else {
         strengthMeter.classList.add('strength-strong');
+        strengthMeter.style.width = '100%';
     }
 }
 
 // ===============================
-// Authentication Functions
+// Authentication Functions (Enhanced)
 // ===============================
 function saveAuthData(result) {
     try {
@@ -399,7 +432,7 @@ function saveAuthData(result) {
 }
 
 // ===============================
-// Toast Notification (Improved)
+// Toast Notification (Enhanced)
 // ===============================
 function showToast(message, type = 'info') {
     // Remove existing toasts
@@ -431,26 +464,17 @@ function showToast(message, type = 'info') {
     // Create toast element
     const toast = document.createElement('div');
     toast.className = 'toast-notification';
-    toast.style.cssText = 
-        `background-color: ${bgColor};
-        max-width: 100%;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);`;
     
     // Create message container
     const messageContainer = document.createElement('div');
+    messageContainer.className = 'toast-message';
     messageContainer.textContent = message;
-    messageContainer.style.cssText = 'padding: 12px 20px; color: white;';
     
     // Add close button
-    const closeButton = document.createElement('span');
-    closeButton.textContent = '×';
-    closeButton.style.cssText = 
-        `position: absolute;
-        top: 5px;
-        right: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        color: white;`;
+    const closeButton = document.createElement('button');
+    closeButton.className = 'toast-close';
+    closeButton.innerHTML = '&times;';
+    closeButton.setAttribute('aria-label', 'Close notification');
     
     closeButton.addEventListener('click', () => {
         toast.classList.remove('show');
@@ -481,12 +505,62 @@ function showToast(message, type = 'info') {
             }
         }, 300);
     }, 5000);
+    
+    // Add styles if not already present
+    if (!document.getElementById('toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'toast-styles';
+        style.textContent = `
+            .toast-notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                left: 20px;
+                background-color: ${bgColor};
+                color: white;
+                padding: 16px 20px;
+                border-radius: 8px;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                z-index: 1000;
+                transform: translateY(-20px);
+                opacity: 0;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 100%;
+            }
+            .toast-notification.show {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            .toast-message {
+                flex-grow: 1;
+            }
+            .toast-close {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                margin-left: 10px;
+                padding: 0;
+                line-height: 1;
+                opacity: 0.8;
+                transition: opacity 0.2s;
+            }
+            .toast-close:hover {
+                opacity: 1;
+            }
+        `;
+        document.head.appendChild(style);
+    }
 }
 
 // ===============================
-// API Request Helper (Improved)
+// API Request Helper (Enhanced)
 // ===============================
-async function apiRequest(endpoint, data, timeout = 8000) {
+async function apiRequest(endpoint, data, timeout = 10000) { // Increased timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
     
@@ -530,7 +604,7 @@ async function apiRequest(endpoint, data, timeout = 8000) {
 }
 
 // ===============================
-// Form Submission Handlers (Improved)
+// Form Submission Handlers (Enhanced)
 // ===============================
 async function handleSignIn(event) {
     event.preventDefault();
@@ -693,7 +767,7 @@ function preloadDashboard() {
 }
 
 // ===============================
-// Google Sign-In Functions
+// Google Sign-In Functions (Enhanced)
 // ===============================
 function parseJwt(token) {
     try {
@@ -819,7 +893,7 @@ function loadGoogleSignIn() {
 }
 
 // ===============================
-// Initialize on DOM Ready
+// Initialize on DOM Ready (Enhanced)
 // ===============================
 document.addEventListener('DOMContentLoaded', function() {
     // Create particle background
@@ -882,4 +956,315 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = '';
         });
     });
+    
+    // Handle window resize for particles
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            createParticles();
+        }, 250);
+    });
 });
+// Add this to the userProfile object initialization
+let userProfile = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    location: '',
+    region: '',
+    profession: '',
+    bio: '',
+    profileImage: '', // Add profile image field
+    skills: [],
+    documents: [],
+    experience: [],
+    education: []
+};
+
+// Add this to the populateEditForm function
+function populateEditForm() {
+    document.getElementById('firstName').value = userProfile.firstName || '';
+    document.getElementById('lastName').value = userProfile.lastName || '';
+    document.getElementById('email').value = userProfile.email || '';
+    document.getElementById('phone').value = userProfile.phone || '';
+    document.getElementById('location').value = userProfile.location || '';
+    document.getElementById('region').value = userProfile.region || '';
+    document.getElementById('profession').value = userProfile.profession || '';
+    document.getElementById('bio').value = userProfile.bio || '';
+    
+    // Set profile image preview
+    const profileImagePreview = document.getElementById('editProfileImagePreview');
+    if (userProfile.profileImage) {
+        profileImagePreview.src = userProfile.profileImage;
+    } else {
+        profileImagePreview.src = 'https://randomuser.me/api/portraits/men/75.jpg';
+    }
+    
+    // Populate skills
+    skillsList.innerHTML = '';
+    if (userProfile.skills && userProfile.skills.length > 0) {
+        userProfile.skills.forEach(skill => {
+            addSkillToUI(skill);
+        });
+    }
+    
+    // Populate documents
+    const documentsList = document.getElementById('documentsList');
+    documentsList.innerHTML = '';
+    if (userProfile.documents && userProfile.documents.length > 0) {
+        userProfile.documents.forEach(doc => {
+            addDocumentToUI(doc);
+        });
+    }
+}
+
+// Add this to the updateProfileUI function
+function updateProfileUI() {
+    // Update profile image
+    const profileImage = document.getElementById('profileImage');
+    if (userProfile.profileImage) {
+        profileImage.src = userProfile.profileImage;
+    } else {
+        profileImage.src = 'https://randomuser.me/api/portraits/men/75.jpg';
+    }
+    
+    // Update profile header
+    document.getElementById('profileName').textContent = 
+        userProfile.firstName && userProfile.lastName 
+            ? `${userProfile.firstName} ${userProfile.lastName}` 
+            : 'Your Name';
+            
+    document.getElementById('profileProfession').textContent = 
+        userProfile.profession || 'Your Profession';
+            
+    document.getElementById('profileEmail').textContent = 
+        userProfile.email || 'your.email@example.com';
+            
+    document.getElementById('profilePhone').textContent = 
+        userProfile.phone || '+1 (555) 123-4567';
+            
+    document.getElementById('profileLocation').textContent = 
+        userProfile.location || 'Your Location';
+            
+    document.getElementById('profileRegion').textContent = 
+        userProfile.region ? formatRegion(userProfile.region) : 'Your Region';
+            
+    document.getElementById('profileBio').textContent = 
+        userProfile.bio || 'Tell us about yourself...';
+    
+    // Update skills
+    const profileSkills = document.getElementById('profileSkills');
+    profileSkills.innerHTML = '';
+    
+    if (userProfile.skills && userProfile.skills.length > 0) {
+        userProfile.skills.forEach(skill => {
+            const skillBadge = document.createElement('span');
+            skillBadge.className = 'badge bg-primary rounded-pill p-2';
+            skillBadge.textContent = skill;
+            profileSkills.appendChild(skillBadge);
+        });
+    } else {
+        profileSkills.innerHTML = '<span class="text-muted">No skills added yet</span>';
+    }
+    
+    // Update experience
+    const experienceList = document.getElementById('experienceList');
+    experienceList.innerHTML = '';
+    
+    if (userProfile.experience && userProfile.experience.length > 0) {
+        userProfile.experience.forEach(exp => {
+            const expItem = document.createElement('div');
+            expItem.className = 'mb-4 pb-4 border-bottom';
+            expItem.innerHTML = `
+                <div class="d-flex justify-content-between mb-2">
+                    <h6 class="fw-bold">${exp.title || 'Job Title'}</h6>
+                    <span class="text-muted">${exp.period || 'Period'}</span>
+                </div>
+                <p class="text-primary mb-2">${exp.company || 'Company'}</p>
+                <p>${exp.description || 'Job description'}</p>
+            `;
+            experienceList.appendChild(expItem);
+        });
+    } else {
+        experienceList.innerHTML = '<p class="text-muted">No experience added yet</p>';
+    }
+    
+    // Update education
+    const educationList = document.getElementById('educationList');
+    educationList.innerHTML = '';
+    
+    if (userProfile.education && userProfile.education.length > 0) {
+        userProfile.education.forEach(edu => {
+            const eduItem = document.createElement('div');
+            eduItem.className = 'mb-3 pb-3 border-bottom';
+            eduItem.innerHTML = `
+                <div class="d-flex justify-content-between mb-2">
+                    <h6 class="fw-bold">${edu.degree || 'Degree'}</h6>
+                    <span class="text-muted">${edu.period || 'Period'}</span>
+                </div>
+                <p class="text-primary">${edu.institution || 'Institution'}</p>
+            `;
+            educationList.appendChild(eduItem);
+        });
+    } else {
+        educationList.innerHTML = '<p class="text-muted">No education added yet</p>';
+    }
+    
+    // Update documents
+    const documentsListMain = document.getElementById('documentsListMain');
+    documentsListMain.innerHTML = '';
+    
+    if (userProfile.documents && userProfile.documents.length > 0) {
+        userProfile.documents.forEach(doc => {
+            const docItem = document.createElement('div');
+            docItem.className = 'd-flex align-items-center p-2 border rounded mb-2';
+            
+            // Determine icon based on file type
+            let iconClass = 'fas fa-file';
+            if (doc.type === 'resume') iconClass = 'fas fa-file-pdf';
+            if (doc.type === 'certificate') iconClass = 'fas fa-certificate';
+            
+            docItem.innerHTML = `
+                <i class="${iconClass} text-danger me-2"></i>
+                <div class="flex-grow-1">
+                    <div>${doc.name || 'Document Name'}</div>
+                    <small class="text-muted">${doc.type || 'Document Type'}</small>
+                </div>
+                <a href="${doc.url || '#'}" class="btn btn-sm btn-outline-primary" download>
+                    <i class="fas fa-download"></i>
+                </a>
+            `;
+            documentsListMain.appendChild(docItem);
+        });
+    } else {
+        documentsListMain.innerHTML = '<p class="text-muted">No documents uploaded yet</p>';
+    }
+}
+
+// Add this event listener for the profile image upload
+document.getElementById('profileImageUpload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        // Validate file type
+        if (!file.type.match('image.*')) {
+            showError('Please select an image file (JPG, PNG, or GIF)');
+            return;
+        }
+        
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            showError('Image size must be less than 5MB');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imageDataUrl = event.target.result;
+            
+            // Update preview
+            document.getElementById('editProfileImagePreview').src = imageDataUrl;
+            
+            // Store in temporary variable until form is saved
+            window.tempProfileImage = imageDataUrl;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Add this to the saveProfileBtn event listener
+saveProfileBtn.addEventListener('click', async function() {
+    // Get form data
+    const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        location: document.getElementById('location').value,
+        region: document.getElementById('region').value,
+        profession: document.getElementById('profession').value,
+        bio: document.getElementById('bio').value
+    };
+    
+    // Basic validation
+    if (!formData.firstName || !formData.lastName || !formData.email) {
+        showError('Please fill in all required fields');
+        return;
+    }
+    
+    try {
+        // Update user profile
+        userProfile = { ...userProfile, ...formData };
+        
+        // Add profile image if available
+        if (window.tempProfileImage) {
+            userProfile.profileImage = window.tempProfileImage;
+            delete window.tempProfileImage;
+        }
+        
+        // Save to localStorage
+        saveUserProfile();
+        
+        // Update UI
+        updateProfileUI();
+        
+        // Close modal
+        editProfileModal.hide();
+        
+        // Show success message
+        showSuccess('Profile updated successfully!');
+        
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        showError('Failed to update profile. Please try again.');
+    }
+});
+
+// Add this event listener for the change profile image button
+document.getElementById('changeProfileImageBtn').addEventListener('click', function() {
+    populateEditForm();
+    editProfileModal.show();
+    
+    // Scroll to the profile image section in the modal
+    setTimeout(() => {
+        const profileImageSection = document.querySelector('#editProfileModal .modal-body');
+        const imageSection = profileImageSection.querySelector('label[for="profileImageUpload"]').parentNode;
+        imageSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Highlight the section briefly
+        imageSection.style.backgroundColor = 'rgba(37, 99, 235, 0.1)';
+        setTimeout(() => {
+            imageSection.style.backgroundColor = '';
+        }, 1000);
+    }, 300);
+});
+
+// Add this to the loadUserProfile function
+function loadUserProfile() {
+    const savedProfile = localStorage.getItem('userProfile');
+    if (savedProfile) {
+        userProfile = JSON.parse(savedProfile);
+    } else {
+        // Initialize with empty values
+        userProfile = {
+            id: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            location: '',
+            region: '',
+            profession: '',
+            bio: '',
+            profileImage: '', // Initialize profile image
+            skills: [],
+            documents: [],
+            experience: [],
+            education: []
+        };
+    }
+    updateProfileUI();
+    checkProfileCompletion();
+}

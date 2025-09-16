@@ -1,5 +1,83 @@
-// Dark mode toggle and mobile menu functionality
+// Glass effect implementation using CSS variables
 document.addEventListener('DOMContentLoaded', function() {
+    // Glass effect manager
+    const glassEffect = {
+        // Apply glass effect using CSS classes
+        applyGlassEffect(selector) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.classList.add('glass');
+            });
+        },
+        
+        // Initialize glass effects
+        init() {
+            // Apply glass effect to cards
+            this.applyGlassEffect('.glass-card');
+            
+            // Apply glass effect to buttons
+            this.applyGlassEffect('.glass-button');
+            
+            // Apply glass effect to tabs
+            this.applyGlassEffect('.glass-tab');
+            this.applyGlassEffect('.glass-tab-pane');
+        }
+    };
+    
+    // Tab functionality
+    const tabManager = {
+        init() {
+            // Use event delegation for tabs
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('glass-tab') || e.target.closest('.glass-tab')) {
+                    const tab = e.target.classList.contains('glass-tab') ? e.target : e.target.closest('.glass-tab');
+                    this.activateTab(tab);
+                }
+            });
+            
+            // Set initial active tab
+            const activeTab = document.querySelector('.glass-tab.active');
+            if (activeTab) {
+                this.activateTab(activeTab);
+            }
+        },
+        
+        activateTab(tab) {
+            // Get tab container
+            const tabContainer = tab.closest('.tab-container');
+            if (!tabContainer) return;
+            
+            // Get all tabs and panes in this container
+            const tabs = tabContainer.querySelectorAll('.glass-tab');
+            const tabPanes = tabContainer.querySelectorAll('.glass-tab-pane');
+            
+            // Deactivate all tabs and panes
+            tabs.forEach(t => {
+                t.classList.remove('active');
+                t.style.background = '';
+                t.style.color = '';
+            });
+            
+            tabPanes.forEach(pane => {
+                pane.classList.remove('active');
+                pane.style.display = 'none';
+            });
+            
+            // Activate clicked tab
+            tab.classList.add('active');
+            tab.style.background = 'rgba(255, 255, 255, 0.3)';
+            tab.style.color = 'var(--primary)';
+            
+            // Show corresponding tab pane
+            const tabId = tab.getAttribute('data-tab');
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+                targetPane.style.display = 'block';
+            }
+        }
+    };
+    
     // Dark mode functionality
     const darkMode = {
         toggle: document.getElementById('dark-mode-toggle'),
@@ -41,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navbar: document.getElementById('mobile-side-navbar'),
         overlay: document.getElementById('mobile-menu-overlay'),
         closeBtn: document.getElementById('close-mobile-menu'),
-        navLinks: document.querySelectorAll('.mobile-nav-link'),
         
         init() {
             if (this.button) this.button.addEventListener('click', () => this.open());
@@ -49,8 +126,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.overlay) this.overlay.addEventListener('click', () => this.close());
             
             // Close menu when nav link is clicked
-            this.navLinks.forEach(link => {
-                link.addEventListener('click', () => this.close());
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('mobile-nav-link') || e.target.closest('.mobile-nav-link')) {
+                    this.close();
+                }
             });
         },
         
@@ -76,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
         toggle: document.getElementById('notification-toggle'),
         panel: document.getElementById('notification-panel'),
         closeBtn: document.getElementById('close-notifications'),
-        notificationItems: document.querySelectorAll('.notification-item'),
         
         init() {
             if (this.toggle) this.toggle.addEventListener('click', () => this.togglePanel());
@@ -92,10 +170,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             // Mark as read when clicked
-            this.notificationItems.forEach(item => {
-                item.addEventListener('click', () => {
+            document.addEventListener('click', (e) => {
+                const item = e.target.closest('.notification-item');
+                if (item) {
                     item.classList.remove('unread');
-                });
+                }
             });
         },
         
@@ -138,6 +217,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.button) this.button.addEventListener('click', () => this.open());
             if (this.mobileToggle) this.mobileToggle.addEventListener('click', () => this.open());
             if (this.closeBtn) this.closeBtn.addEventListener('click', () => this.close());
+            
+            // Send message events
             if (this.sendBtn) this.sendBtn.addEventListener('click', () => this.sendMessage());
             if (this.input) this.input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') this.sendMessage();
@@ -265,20 +346,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Filter chips functionality
     const filterChips = {
-        chips: document.querySelectorAll('.filter-chip'),
-        
         init() {
-            this.chips.forEach(chip => {
-                chip.addEventListener('click', function() {
+            // Use event delegation for filter chips
+            document.addEventListener('click', (e) => {
+                const chip = e.target.closest('.filter-chip');
+                if (chip) {
                     // Toggle active state
-                    filterChips.chips.forEach(c => {
+                    document.querySelectorAll('.filter-chip').forEach(c => {
                         c.classList.remove('active');
                         c.setAttribute('aria-pressed', 'false');
                     });
                     
-                    this.classList.add('active');
-                    this.setAttribute('aria-pressed', 'true');
-                });
+                    chip.classList.add('active');
+                    chip.setAttribute('aria-pressed', 'true');
+                }
             });
         }
     };
@@ -301,11 +382,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
+    // User profile badge functionality
+    const userProfileBadge = {
+        init() {
+            // Add click event to user profile badge
+            document.addEventListener('click', (e) => {
+                const badge = e.target.closest('.user-profile-badge');
+                if (badge) {
+                    // Handle profile badge click
+                    console.log('Profile badge clicked');
+                    // You can add navigation to profile page here
+                }
+            });
+        }
+    };
+    
     // Initialize all components
+    glassEffect.init();
+    tabManager.init();
     darkMode.init();
     mobileMenu.init();
     notifications.init();
     chatbot.init();
     filterChips.init();
     keyboardDetection.init();
+    userProfileBadge.init();
 });

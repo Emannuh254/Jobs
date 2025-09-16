@@ -1,5 +1,3 @@
-/* Dark Mode Implementation */
-
 /* Dark Mode Variables */
 :root {
     /* Light Mode (Default) */
@@ -60,68 +58,6 @@
     --message-bg: #334155;
     --message-sent-bg: #166534;
     --chat-bg: #1e293b;
-}
-
-/* Apply dark mode based on system preference */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #6366f1;
-        --secondary-color: #8b5cf6;
-        --accent-color: #f472b6;
-        --dark-color: #0f172a;
-        --light-color: #1e293b;
-        --text-color: #e2e8f0;
-        --text-light: #94a3b8;
-        --border-color: #334155;
-        --bg-light: #0f172a;
-        --bg-dark: #020617;
-        --success-color: #34d399;
-        --error-color: #f87171;
-        --warning-color: #fbbf24;
-        --info-color: #60a5fa;
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-        --card-bg: #1e293b;
-        --input-bg: #334155;
-        --header-bg: #0f172a;
-        --footer-bg: #020617;
-        --hover-bg: #334155;
-        --message-bg: #334155;
-        --message-sent-bg: #166534;
-        --chat-bg: #1e293b;
-    }
-    
-    /* Override with user preference if set */
-    [data-theme="light"] {
-        --primary-color: #4f46e5;
-        --secondary-color: #7c3aed;
-        --accent-color: #ec4899;
-        --dark-color: #1e293b;
-        --light-color: #f8fafc;
-        --text-color: #334155;
-        --text-light: #64748b;
-        --border-color: #e2e8f0;
-        --bg-light: #f1f5f9;
-        --bg-dark: #0f172a;
-        --success-color: #10b981;
-        --error-color: #ef4444;
-        --warning-color: #f59e0b;
-        --info-color: #3b82f6;
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        --card-bg: #ffffff;
-        --input-bg: #ffffff;
-        --header-bg: #ffffff;
-        --footer-bg: #1e293b;
-        --hover-bg: #f1f5f9;
-        --message-bg: #ffffff;
-        --message-sent-bg: #dcf8c6;
-        --chat-bg: #e9ecef;
-    }
 }
 
 /* Global Styles */
@@ -295,30 +231,68 @@ body {
 .mobile-side-navbar {
     position: fixed;
     top: 0;
-    left: -300px;
+    right: -300px;
     width: 300px;
     height: 100vh;
-    background-color: var(--bg-dark);
+    background: linear-gradient(135deg, var(--dark), #1e293b);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     z-index: 1001;
     overflow-y: auto;
-    transition: left 0.3s ease;
-    box-shadow: var(--shadow-lg);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mobile-side-navbar.show {
-    left: 0;
+.mobile-side-navbar.open {
+    right: 0;
 }
 
+/* Enhanced Mobile Side Navbar Header */
 .mobile-side-navbar-header {
     padding: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
 }
 
+/* Improved Mobile User Profile */
 .mobile-user-profile {
     padding: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    border-radius: 10px;
 }
 
+.mobile-user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-user-info h4 {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.mobile-user-info p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+/* Enhanced Mobile Navigation */
 .mobile-nav {
     padding: 15px 0;
 }
@@ -329,31 +303,82 @@ body {
     padding: 12px 20px;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    margin: 2px 15px;
+}
+
+.mobile-nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
 }
 
 .mobile-nav-link:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
+    transform: translateX(-5px);
+}
+
+.mobile-nav-link:hover::before {
+    transform: scaleY(1);
 }
 
 .mobile-nav-link.active {
-    background-color: rgba(79, 70, 229, 0.2);
+    background-color: rgba(37, 99, 235, 0.2);
     color: white;
-    border-left: 3px solid var(--primary-color);
+    border-radius: 0;
+    border-right: 3px solid var(--primary);
 }
 
+.mobile-nav-link.active::before {
+    transform: scaleY(1);
+}
+
+.mobile-nav-link i {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav-link:hover i {
+    transform: scale(1.1);
+}
+
+/* Enhanced Mobile Nav Section */
 .mobile-nav-section {
-    padding: 15px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 20px 0;
+    padding: 0 15px;
 }
 
 .mobile-nav-section h3 {
-    padding: 0 20px 10px;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.75rem;
+    margin-bottom: 10px;
+    color: #9ca3af;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    padding: 8px 0;
+    position: relative;
+}
+
+.mobile-nav-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 /* Mobile Menu Overlay */
@@ -363,16 +388,49 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
-.mobile-menu-overlay.show {
+.mobile-menu-overlay.open {
     opacity: 1;
     visibility: visible;
+}
+
+/* Animation for the mobile menu */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.mobile-side-navbar.open {
+    animation: slideInRight 0.3s ease-out;
+}
+
+.mobile-side-navbar.closing {
+    animation: slideOutRight 0.3s ease-out;
 }
 
 /* Main Content */
@@ -721,6 +779,23 @@ main {
     .chatbot-window {
         bottom: 60px;
         height: 60vh;
+    }
+    
+    .mobile-side-navbar {
+        width: 280px;
+        right: -280px;
+    }
+    
+    .mobile-nav-link {
+        padding: 10px 15px;
+        margin: 2px 10px;
+    }
+    
+    .mobile-user-profile {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        margin: 10px;
     }
 }
 

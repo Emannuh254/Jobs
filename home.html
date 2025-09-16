@@ -6,186 +6,190 @@
     <title>Derrick Mawira Jobs Parlour</title>
     <meta name="description" content="Find your dream job at Derrick Mawira Jobs Parlour">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-     <!-- Header -->
-<header class="header">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-briefcase text-white"></i>
-                </div>
-                <span class="logo">Derrick Mawira Jobs Parlour</span>
-            </div>
-            
-            <nav class="hidden md:flex space-x-8">
-                <a href="home.html" class="nav-link">Jobs</a>
-                <a href="referrals.html" class="nav-link">Referrals</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="profile.html" class="nav-link">Profile</a>
-                <a href="settings.html" class="nav-link">Settings</a>
-                <a href="help.html" class="nav-link">Help</a>
-            </nav>
-            
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <button class="text-white hover:text-indigo-200 transition-colors relative" aria-label="Notifications" id="notification-toggle">
-                        <i class="fas fa-bell"></i>
-                        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-                    </button>
-                </div>
-                <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Dark mode toggle" id="dark-mode-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="profile.html" class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
-                    <i class="fas fa-user-circle text-xl"></i>
-                </a>
-                <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
+    <div class="user-profile-badge">
+    <div class="user-profile-avatar">DM</div>
+    <div class="user-profile-info">
+        <div class="user-profile-name">Derrick Mawira</div>
+        <div class="user-profile-id">jobsparlour</div>
     </div>
-</header>
-
-<!-- Notification Panel -->
-<div class="notification-panel" id="notification-panel">
-    <div class="notification-panel-header">
-        <h3>Notifications</h3>
-        <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-    <div class="notification-panel-content">
-        <div class="notification-item unread">
-            <div class="notification-icon">
-                <i class="fas fa-briefcase text-indigo-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">New job match</p>
-                <p class="text-sm text-gray-500">A new position matches your skills</p>
-            </div>
-            <div class="notification-time">2 hours ago</div>
-        </div>
-        <div class="notification-item unread">
-            <div class="notification-icon">
-                <i class="fas fa-user-friends text-green-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">Referral update</p>
-                <p class="text-sm text-gray-500">Your referral has been viewed</p>
-            </div>
-            <div class="notification-time">1 day ago</div>
-        </div>
-        <div class="notification-item">
-            <div class="notification-icon">
-                <i class="fas fa-calendar text-blue-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">Interview scheduled</p>
-                <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
-            </div>
-            <div class="notification-time">2 days ago</div>
-        </div>
-        <div class="notification-item">
-            <div class="notification-icon">
-                <i class="fas fa-check-circle text-green-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">Application received</p>
-                <p class="text-sm text-gray-500">Your application was successfully submitted</p>
-            </div>
-            <div class="notification-time">3 days ago</div>
-        </div>
-    </div>
-    <div class="notification-panel-footer">
-        <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
-    </div>
+    <div class="status-indicator"></div>
 </div>
 
 
-    <!-- Mobile Side Navbar -->
-<!-- Mobile Side Navbar -->
-<div class="mobile-side-navbar" id="mobile-side-navbar">
-    <div class="mobile-side-navbar-header">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-briefcase text-white text-sm"></i>
+    <!-- Header -->
+    <header class="header">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white"></i>
+                    </div>
+                    <span class="logo">Derrick Mawira Jobs Parlour</span>
                 </div>
-                <span class="text-white font-bold">Derrick Mawira Jobs</span>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="home.html" class="nav-link">Jobs</a>
+                    <a href="referrals.html" class="nav-link">Referrals</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="profile.html" class="nav-link">Profile</a>
+                    <a href="settings.html" class="nav-link">Settings</a>
+                    <a href="help.html" class="nav-link">Help</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button class="text-white hover:text-indigo-200 transition-colors relative" aria-label="Notifications" id="notification-toggle">
+                            <i class="fas fa-bell"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                    </div>
+                    <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Dark mode toggle" id="dark-mode-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="profile.html" class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </a>
+                    <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
-            <button class="text-white" id="close-mobile-menu">
+        </div>
+    </header>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notification-panel">
+        <div class="notification-panel-header">
+            <h3>Notifications</h3>
+            <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-    </div>
-    
-    <div class="mobile-side-navbar-content">
-        <div class="mobile-user-profile">
-            <div class="flex items-center space-x-3">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
-                <div>
-                    <div class="text-white font-medium">John Doe</div>
-                    <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
+        <div class="notification-panel-content">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-briefcase text-indigo-500"></i>
                 </div>
+                <div class="notification-text">
+                    <p class="font-medium">New job match</p>
+                    <p class="text-sm text-gray-500">A new position matches your skills</p>
+                </div>
+                <div class="notification-time">2 hours ago</div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-user-friends text-green-500"></i>
+                </div>
+                <div class="notification-text">
+                    <p class="font-medium">Referral update</p>
+                    <p class="text-sm text-gray-500">Your referral has been viewed</p>
+                </div>
+                <div class="notification-time">1 day ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-calendar text-blue-500"></i>
+                </div>
+                <div class="notification-text">
+                    <p class="font-medium">Interview scheduled</p>
+                    <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
+                </div>
+                <div class="notification-time">2 days ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                </div>
+                <div class="notification-text">
+                    <p class="font-medium">Application received</p>
+                    <p class="text-sm text-gray-500">Your application was successfully submitted</p>
+                </div>
+                <div class="notification-time">3 days ago</div>
+            </div>
+        </div>
+        <div class="notification-panel-footer">
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
+        </div>
+    </div>
+
+    <!-- Mobile Side Navbar -->
+    <div class="mobile-side-navbar" id="mobile-side-navbar">
+        <div class="mobile-side-navbar-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-sm"></i>
+                    </div>
+                    <span class="text-white font-bold">Derrick Mawira Jobs</span>
+                </div>
+                <button class="text-white" id="close-mobile-menu">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
         
-        <nav class="mobile-nav">
-            <a href="home.html" class="mobile-nav-link">
-                <i class="fas fa-home mr-3"></i> Jobs
-            </a>
-            <a href="referrals.html" class="mobile-nav-link">
-                <i class="fas fa-user-friends mr-3"></i> Referrals
-            </a>
-            <a href="about.html" class="mobile-nav-link">
-                <i class="fas fa-info-circle mr-3"></i> About
-            </a>
-            <a href="profile.html" class="mobile-nav-link active">
-                <i class="fas fa-user mr-3"></i> Profile
-            </a>
-            <a href="settings.html" class="mobile-nav-link">
-                <i class="fas fa-cog mr-3"></i> Settings
-            </a>
-            <a href="help.html" class="mobile-nav-link">
-                <i class="fas fa-question-circle mr-3"></i> Help
-            </a>
-        </nav>
-        
-        <div class="mobile-nav-section">
-            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
-            <a href="account.html" class="mobile-nav-link">
-                <i class="fas fa-user-circle mr-3"></i> My Account
-            </a>
-            <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
-                <i class="fas fa-moon mr-3"></i> Dark Mode
-            </button>
-        </div>
-        
-        <div class="mobile-nav-section">
-            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
-            <button class="mobile-nav-link" id="mobile-chatbot-toggle">
-                <i class="fab fa-whatsapp mr-3"></i> Chat Support
-            </button>
-            <a href="#" class="mobile-nav-link">
-                <i class="fas fa-envelope mr-3"></i> Contact Us
-            </a>
+        <div class="mobile-side-navbar-content">
+            <div class="mobile-user-profile">
+                <div class="flex items-center space-x-3">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
+                    <div>
+                        <div class="text-white font-medium">John Doe</div>
+                        <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="mobile-nav">
+                <a href="home.html" class="mobile-nav-link">
+                    <i class="fas fa-home mr-3"></i> Jobs
+                </a>
+                <a href="referrals.html" class="mobile-nav-link">
+                    <i class="fas fa-user-friends mr-3"></i> Referrals
+                </a>
+                <a href="about.html" class="mobile-nav-link">
+                    <i class="fas fa-info-circle mr-3"></i> About
+                </a>
+                <a href="profile.html" class="mobile-nav-link active">
+                    <i class="fas fa-user mr-3"></i> Profile
+                </a>
+                <a href="settings.html" class="mobile-nav-link">
+                    <i class="fas fa-cog mr-3"></i> Settings
+                </a>
+                <a href="help.html" class="mobile-nav-link">
+                    <i class="fas fa-question-circle mr-3"></i> Help
+                </a>
+            </nav>
+            
+            <div class="mobile-nav-section">
+                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
+                <a href="account.html" class="mobile-nav-link">
+                    <i class="fas fa-user-circle mr-3"></i> My Account
+                </a>
+                <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
+                    <i class="fas fa-moon mr-3"></i> Dark Mode
+                </button>
+            </div>
+            
+            <div class="mobile-nav-section">
+                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
+                <button class="mobile-nav-link" id="mobile-chatbot-toggle">
+                    <i class="fab fa-whatsapp mr-3"></i> Chat Support
+                </button>
+                <a href="#" class="mobile-nav-link">
+                    <i class="fas fa-envelope mr-3"></i> Contact Us
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Overlay for mobile menu -->
-<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-    
     <!-- Overlay for mobile menu -->
     <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-
+    
     <!-- Main Content -->
     <main class="flex-grow">
         <!-- Jobs Page -->
@@ -216,148 +220,12 @@
                 <!-- Job Listings -->
                 <h2 class="text-2xl font-bold mb-6">Latest Job Postings</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Job Card 1 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Senior Frontend Developer</h3>
-                                <p class="text-gray-600">Tech Innovations Inc.</p>
-                            </div>
-                            <div class="job-type">Full-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>San Francisco, CA</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">We're looking for an experienced frontend developer to join our team and help build amazing user experiences.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$120k - $150k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 2 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">UX/UI Designer</h3>
-                                <p class="text-gray-600">Creative Solutions Ltd.</p>
-                            </div>
-                            <div class="job-type remote">Remote</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Remote</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Join our design team to create intuitive and beautiful interfaces for our growing platform.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$90k - $120k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 3 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Product Manager</h3>
-                                <p class="text-gray-600">Global Tech Corp</p>
-                            </div>
-                            <div class="job-type">Full-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>New York, NY</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Lead product development and strategy for our flagship products in a fast-paced environment.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$130k - $160k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 4 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Data Scientist</h3>
-                                <p class="text-gray-600">Data Insights Co.</p>
-                            </div>
-                            <div class="job-type contract">Contract</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Austin, TX</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Help us extract valuable insights from complex datasets to drive business decisions.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$100k - $130k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 5 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Marketing Specialist</h3>
-                                <p class="text-gray-600">Brand Builders Inc.</p>
-                            </div>
-                            <div class="job-type part-time">Part-time</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Chicago, IL</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Develop and execute marketing campaigns to increase brand awareness and customer engagement.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$60k - $80k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
-                    
-                    <!-- Job Card 6 -->
-                    <article class="job-card p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800">Backend Developer</h3>
-                                <p class="text-gray-600">Cloud Systems Ltd.</p>
-                            </div>
-                            <div class="job-type remote">Remote</div>
-                        </div>
-                        
-                        <div class="flex items-center text-gray-600 mb-4">
-                            <i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>
-                            <span>Remote</span>
-                        </div>
-                        
-                        <p class="text-gray-700 mb-4">Build scalable and efficient backend systems to support our growing user base.</p>
-                        
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-indigo-600">$110k - $140k</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Apply Now</button>
-                        </div>
-                    </article>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="job-listings">
+                    <!-- Job cards will be dynamically inserted here -->
                 </div>
                 
                 <div class="mt-8 text-center">
-                    <button class="btn-primary">Load More Jobs</button>
+                    <button class="btn-primary" id="load-more-jobs">Load More Jobs</button>
                 </div>
             </div>
         </div>
@@ -467,7 +335,6 @@
         </div>
     </footer>
     
-
-    <script src = "Js/tab.js"></script>
+    <script src="Js/tab.js"></script>
 </body>
 </html>

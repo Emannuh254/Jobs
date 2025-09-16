@@ -5,488 +5,475 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Derrick Mawira Jobs Parlour</title>
     <meta name="description" content="Manage your profile and job applications at Derrick Mawira Jobs Parlour">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
-         <!-- Header -->
-     <!-- Header -->
-<header class="header">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-briefcase text-white"></i>
+    <header class="header bg-gray-900 text-white">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white"></i>
+                    </div>
+                    <span class="logo">Derrick Mawira Jobs Parlour</span>
                 </div>
-                <span class="logo">Derrick Mawira Jobs Parlour</span>
-            </div>
-            
-            <nav class="hidden md:flex space-x-8">
-                <a href="home.html" class="nav-link">Jobs</a>
-                <a href="referrals.html" class="nav-link">Referrals</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="profile.html" class="nav-link">Profile</a>
-                <a href="settings.html" class="nav-link">Settings</a>
-                <a href="help.html" class="nav-link">Help</a>
-            </nav>
-            
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <button class="text-white hover:text-indigo-200 transition-colors relative" aria-label="Notifications" id="notification-toggle">
-                        <i class="fas fa-bell"></i>
-                        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="home.html" class="nav-link">Jobs</a>
+                    <a href="referrals.html" class="nav-link">Referrals</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="profile.html" class="nav-link">Profile</a>
+                    <a href="settings.html" class="nav-link">Settings</a>
+                    <a href="help.html" class="nav-link">Help</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button class="text-white hover:text-indigo-200 transition-colors relative" aria-label="Notifications" id="notification-toggle">
+                            <i class="fas fa-bell"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                    </div>
+                    <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Dark mode toggle" id="dark-mode-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="profile.html" class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </a>
+                    <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
-                <button class="text-white hover:text-indigo-200 transition-colors" aria-label="Dark mode toggle" id="dark-mode-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="profile.html" class="text-white hover:text-indigo-200 transition-colors" aria-label="User profile">
-                    <i class="fas fa-user-circle text-xl"></i>
-                </a>
-                <button class="md:hidden text-white" id="mobile-menu-button" aria-label="Mobile menu">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<!-- Notification Panel -->
-<div class="notification-panel" id="notification-panel">
-    <div class="notification-panel-header">
-        <h3>Notifications</h3>
-        <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-    <div class="notification-panel-content">
-        <div class="notification-item unread">
-            <div class="notification-icon">
-                <i class="fas fa-briefcase text-indigo-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">New job match</p>
-                <p class="text-sm text-gray-500">A new position matches your skills</p>
-            </div>
-            <div class="notification-time">2 hours ago</div>
-        </div>
-        <div class="notification-item unread">
-            <div class="notification-icon">
-                <i class="fas fa-user-friends text-green-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">Referral update</p>
-                <p class="text-sm text-gray-500">Your referral has been viewed</p>
-            </div>
-            <div class="notification-time">1 day ago</div>
-        </div>
-        <div class="notification-item">
-            <div class="notification-icon">
-                <i class="fas fa-calendar text-blue-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">Interview scheduled</p>
-                <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
-            </div>
-            <div class="notification-time">2 days ago</div>
-        </div>
-        <div class="notification-item">
-            <div class="notification-icon">
-                <i class="fas fa-check-circle text-green-500"></i>
-            </div>
-            <div class="notification-text">
-                <p class="font-medium">Application received</p>
-                <p class="text-sm text-gray-500">Your application was successfully submitted</p>
-            </div>
-            <div class="notification-time">3 days ago</div>
-        </div>
-    </div>
-    <div class="notification-panel-footer">
-        <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
-    </div>
-</div>
-
-
-    <!-- Mobile Side Navbar -->
-<!-- Mobile Side Navbar -->
-<div class="mobile-side-navbar" id="mobile-side-navbar">
-    <div class="mobile-side-navbar-header">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-briefcase text-white text-sm"></i>
-                </div>
-                <span class="text-white font-bold">Derrick Mawira Jobs</span>
-            </div>
-            <button class="text-white" id="close-mobile-menu">
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notification-panel">
+        <div class="notification-panel-header">
+            <h3>Notifications</h3>
+            <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-    </div>
-    
-    <div class="mobile-side-navbar-content">
-        <div class="mobile-user-profile">
-            <div class="flex items-center space-x-3">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
-                <div>
-                    <div class="text-white font-medium">John Doe</div>
-                    <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
+        <div class="notification-panel-content">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-briefcase text-indigo-500"></i>
                 </div>
+                <div class="notification-text">
+                    <p class="font-medium">New job match</p>
+                    <p class="text-sm text-gray-500">A new position matches your skills</p>
+                </div>
+                <div class="notification-time">2 hours ago</div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-user-friends text-green-500"></i>
+                </div>
+                <div class="notification-text">
+                    <p class="font-medium">Referral update</p>
+                    <p class="text-sm text-gray-500">Your referral has been viewed</p>
+                </div>
+                <div class="notification-time">1 day ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-calendar text-blue-500"></i>
+                </div>
+                <div class="notification-text">
+                    <p class="font-medium">Interview scheduled</p>
+                    <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
+                </div>
+                <div class="notification-time">2 days ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                </div>
+                <div class="notification-text">
+                    <p class="font-medium">Application received</p>
+                    <p class="text-sm text-gray-500">Your application was successfully submitted</p>
+                </div>
+                <div class="notification-time">3 days ago</div>
+            </div>
+        </div>
+        <div class="notification-panel-footer">
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
+        </div>
+    </div>
+
+    <!-- Mobile Side Navbar -->
+    <div class="mobile-side-navbar" id="mobile-side-navbar">
+        <div class="mobile-side-navbar-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-sm"></i>
+                    </div>
+                    <span class="text-white font-bold">Derrick Mawira Jobs</span>
+                </div>
+                <button class="text-white" id="close-mobile-menu">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
         
-        <nav class="mobile-nav">
-            <a href="home.html" class="mobile-nav-link">
-                <i class="fas fa-home mr-3"></i> Jobs
-            </a>
-            <a href="referrals.html" class="mobile-nav-link">
-                <i class="fas fa-user-friends mr-3"></i> Referrals
-            </a>
-            <a href="about.html" class="mobile-nav-link">
-                <i class="fas fa-info-circle mr-3"></i> About
-            </a>
-            <a href="profile.html" class="mobile-nav-link active">
-                <i class="fas fa-user mr-3"></i> Profile
-            </a>
-            <a href="settings.html" class="mobile-nav-link">
-                <i class="fas fa-cog mr-3"></i> Settings
-            </a>
-            <a href="help.html" class="mobile-nav-link">
-                <i class="fas fa-question-circle mr-3"></i> Help
-            </a>
-        </nav>
-        
-        <div class="mobile-nav-section">
-            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
-            <a href="account.html" class="mobile-nav-link">
-                <i class="fas fa-user-circle mr-3"></i> My Account
-            </a>
-            <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
-                <i class="fas fa-moon mr-3"></i> Dark Mode
-            </button>
-        </div>
-        
-        <div class="mobile-nav-section">
-            <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
-            <button class="mobile-nav-link" id="mobile-chatbot-toggle">
-                <i class="fab fa-whatsapp mr-3"></i> Chat Support
-            </button>
-            <a href="#" class="mobile-nav-link">
-                <i class="fas fa-envelope mr-3"></i> Contact Us
-            </a>
+        <div class="mobile-side-navbar-content">
+            <div class="mobile-user-profile">
+                <div class="flex items-center space-x-3">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
+                    <div>
+                        <div class="text-white font-medium">John Doe</div>
+                        <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="mobile-nav">
+                <a href="home.html" class="mobile-nav-link active">
+                    <i class="fas fa-home mr-3"></i> Jobs
+                </a>
+                <a href="referrals.html" class="mobile-nav-link">
+                    <i class="fas fa-user-friends mr-3"></i> Referrals
+                </a>
+                <a href="about.html" class="mobile-nav-link">
+                    <i class="fas fa-info-circle mr-3"></i> About
+                </a>
+                <a href="profile.html" class="mobile-nav-link">
+                    <i class="fas fa-user mr-3"></i> Profile
+                </a>
+                <a href="settings.html" class="mobile-nav-link">
+                    <i class="fas fa-cog mr-3"></i> Settings
+                </a>
+                <a href="help.html" class="mobile-nav-link">
+                    <i class="fas fa-question-circle mr-3"></i> Help
+                </a>
+            </nav>
+            
+            <div class="mobile-nav-section">
+                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
+                <a href="account.html" class="mobile-nav-link">
+                    <i class="fas fa-user-circle mr-3"></i> My Account
+                </a>
+                <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
+                    <i class="fas fa-moon mr-3"></i> Dark Mode
+                </button>
+            </div>
+            
+            <div class="mobile-nav-section">
+                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
+                <button class="mobile-nav-link" id="mobile-chatbot-toggle">
+                    <i class="fab fa-whatsapp mr-3"></i> Chat Support
+                </button>
+                <a href="#" class="mobile-nav-link">
+                    <i class="fas fa-envelope mr-3"></i> Contact Us
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Overlay for mobile menu -->
-<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-    
     <!-- Overlay for mobile menu -->
     <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-    <!-- Main Content -->
-    <main class="flex-grow">
-        <!-- Profile Page -->
-        <div id="profile-page" class="page active">
-            <div class="container mx-auto px-4 py-8">
-                <div class="bg-white rounded-xl shadow-md p-8 mb-8">
-                    <div class="flex flex-col md:flex-row items-center md:items-start">
-                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="profile-avatar mb-6 md:mb-0 md:mr-8">
+
+    <!-- Profile Completion Modal -->
+    <div class="modal fade" id="profileCompletionModal" tabindex="-1" aria-labelledby="profileCompletionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="profileCompletionModalLabel">Complete Your Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <div>
+                            <strong>Important!</strong> Complete your profile to be visible to employers and increase your chances of getting hired.
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Profile Completion</span>
+                            <span id="completion-percentage">0%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div id="completion-progress" class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-3">Your profile is incomplete. Please provide the following information to continue:</p>
+                    <ul id="missingFieldsList" class="list-group mb-3">
+                        <!-- Missing fields will be populated here -->
+                    </ul>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Later</button>
+                        <button type="button" class="btn btn-primary" id="completeProfileBtn">Complete Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="mb-3">
+                            <label class="form-label">Profile Image</label>
+                            <div class="d-flex align-items-center mb-3">
+                                <img id="editProfileImagePreview" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile Preview" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                <div>
+                                    <input type="file" class="form-control" id="profileImageUpload" accept="image/*">
+                                    <small class="text-muted">JPG, PNG or GIF. Max size of 5MB</small>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <div class="text-center md:text-left flex-grow">
-                            <h1 class="text-3xl font-bold mb-2">John Doe</h1>
-                            <p class="text-gray-600 mb-4">Senior Frontend Developer</p>
-                            
-                            <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-6">
-                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">React</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">TypeScript</span>
-                                <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">CSS</span>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
                             </div>
-                            
-                            <div class="flex justify-center md:justify-start space-x-4">
-                                <button class="btn-primary">Edit Profile</button>
-                                <button class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-50">
-                                    <i class="fas fa-download mr-2" aria-hidden="true"></i>Download Resume
-                                </button>
+                            <div class="col-md-6">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
                             </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="region" class="form-label">Region</label>
+                                <select class="form-select" id="region" required>
+                                    <option value="">Select Region</option>
+                                    <option value="nairobi">Nairobi</option>
+                                    <option value="coast">Coast</option>
+                                    <option value="eastern">Eastern</option>
+                                    <option value="central">Central</option>
+                                    <option value="rift-valley">Rift Valley</option>
+                                    <option value="western">Western</option>
+                                    <option value="nyanza">Nyanza</option>
+                                    <option value="north-eastern">North Eastern</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="profession" class="form-label">Profession</label>
+                            <input type="text" class="form-control" id="profession" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="bio" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Skills</label>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" id="skillInput" placeholder="Add a skill">
+                                <button class="btn btn-outline-primary" type="button" id="addSkillBtn">Add</button>
+                            </div>
+                            <div id="skillsList" class="d-flex flex-wrap gap-2">
+                                <!-- Skills will be populated here -->
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Documents</label>
+                            <div class="mb-2">
+                                <label for="resumeUpload" class="form-label">Resume/CV</label>
+                                <input type="file" class="form-control" id="resumeUpload" accept=".pdf,.doc,.docx">
+                            </div>
+                            <div class="mb-2">
+                                <label for="certUpload" class="form-label">Certificates</label>
+                                <input type="file" class="form-control" id="certUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                            </div>
+                            <div id="documentsList" class="mt-2">
+                                <!-- Uploaded documents will be listed here -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Profile Completion Alert -->
+        <div id="profileCompletionAlert" class="alert alert-warning alert-dismissible fade show mb-4 d-none" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <div>
+                    <strong>Complete Your Profile!</strong> Your profile is incomplete. Complete it to be visible to employers and increase your chances of getting hired.
+                    <div class="mt-2">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Profile Completion</span>
+                            <span id="header-completion-percentage">0%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div id="header-completion-progress" class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <button id="completeProfileFromAlert" class="btn btn-warning btn-sm ms-auto">Complete Now</button>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body text-center">
+                        <img id="profileImage" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h4 id="profileName" class="card-title">John Doe</h4>
+                        <p id="profileProfession" class="text-muted">Senior Frontend Developer</p>
+                        <button id="editProfileBtn" class="btn btn-primary btn-sm">Edit Profile</button>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Contact Information</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-envelope text-primary me-2"></i>
+                                <span id="profileEmail">john.doe@example.com</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-phone text-primary me-2"></i>
+                                <span id="profilePhone">+1 (555) 123-4567</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <span id="profileLocation">San Francisco, CA</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-globe text-primary me-2"></i>
+                                <span id="profileRegion">Nairobi</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-9">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">About Me</h5>
+                        <p id="profileBio">Experienced frontend developer with over 7 years of expertise in building responsive and user-friendly web applications. Passionate about creating intuitive user experiences and writing clean, maintainable code.</p>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Skills</h5>
+                        <div id="profileSkills" class="d-flex flex-wrap gap-2">
+                            <!-- Skills will be populated here -->
                         </div>
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2">
-                        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                            <h2 class="text-xl font-bold mb-4">About Me</h2>
-                            <p class="text-gray-700 mb-4">Experienced frontend developer with over 7 years of expertise in building responsive and user-friendly web applications. Passionate about creating intuitive user experiences and writing clean, maintainable code.</p>
-                            <p class="text-gray-700">Currently seeking new opportunities to apply my skills and contribute to innovative projects in a collaborative environment.</p>
-                        </div>
-                        
-                        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                            <h2 class="text-xl font-bold mb-4">Experience</h2>
-                            
-                            <div class="mb-6 pb-6 border-b border-gray-200">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-bold">Senior Frontend Developer</h3>
-                                    <span class="text-gray-600 text-sm">2020 - Present</span>
-                                </div>
-                                <p class="text-indigo-600 mb-2">Tech Innovations Inc.</p>
-                                <p class="text-gray-700">Led the development of the company's flagship product, implementing new features and optimizing performance. Mentored junior developers and established best practices for the team.</p>
-                            </div>
-                            
-                            <div class="mb-6 pb-6 border-b border-gray-200">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-bold">Frontend Developer</h3>
-                                    <span class="text-gray-600 text-sm">2017 - 2020</span>
-                                </div>
-                                <p class="text-indigo-600 mb-2">Digital Solutions Ltd.</p>
-                                <p class="text-gray-700">Developed and maintained multiple client websites and web applications. Collaborated with designers and backend developers to deliver high-quality products.</p>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-bold">Junior Web Developer</h3>
-                                    <span class="text-gray-600 text-sm">2015 - 2017</span>
-                                </div>
-                                <p class="text-indigo-600 mb-2">Web Creators Agency</p>
-                                <p class="text-gray-700">Started my career as a junior developer, learning the fundamentals of web development and gaining hands-on experience with various technologies.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white rounded-xl shadow-md p-6">
-                            <h2 class="text-xl font-bold mb-4">Education</h2>
-                            
-                            <div class="mb-4 pb-4 border-b border-gray-200">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-bold">Bachelor of Science in Computer Science</h3>
-                                    <span class="text-gray-600 text-sm">2011 - 2015</span>
-                                </div>
-                                <p class="text-indigo-600">University of Technology</p>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-bold">Frontend Development Bootcamp</h3>
-                                    <span class="text-gray-600 text-sm">2015</span>
-                                </div>
-                                <p class="text-indigo-600">Code Academy</p>
-                            </div>
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Experience</h5>
+                        <div id="experienceList">
+                            <!-- Experience will be populated here -->
                         </div>
                     </div>
-                    
-                    <div>
-                        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                            <h2 class="text-xl font-bold mb-4">Contact Information</h2>
-                            
-                            <div class="space-y-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-envelope text-indigo-600 w-6" aria-hidden="true"></i>
-                                    <span class="ml-3">john.doe@example.com</span>
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <i class="fas fa-phone text-indigo-600 w-6" aria-hidden="true"></i>
-                                    <span class="ml-3">+1 (555) 123-4567</span>
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <i class="fas fa-map-marker-alt text-indigo-600 w-6" aria-hidden="true"></i>
-                                    <span class="ml-3">San Francisco, CA</span>
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <i class="fab fa-linkedin text-indigo-600 w-6" aria-hidden="true"></i>
-                                    <span class="ml-3">linkedin.com/in/johndoe</span>
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <i class="fab fa-github text-indigo-600 w-6" aria-hidden="true"></i>
-                                    <span class="ml-3">github.com/johndoe</span>
-                                </div>
-                            </div>
+                </div>
+                
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Education</h5>
+                        <div id="educationList">
+                            <!-- Education will be populated here -->
                         </div>
-                        
-                        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                            <h2 class="text-xl font-bold mb-4">Profile Stats</h2>
-                            
-                            <div class="space-y-4">
-                                <div>
-                                    <div class="flex justify-between mb-1">
-                                        <span>Profile Views</span>
-                                        <span>1,245</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-indigo-600 h-2 rounded-full" style="width: 75%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="flex justify-between mb-1">
-                                        <span>Search Appearances</span>
-                                        <span>856</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-indigo-600 h-2 rounded-full" style="width: 60%"></div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="flex justify-between mb-1">
-                                        <span>Applications Sent</span>
-                                        <span>42</span>
-                                    </div>
-                                    <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-indigo-600 h-2 rounded-full" style="width: 40%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white rounded-xl shadow-md p-6">
-                            <h2 class="text-xl font-bold mb-4">Saved Jobs</h2>
-                            
-                            <div class="space-y-4">
-                                <div class="flex items-start">
-                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
-                                        <i class="fas fa-briefcase text-indigo-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold">Senior React Developer</h3>
-                                        <p class="text-gray-600 text-sm">Tech Innovations Inc.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
-                                        <i class="fas fa-briefcase text-indigo-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold">Frontend Architect</h3>
-                                        <p class="text-gray-600 text-sm">Digital Solutions Ltd.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
-                                        <i class="fas fa-briefcase text-indigo-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold">UI/UX Developer</h3>
-                                        <p class="text-gray-600 text-sm">Creative Agency</p>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Documents</h5>
+                        <div id="documentsListMain">
+                            <!-- Documents will be populated here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <!-- WhatsApp-like Chatbot -->
+
+    <!-- Chatbot -->
     <div class="chatbot-container">
-        <div class="chatbot-window" id="chatbot-window">
+        <button id="chatbot-button" class="chatbot-button">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <div id="chatbot-window" class="chatbot-window">
             <div class="chatbot-header">
                 <div class="chatbot-header-info">
                     <div class="chatbot-header-avatar">
                         <i class="fas fa-headset"></i>
                     </div>
                     <div>
-                        <div class="chatbot-header-name">Support Team</div>
+                        <div class="chatbot-header-name">Support Assistant</div>
                         <div class="chatbot-header-status">Online</div>
                     </div>
                 </div>
-                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
+                <button id="chatbot-close" class="chatbot-close">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
-            <div class="chatbot-messages" id="chatbot-messages">
+            <div id="chatbot-messages" class="chatbot-messages">
                 <div class="message received">
                     <div>
                         <div class="message-bubble">Hello! How can I help you today?</div>
-                        <div class="message-time">10:30 AM</div>
+                        <div class="message-time">10:00 AM</div>
                     </div>
                 </div>
             </div>
-            
             <div class="chatbot-input-container">
-                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type a message..." aria-label="Type a message">
-                <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
+                <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type a message...">
+                <button id="chatbot-send" class="chatbot-send">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
         </div>
-        
-        <button class="chatbot-button" id="chatbot-button" aria-label="Open chat">
-            <i class="fab fa-whatsapp"></i>
-        </button>
     </div>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <i class="fas fa-briefcase text-white text-sm"></i>
-                        </div>
-                        <span class="text-white font-bold">Derrick Mawira Jobs Parlour</span>
-                    </div>
-                    <p class="text-gray-400">Connecting talented professionals with their dream opportunities.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="home.html" class="footer-link">Jobs</a></li>
-                        <li><a href="referrals.html" class="footer-link">Referrals</a></li>
-                        <li><a href="about.html" class="footer-link">About Us</a></li>
-                        <li><a href="help.html" class="footer-link">Help</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-bold mb-4">Resources</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="footer-link">Blog</a></li>
-                        <li><a href="#" class="footer-link">Career Advice</a></li>
-                        <li><a href="#" class="footer-link">FAQ</a></li>
-                        <li><a href="#" class="footer-link">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-bold mb-4">Connect With Us</h3>
-                    <div class="flex space-x-4 mb-4">
-                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                    <p class="text-gray-400">Subscribe to our newsletter for the latest job updates.</p>
-                    <div class="mt-4 flex">
-                        <input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 rounded-l-lg w-full focus:outline-none" aria-label="Your email">
-                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-700">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
-                <p>&copy; 2025 Derrick Mawira Jobs Parlour. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
 
-    <script src = "Js/tab.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Js/profile.js"></script>
+    
 </body>
 </html>
