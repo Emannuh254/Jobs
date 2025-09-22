@@ -1,0 +1,536 @@
+<!-- Save as: dollare-magnet.html -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>dollare magnet — Aviator Mini Game</title>
+<meta name="description" content="Dollare Magnet — simple aviator-style game with deposit & withdraw (demo)" />
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --muted:#94a3b8;
+    --accent:#6d28d9;
+    --accent-2:#06b6d4;
+    --success:#16a34a;
+    --danger:#ef4444;
+    --glass: rgba(255,255,255,0.04);
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:linear-gradient(180deg,var(--bg) 0%, #071021 100%);
+    color:#e6eef6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:20px;
+  }
+
+  /* Container */
+  .app{
+    width:100%;
+    max-width:980px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;
+    padding:18px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.7);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  /* Header / navbar (kept as requested) */
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    font-size:16px;
+  }
+  .brand .icon{
+    width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#6d28d9,#06b6d4);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+  }
+  .nav .links{display:flex;gap:12px;align-items:center}
+  .nav a{color:inherit;text-decoration:none;opacity:0.9;padding:8px;border-radius:8px}
+  .nav a:hover{background:rgba(255,255,255,0.02)}
+  .nav .actions{display:flex;gap:8px;align-items:center}
+
+  /* Main layout */
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+    gap:16px;
+  }
+  @media (max-width:860px){
+    .grid{grid-template-columns:1fr}
+  }
+
+  /* Left - game card */
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:10px;
+    padding:14px;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  .game-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+  .status{
+    display:flex;gap:10px;align-items:center;
+  }
+  .balance{
+    display:flex;flex-direction:column;text-align:right;
+  }
+  .balance .value{font-weight:700;font-size:20px}
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+  /* Plane / canvas */
+  .play-area{
+    height:260px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    border-radius:8px;
+    border:1px dashed rgba(255,255,255,0.03);
+    position:relative;
+    overflow:hidden;
+  }
+  .sky{
+    position:absolute;inset:0;background:linear-gradient(180deg,#071021 0%, #042033 100%);opacity:0.95;
+  }
+
+  /* multiplier */
+  .multiplier{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:linear-gradient(90deg,#ffffff08,#ffffff04);
+    padding:8px 12px;border-radius:8px;font-weight:700;font-size:18px;
+    box-shadow:0 4px 18px rgba(2,6,23,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  /* plane */
+  .plane{
+    position:absolute;
+    width:72px;
+    height:40px;
+    transform-origin:center center;
+    transition:transform 0.08s linear;
+    will-change:transform;
+  }
+  .plane svg{width:100%;height:100%;display:block;filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6))}
+  .flight-path{
+    position:absolute;left:0;right:0;bottom:0;top:0;pointer-events:none;
+  }
+
+  /* Betting controls */
+  .bet-row{display:flex;gap:8px;align-items:center;margin-top:12px}
+  .bet-row input[type="number"]{
+    background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:inherit;flex:1;
+  }
+  .btn {
+    background:var(--accent);
+    color:#fff;padding:10px 14px;border-radius:8px;border:none;font-weight:700;cursor:pointer;
+  }
+  .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600}
+  .btn.warn{background:var(--danger)}
+  .btn:disabled{opacity:0.5;cursor:not-allowed}
+
+  /* Right column (wallet & deposit/withdraw) */
+  .sidebar{display:flex;flex-direction:column;gap:12px}
+  .wallet{
+    padding:12px;border-radius:8px;background:linear-gradient(180deg,#071226,#08182b);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .wallet .title{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .wallet .wallet-balance{font-size:26px;font-weight:800;color:var(--accent-2)}
+  .wallet .small{font-size:13px;color:var(--muted)}
+
+  .wallet .actions{display:flex;gap:8px;margin-top:10px}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:80}
+  .modal{
+    width:100%;max-width:420px;background:linear-gradient(180deg,#071021,#041328);padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+    box-shadow:0 10px 30px rgba(2,6,23,0.7);
+  }
+  .modal h3{margin:0 0 8px 0}
+  .form-row{display:flex;gap:8px;align-items:center;margin-top:10px}
+  .form-row input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+
+  /* footer small */
+  .muted{color:var(--muted);font-size:13px;margin-top:8px}
+
+  /* small responsive tweaks */
+  @media (max-width:520px){
+    .plane{width:56px;height:32px}
+    .play-area{height:200px}
+    .nav .links{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Dollare Magnet game">
+    <!-- NAVBAR (kept similar to your original) -->
+    <div class="nav" role="navigation" aria-label="Main">
+      <div class="brand">
+        <div class="icon">DM</div>
+        <div>
+          <div>Derrick Mawira Jobs Parlour</div>
+          <div style="font-size:12px;color:var(--muted)">dollare magnet</div>
+        </div>
+      </div>
+      <div class="links" aria-hidden="false">
+        <a href="home.html">Jobs</a>
+        <a href="referrals.html">Referrals</a>
+        <a href="profile.html">Profile</a>
+        <a href="settings.html">Settings</a>
+      </div>
+      <div class="actions">
+        <button id="notifBtn" title="Notifications" class="btn secondary" style="padding:8px 10px"><span style="font-weight:700">🔔</span></button>
+        <button id="darkBtn" title="Toggle dark mode" class="btn secondary" style="padding:8px 10px">🌓</button>
+        <button id="mobileMenuBtn" class="btn secondary" style="padding:8px 10px;display:none">☰</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: Game -->
+      <div class="card" aria-live="polite">
+        <div class="game-top">
+          <div class="status">
+            <div style="font-size:13px;color:var(--muted)">Round status</div>
+            <div id="roundState" style="padding:6px 10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-left:6px;font-weight:700">IDLE</div>
+          </div>
+
+          <div class="balance" aria-hidden="false">
+            <div style="font-size:13px;color:var(--muted)">Wallet</div>
+            <div class="value" id="walletDisplay">$ <span id="walletAmount">100.00</span></div>
+          </div>
+        </div>
+
+        <!-- Play Area -->
+        <div class="play-area" id="playArea" role="region" aria-label="Game play area">
+          <div class="sky"></div>
+          <div class="multiplier" id="multiplierLabel">x1.00</div>
+
+          <!-- Flight path / plane -->
+          <div class="flight-path" id="flightPath">
+            <div class="plane" id="plane" style="left:12px;bottom:20px;transform:rotate(-8deg)">
+              <!-- simple airplane SVG -->
+              <svg viewBox="0 0 64 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <g fill="none" fill-rule="evenodd">
+                  <path d="M2 18c0 0 14-2 22-2 8 0 26 4 36 6 4 1 4 2 4 2s2 1 0 2c-1 1-6 0-10-1-12-3-28-4-36-2-8 2-16 3-16 3v-8z" fill="#fff" opacity="0.95"/>
+                  <path d="M42 6c1-2 4-1 5 0 2 2 2 6 2 6s-3-1-5-1c-2 0-4-2-2-5z" fill="#fff" opacity="0.95"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="bet-row" style="justify-content:space-between;align-items:center">
+          <div style="flex:1">
+            <label style="font-size:13px;color:var(--muted)">Bet amount (USD)</label>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <input id="betInput" type="number" min="1" step="0.01" value="5" aria-label="Bet amount" />
+              <button id="maxBetBtn" class="btn secondary">Max</button>
+            </div>
+            <div class="muted">Tip: Cash out before the plane crashes to win.</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;margin-left:12px">
+            <button id="startBtn" class="btn" style="min-width:130px">Start Round</button>
+            <button id="cashBtn" class="btn warn" style="min-width:130px" disabled>Cash Out</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Wallet + deposit/withdraw -->
+      <div class="sidebar">
+        <div class="wallet card" aria-hidden="false">
+          <div class="title">Your Wallet</div>
+          <div class="wallet-balance">$ <span id="walletAmtSidebar">100.00</span></div>
+          <div class="small muted" style="margin-top:6px">Balance is virtual (demo). Deposits & withdraws are simulated.</div>
+          <div class="actions">
+            <button id="depositBtn" class="btn" style="flex:1">Deposit</button>
+            <button id="withdrawBtn" class="btn secondary" style="flex:1">Withdraw</button>
+          </div>
+        </div>
+
+        <div class="card" style="padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-weight:700">Game history</div>
+            <div style="font-size:12px;color:var(--muted)">latest</div>
+          </div>
+          <div id="history" style="display:flex;flex-direction:column;gap:8px;max-height:200px;overflow:auto">
+            <div class="muted">No rounds yet — play to fill history.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;text-align:center;color:var(--muted);font-size:13px">
+      Built for demo — not real gambling. Use responsibly.
+    </div>
+  </div>
+
+  <!-- Modals (hidden by default) -->
+  <div id="modalContainer" aria-hidden="true"></div>
+
+<script>
+/*
+  All JS bundled here (single-file).
+  Game logic:
+  - walletBalance: user's balance (USD)
+  - bet flow: choose bet, start -> bet locked -> multiplier rises -> random crash occurs
+  - user can click Cash Out to secure winnings; otherwise lose bet on crash
+  - deposit/withdraw simulated via modal inputs
+*/
+
+(function(){
+  // State
+  let wallet = 100.00;
+  let inRound = false;
+  let bet = 0;
+  let multiplier = 1.0;
+  let crashed = false;
+  let rafId = null;
+  let startTime = null;
+  let crashAt = 0;
+  const crashMin = 1.2;
+  const crashMax = 8.0;
+
+  // Elements
+  const walletAmountEls = document.querySelectorAll('#walletAmount, #walletAmtSidebar, #walletDisplay #walletAmount');
+  const walletDisplayEl = document.getElementById('walletAmount');
+  const multiplierLabel = document.getElementById('multiplierLabel');
+  const planeEl = document.getElementById('plane');
+  const startBtn = document.getElementById('startBtn');
+  const cashBtn = document.getElementById('cashBtn');
+  const betInput = document.getElementById('betInput');
+  const maxBetBtn = document.getElementById('maxBetBtn');
+  const depositBtn = document.getElementById('depositBtn');
+  const withdrawBtn = document.getElementById('withdrawBtn');
+  const historyEl = document.getElementById('history');
+  const roundStateEl = document.getElementById('roundState');
+  const modalContainer = document.getElementById('modalContainer');
+
+  // Format helpers
+  const fmt = n => Number(n).toFixed(2);
+  function updateWalletDisplay(){
+    walletAmountEls.forEach(el => el.textContent = fmt(wallet));
+  }
+  updateWalletDisplay();
+
+  // Utility random crash multiplier (exponential-ish)
+  function sampleCrashMultiplier(){
+    // Use a distribution that favors lower multipliers but with long tail
+    // transform uniform u in (0,1) -> m in [crashMin, crashMax)
+    const u = Math.random();
+    // invertible transform to bias small: m = min + (max-min) * (u ^ 0.6)
+    const m = crashMin + (crashMax - crashMin) * Math.pow(u, 0.6);
+    return Math.max(crashMin, Math.min(crashMax, Number(m.toFixed(2))));
+  }
+
+  // Animate multiplier and plane
+  function animate(now){
+    if(!startTime) startTime = now;
+    const t = (now - startTime) / 1000; // seconds since start
+    // multiplier growth: exponential-ish for excitement
+    // base growth: 1.0 * e^(0.7 * t) capped to crashAt * 0.999
+    const growth = Math.exp(0.6 * t);
+    multiplier = Math.min(crashAt * 0.9999, Math.max(1.0, growth));
+    multiplier = Number(multiplier.toFixed(2));
+    multiplierLabel.textContent = 'x' + multiplier.toFixed(2);
+
+    // Move the plane: map multiplier -> position
+    // x progress  from 0% to 85% as multiplier goes from 1 to crashAt
+    const progress = Math.min(0.98, (Math.log(multiplier) / Math.log(crashAt)) ); // 0..1
+    const area = document.getElementById('playArea');
+    const areaRect = area.getBoundingClientRect();
+    const maxX = areaRect.width - planeEl.clientWidth - 14;
+    const maxY = areaRect.height - planeEl.clientHeight - 14;
+    const x = 12 + progress * maxX;
+    // subtly make plane go up as it goes forward
+    const y = 20 + (1 - progress) * (maxY - 20);
+    const angle = -12 + progress * 24; // rotate from -12 to +12 degrees
+    planeEl.style.left = x + 'px';
+    planeEl.style.bottom = y + 'px';
+    planeEl.style.transform = 'rotate(' + angle + 'deg)';
+
+    // Check crash
+    if (multiplier >= crashAt - 0.001) {
+      // crash moment
+      crashed = true;
+      endRound(false);
+      return;
+    }
+
+    // Continue animation
+    rafId = requestAnimationFrame(animate);
+  }
+
+  function startRound(){
+    if (inRound) return;
+    const val = Number(betInput.value || 0);
+    if (!val || val <= 0) { alert('Enter a valid bet amount.'); return; }
+    if (val > wallet) { alert('Insufficient funds. Deposit or reduce your bet.'); return; }
+
+    // lock bet
+    bet = Number(val.toFixed(2));
+    wallet = Number((wallet - bet).toFixed(2));
+    updateWalletDisplay();
+    inRound = true;
+    crashed = false;
+    multiplier = 1.0;
+    startTime = null;
+    roundStateEl.textContent = 'RUNNING';
+    startBtn.disabled = true;
+    cashBtn.disabled = false;
+    maxBetBtn.disabled = true;
+    betInput.disabled = true;
+
+    // pick crash multiplier
+    crashAt = sampleCrashMultiplier();
+
+    // start animation
+    rafId = requestAnimationFrame(animate);
+  }
+
+  function cashOut(){
+    if (!inRound || crashed) return;
+    // player cashes out at current multiplier
+    const win = Number((bet * multiplier).toFixed(2));
+    wallet = Number((wallet + win).toFixed(2));
+    logHistory({ result: 'CASHED', bet:bet, multiplier:multiplier, win: win});
+    endRound(true);
+  }
+
+  function endRound(won){
+    // stop animation
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    inRound = false;
+    startBtn.disabled = false;
+    cashBtn.disabled = true;
+    maxBetBtn.disabled = false;
+    betInput.disabled = false;
+    roundStateEl.textContent = crashed ? 'CRASHED' : 'IDLE';
+    // if crashed and not cashed out, bet already deducted; no change to wallet
+    if (crashed){
+      logHistory({ result: 'CRASH', bet:bet, multiplier:crashAt, win:0});
+    }
+    // reset plane (slight bounce)
+    planeEl.style.transition = 'transform 200ms ease, left 200ms ease, bottom 200ms ease';
+    setTimeout(()=> planeEl.style.transition = 'transform 80ms linear', 300);
+    updateWalletDisplay();
+    // reset multiplier label to x1 after short delay
+    setTimeout(()=> { multiplierLabel.textContent = 'x1.00'; }, 700);
+  }
+
+  function logHistory(row){
+    const el = document.createElement('div');
+    el.style.display = 'flex';
+    el.style.justifyContent = 'space-between';
+    el.style.padding = '8px';
+    el.style.borderRadius = '8px';
+    el.style.background = 'linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00))';
+    el.style.fontSize = '13px';
+    el.innerHTML = `<div><strong>${row.result}</strong> • $${row.bet.toFixed(2)}</div><div style="text-align:right;color:var(--muted)">${row.multiplier.toFixed(2)}x • win $${row.win.toFixed(2)}</div>`;
+    historyEl.prepend(el);
+    // cap history
+    while(historyEl.childElementCount > 12) historyEl.removeChild(historyEl.lastChild);
+  }
+
+  // deposit / withdraw modal helpers
+  function openModal(kind){
+    modalContainer.innerHTML = '';
+    modalContainer.setAttribute('aria-hidden', 'false');
+    const backdrop = document.createElement('div');
+    backdrop.className = 'modal-backdrop';
+    backdrop.innerHTML = `
+      <div class="modal" role="dialog" aria-modal="true">
+        <h3>${kind === 'deposit' ? 'Deposit funds' : 'Withdraw funds'}</h3>
+        <div style="font-size:13px;color:var(--muted);margin-top:6px">${kind === 'deposit' ? 'Add money to your demo wallet.' : 'Simulate withdrawing from your demo wallet.'}</div>
+        <div class="form-row">
+          <input id="modalAmt" type="number" min="1" step="0.01" placeholder="Amount in USD" />
+          <button id="modalConfirm" class="btn">${kind === 'deposit' ? 'Deposit' : 'Withdraw'}</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+          <button id="modalCancel" class="btn secondary">Cancel</button>
+        </div>
+      </div>
+    `;
+    modalContainer.appendChild(backdrop);
+
+    const modalAmt = backdrop.querySelector('#modalAmt');
+    const confirm = backdrop.querySelector('#modalConfirm');
+    const cancel = backdrop.querySelector('#modalCancel');
+
+    modalAmt.focus();
+
+    cancel.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', function(e){
+      if (e.target === backdrop) closeModal();
+    });
+
+    confirm.addEventListener('click', function(){
+      const v = Number(modalAmt.value || 0);
+      if (!v || v <= 0) { alert('Enter a valid amount'); return; }
+      if (kind === 'deposit'){
+        wallet = Number((wallet + v).toFixed(2));
+        updateWalletDisplay();
+      } else {
+        if (v > wallet){
+          alert('Insufficient funds to withdraw that amount.');
+          return;
+        }
+        wallet = Number((wallet - v).toFixed(2));
+        updateWalletDisplay();
+      }
+      closeModal();
+    });
+  }
+
+  function closeModal(){
+    modalContainer.innerHTML = '';
+    modalContainer.setAttribute('aria-hidden', 'true');
+  }
+
+  // UI wiring
+  startBtn.addEventListener('click', startRound);
+  cashBtn.addEventListener('click', cashOut);
+  maxBetBtn.addEventListener('click', function(){ betInput.value = fmt(wallet); });
+  depositBtn.addEventListener('click', function(){ openModal('deposit'); });
+  withdrawBtn.addEventListener('click', function(){ openModal('withdraw'); });
+
+  // Extras: keyboard shortcuts for quick testing (D deposit, W withdraw, S start, C cash)
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'd' || e.key === 'D') openModal('deposit');
+    if (e.key === 'w' || e.key === 'W') openModal('withdraw');
+    if (e.key === 's' || e.key === 'S') startRound();
+    if (e.key === 'c' || e.key === 'C') cashOut();
+  });
+
+  // small safety: prevent leaving page while in round
+  window.addEventListener('beforeunload', function(e){
+    if (inRound) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+
+  // no external JS imported per request; but keep placeholder for tab.js if user prefers to include later
+  // (we are self-contained)
+})();
+</script>
+</body>
+</html>

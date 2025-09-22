@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dollar Magnet - Premium Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Dark theme inspired by popular betting sites */
+            --primary: #ff3b30; /* Red for betting feel */
+            --secondary: #4cd964; /* Green for success */
+            --dark: #0f172a; /* Dark background */
+            --darker: #020617; /* Even darker */
+            --light: #f1f5f9; /* Light text */
+            --gray: #64748b; /* Gray text */
+            --dark-gray: #1e293b; /* Dark gray for cards */
+            --card-bg: #1e293b; /* Card background */
+            --accent: #007aff; /* Blue accent */
+            --gold: #ffd700; /* Gold for balance */
+            --success: #10b981; /* Success green */
+            --danger: #ef4444; /* Danger red */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--light);
+        }
+
+        .balance-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .balance {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .balance i {
+            color: var(--gold);
+        }
+
+        .balance span {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .deposit-btn, .withdraw-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+        }
+
+        .deposit-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, #ff6b6b 100%);
+        }
+
+        .deposit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.4);
+        }
+
+        .withdraw-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, #34d399 100%);
+        }
+
+        .withdraw-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 217, 100, 0.4);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+        }
+
+        /* Game Area */
+        .game-area {
+            grid-column: 1;
+            grid-row: 1 / 3;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #game-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        #multiplier-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 6rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        /* History Section */
+        .history-section {
+            grid-column: 1;
+            grid-row: 3;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .history-header h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .history-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .history-item {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .history-item.low {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .history-item.high {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-column: 2;
+            grid-row: 1 / 4;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* User Profile */
+        .user-profile {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar i {
+            font-size: 36px;
+            color: white;
+        }
+
+        .user-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .user-level {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .user-stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--light);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* Bet Panel */
+        .bet-panel {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .bet-panel h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .bet-section {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bet-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .bet-input-group {
+            margin-bottom: 15px;
+        }
+
+        .bet-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .bet-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .bet-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+        }
+
+        .auto-cashout {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .auto-cashout input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+
+        .auto-cashout label {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .auto-multiplier {
+            width: 70px;
+            padding: 8px 10px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--light);
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .bet-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, #ff6b6b 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .bet-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.4);
+        }
+
+        .bet-button:disabled {
+            background: var(--dark-gray);
+            color: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .bet-button.cashout {
+            background: linear-gradient(135deg, var(--success) 0%, #34d399 100%);
+        }
+
+        .bet-button.cashout:hover {
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Live Bets */
+        .live-bets {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .live-bets h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .live-bets-container {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .live-bet-item {
+            padding: 10px;
+            background: var(--dark-gray);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .live-bet-user {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .live-bet-amount {
+            color: var(--gold);
+        }
+
+        /* Chat */
+        .chat {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            flex: 1;
+        }
+
+        .chat h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            max-height: 300px;
+        }
+
+        .chat-message {
+            padding: 10px;
+            background: var(--dark-gray);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .chat-message .username {
+            color: var(--accent);
+            font-weight: 500;
+            margin-right: 5px;
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 14px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .chat-send {
+            padding: 12px;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Deposit Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .deposit-methods, .withdraw-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        .deposit-method, .withdraw-method {
+            background: var(--dark-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 120px;
+        }
+
+        .deposit-method:hover, .withdraw-method:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .deposit-method i, .withdraw-method i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .deposit-form, .withdraw-form {
+            margin-top: 20px;
+        }
+
+        .deposit-form-group, .withdraw-form-group {
+            margin-bottom: 20px;
+        }
+
+        .deposit-form-group label, .withdraw-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .deposit-form input, .withdraw-form input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 16px;
+        }
+
+        .deposit-form input:focus, .withdraw-form input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .deposit-submit, .withdraw-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary) 0%, #ff6b6b 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .withdraw-submit {
+            background: linear-gradient(135deg, var(--secondary) 0%, #34d399 100%);
+        }
+
+        .deposit-submit:hover, .withdraw-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.4);
+        }
+
+        .withdraw-submit:hover {
+            box-shadow: 0 5px 15px rgba(76, 217, 100, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+
+            .sidebar {
+                grid-column: 1;
+                grid-row: auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .user-profile, .bet-panel, .live-bets, .chat {
+                flex: 1 1 45%;
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .balance-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .action-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .sidebar {
+                flex-direction: column;
+            }
+
+            .deposit-methods, .withdraw-methods {
+                justify-content: space-around;
+            }
+
+            .deposit-method, .withdraw-method {
+                width: 100px;
+                padding: 10px;
+            }
+
+            .deposit-method i, .withdraw-method i {
+                font-size: 24px;
+            }
+
+            #multiplier-display {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 10px;
+            }
+
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .balance span {
+                font-size: 16px;
+            }
+
+            .deposit-btn, .withdraw-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .main-container {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .user-profile, .bet-panel, .live-bets, .chat {
+                padding: 15px;
+            }
+
+            #multiplier-display {
+                font-size: 3rem;
+            }
+
+            .deposit-method, .withdraw-method {
+                width: 80px;
+                padding: 8px;
+            }
+
+            .deposit-method i, .withdraw-method i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-coins"></i>
+                <h1>DOLLAR MAGNET</h1>
+            </div>
+            <div class="balance-container">
+                <div class="balance">
+                    <i class="fas fa-coins"></i>
+                    <span id="user-balance">$1,250.75</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="deposit-btn" id="open-deposit">
+                        <i class="fas fa-plus-circle"></i>
+                        Deposit
+                    </button>
+                    <button class="withdraw-btn" id="open-withdraw">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Withdraw
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Game Area -->
+        <div class="game-area">
+            <canvas id="game-canvas"></canvas>
+            <div id="multiplier-display">1.00x</div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <div class="history-header">
+                <h3>Game History</h3>
+                <button class="bet-button" style="padding: 8px 15px; font-size: 14px;">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+            </div>
+            <div class="history-container" id="history">
+                <!-- History items will be added here -->
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- User Profile -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name">Tiff Toxic</div>
+                <div class="user-level">Premium Player</div>
+                <div class="user-stats">
+                    <div class="stat">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Games</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">68%</div>
+                        <div class="stat-label">Win Rate</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">$542</div>
+                        <div class="stat-label">Profit</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bet Panel -->
+            <div class="bet-panel">
+                <h3>Place Your Bets</h3>
+                
+                <div class="bet-section">
+                    <h4 style="margin-bottom: 10px; font-size: 16px;">Bet 1</h4>
+                    <div class="bet-input-group">
+                        <label for="bet-amount-1">Amount ($)</label>
+                        <input type="number" class="bet-input" id="bet-amount-1" value="10" min="1">
+                    </div>
+                    <div class="auto-cashout">
+                        <input type="checkbox" id="auto-cashout-1">
+                        <label for="auto-cashout-1">Auto Cashout at</label>
+                        <input type="number" class="auto-multiplier" id="auto-multiplier-1" value="2.00" step="0.01">
+                    </div>
+                    <button class="bet-button" id="bet-button-1">
+                        <i class="fas fa-paper-plane"></i>
+                        Place Bet
+                    </button>
+                </div>
+                
+                <div class="bet-section">
+                    <h4 style="margin-bottom: 10px; font-size: 16px;">Bet 2</h4>
+                    <div class="bet-input-group">
+                        <label for="bet-amount-2">Amount ($)</label>
+                        <input type="number" class="bet-input" id="bet-amount-2" value="10" min="1">
+                    </div>
+                    <div class="auto-cashout">
+                        <input type="checkbox" id="auto-cashout-2">
+                        <label for="auto-cashout-2">Auto Cashout at</label>
+                        <input type="number" class="auto-multiplier" id="auto-multiplier-2" value="2.00" step="0.01">
+                    </div>
+                    <button class="bet-button" id="bet-button-2">
+                        <i class="fas fa-paper-plane"></i>
+                        Place Bet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Live Bets -->
+            <div class="live-bets">
+                <h3>Live Bets</h3>
+                <div class="live-bets-container" id="live-bets">
+                    <!-- Live bets will be added here -->
+                </div>
+            </div>
+
+            <!-- Chat -->
+            <div class="chat">
+                <h3>Game Chat</h3>
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Chat messages will be added here -->
+                </div>
+                <div class="chat-input-group">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Type a message...">
+                    <button class="chat-send" id="chat-send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal" id="deposit-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-deposit">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Deposit Funds</h2>
+            
+            <div class="deposit-methods">
+                <div class="deposit-method">
+                    <i class="fab fa-bitcoin"></i>
+                    <div>Bitcoin</div>
+                </div>
+                <div class="deposit-method">
+                    <i class="fab fa-ethereum"></i>
+                    <div>Ethereum</div>
+                </div>
+                <div class="deposit-method">
+                    <i class="fas fa-credit-card"></i>
+                    <div>Credit Card</div>
+                </div>
+                <div class="deposit-method">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <div>Bank Transfer</div>
+                </div>
+            </div>
+            
+            <form class="deposit-form">
+                <div class="deposit-form-group">
+                    <label for="deposit-amount">Amount ($)</label>
+                    <input type="number" id="deposit-amount" placeholder="Enter amount" min="1">
+                </div>
+                <div class="deposit-form-group">
+                    <label for="deposit-bonus">Bonus Code (Optional)</label>
+                    <input type="text" id="deposit-bonus" placeholder="Enter bonus code">
+                </div>
+                <button type="submit" class="deposit-submit">Complete Deposit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdraw-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-withdraw">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Withdraw Funds</h2>
+            
+            <div class="withdraw-methods">
+                <div class="withdraw-method">
+                    <i class="fab fa-bitcoin"></i>
+                    <div>Bitcoin</div>
+                </div>
+                <div class="withdraw-method">
+                    <i class="fab fa-ethereum"></i>
+                    <div>Ethereum</div>
+                </div>
+                <div class="withdraw-method">
+                    <i class="fas fa-money-check"></i>
+                    <div>Bank Account</div>
+                </div>
+                <div class="withdraw-method">
+                    <i class="fab fa-paypal"></i>
+                    <div>PayPal</div>
+                </div>
+            </div>
+            
+            <form class="withdraw-form">
+                <div class="withdraw-form-group">
+                    <label for="withdraw-amount">Amount ($)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Enter amount" min="1">
+                </div>
+                <div class="withdraw-form-group">
+                    <label for="withdraw-address">Withdrawal Address/Account</label>
+                    <input type="text" id="withdraw-address" placeholder="Enter withdrawal address">
+                </div>
+                <button type="submit" class="withdraw-submit">Complete Withdrawal</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Canvas setup
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        const multiplierDisplay = document.getElementById('multiplier-display');
+        const historyDiv = document.getElementById('history');
+        const liveBetsDiv = document.getElementById('live-bets');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+        const depositModal = document.getElementById('deposit-modal');
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const openDepositBtn = document.getElementById('open-deposit');
+        const openWithdrawBtn = document.getElementById('open-withdraw');
+        const closeDepositBtn = document.getElementById('close-deposit');
+        const closeWithdrawBtn = document.getElementById('close-withdraw');
+        const userBalance = document.getElementById('user-balance');
+
+        // Resize canvas
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Load plane image
+        const planeImage = new Image();
+        planeImage.src = 'https://i.imgur.com/3Q0yQ3g.png'; // Real plane image
+
+        // Game state
+        let currentMultiplier = 1.00;
+        let isFlying = false;
+        let animationFrame;
+        let planeX = 50;
+        let planeY = canvas.height / 2;
+        let planeRotation = 0;
+        let trail = [];
+        const maxTrailLength = 50;
+
+        // Draw background
+        function drawBackground() {
+            // Sky gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#87CEEB');
+            gradient.addColorStop(1, '#1E90FF');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Clouds
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            drawCloud(100, 80, 40);
+            drawCloud(250, 120, 50);
+            drawCloud(450, 60, 35);
+            drawCloud(650, 100, 45);
+        }
+
+        function drawCloud(x, y, size) {
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.arc(x + size * 0.8, y - size * 0.2, size * 0.7, 0, Math.PI * 2);
+            ctx.arc(x + size * 1.5, y, size * 0.9, 0, Math.PI * 2);
+            ctx.arc(x + size * 0.8, y + size * 0.3, size * 0.6, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Draw graph
+        function drawGraph(multiplier) {
+            // Draw grid
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 1;
+            
+            // Vertical lines
+            for (let i = 0; i < canvas.width; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            
+            // Horizontal lines
+            for (let i = 0; i < canvas.height; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.stroke();
+            }
+            
+            // Draw curve
+            ctx.strokeStyle = '#ff3b30'; // Red color for the curve
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height);
+            
+            const points = [];
+            for (let i = 0; i <= canvas.width; i += 10) {
+                const progress = i / canvas.width;
+                // Using a more exponential curve like in Aviator
+                const value = Math.exp(progress * Math.log(multiplier));
+                const x = i;
+                // Adjust the curve to be more like Aviator (steeper at the beginning)
+                const y = canvas.height - (canvas.height * (value - 1) / 10);
+                points.push({x, y});
+            }
+            
+            // Draw smooth curve through points
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length; i++) {
+                const xc = (points[i].x + points[i - 1].x) / 2;
+                const yc = (points[i].y + points[i - 1].y) / 2;
+                ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc);
+            }
+            ctx.stroke();
+            
+            // Draw trail
+            if (trail.length > 1) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(trail[0].x, trail[0].y);
+                for (let i = 1; i < trail.length; i++) {
+                    ctx.lineTo(trail[i].x, trail[i].y);
+                }
+                ctx.stroke();
+            }
+            
+            // Draw plane
+            if (planeImage.complete) {
+                const planeWidth = 60;
+                const planeHeight = 30;
+                const lastPoint = points[points.length - 1];
+                
+                // Calculate rotation based on curve direction
+                if (points.length > 1) {
+                    const dx = points[points.length - 1].x - points[points.length - 2].x;
+                    const dy = points[points.length - 1].y - points[points.length - 2].y;
+                    planeRotation = Math.atan2(dy, dx);
+                }
+                
+                // Add current position to trail
+                trail.push({x: lastPoint.x, y: lastPoint.y});
+                if (trail.length > maxTrailLength) {
+                    trail.shift();
+                }
+                
+                ctx.save();
+                ctx.translate(lastPoint.x, lastPoint.y);
+                ctx.rotate(planeRotation);
+                ctx.drawImage(planeImage, -planeWidth/2, -planeHeight/2, planeWidth, planeHeight);
+                ctx.restore();
+                
+                // Store plane position for next frame
+                planeX = lastPoint.x;
+                planeY = lastPoint.y;
+            }
+        }
+
+        // Update multiplier
+        function updateMultiplier(value) {
+            currentMultiplier = value;
+            multiplierDisplay.textContent = value.toFixed(2) + 'x';
+            drawBackground();
+            drawGraph(value);
+        }
+
+        // Handle crash
+        function handleCrash(value) {
+            isFlying = false;
+            cancelAnimationFrame(animationFrame);
+            multiplierDisplay.style.color = '#ef4444'; // Red color for crash
+            
+            // Add to history
+            const item = document.createElement('div');
+            item.classList.add('history-item');
+            item.textContent = value.toFixed(2) + 'x';
+            item.classList.add(value < 2 ? 'low' : 'high');
+            historyDiv.prepend(item);
+            
+            // Reset bet buttons
+            document.getElementById('bet-button-1').textContent = 'Place Bet';
+            document.getElementById('bet-button-1').classList.remove('cashout');
+            document.getElementById('bet-button-2').textContent = 'Place Bet';
+            document.getElementById('bet-button-2').classList.remove('cashout');
+            
+            // Reset trail
+            trail = [];
+        }
+
+        // Update history
+        function updateHistory(history) {
+            historyDiv.innerHTML = '';
+            history.forEach(val => {
+                const item = document.createElement('div');
+                item.classList.add('history-item');
+                item.textContent = val.toFixed(2) + 'x';
+                item.classList.add(val < 2 ? 'low' : 'high');
+                historyDiv.appendChild(item);
+            });
+        }
+
+        // Update live bets
+        function updateLiveBets(bet) {
+            const div = document.createElement('div');
+            div.classList.add('live-bet-item');
+            div.innerHTML = `
+                <span class="live-bet-user">${bet.user}</span>
+                <span class="live-bet-amount">$${bet.amount} @ ${bet.multiplier}x</span>
+            `;
+            liveBetsDiv.appendChild(div);
+        }
+
+        // Add chat message
+        function addChatMessage(username, message) {
+            const div = document.createElement('div');
+            div.classList.add('chat-message');
+            div.innerHTML = `<span class="username">${username}:</span> ${message}`;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Chat send
+        function sendMessage() {
+            if (chatInput.value.trim()) {
+                addChatMessage('You', chatInput.value);
+                chatInput.value = '';
+            }
+        }
+
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Bet buttons
+        const betButtons = [
+            document.getElementById('bet-button-1'),
+            document.getElementById('bet-button-2')
+        ];
+
+        betButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                if (!isFlying) {
+                    // Place bet
+                    const amount = document.getElementById(`bet-amount-${index+1}`).value;
+                    const autoCashout = document.getElementById(`auto-cashout-${index+1}`).checked;
+                    const autoMultiplier = document.getElementById(`auto-multiplier-${index+1}`).value;
+                    
+                    // Update UI
+                    btn.innerHTML = '<i class="fas fa-money-bill-wave"></i> Cash Out';
+                    btn.classList.add('cashout');
+                    
+                    // Start game if not already running
+                    if (index === 0) {
+                        startSimulation();
+                    }
+                } else if (btn.classList.contains('cashout')) {
+                    // Cash out
+                    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Place Bet';
+                    btn.classList.remove('cashout');
+                    
+                    // Show profit
+                    const amount = document.getElementById(`bet-amount-${index+1}`).value;
+                    const profit = (amount * currentMultiplier).toFixed(2);
+                    addChatMessage('System', `Bet ${index+1} cashed out at ${currentMultiplier.toFixed(2)}x for $${profit} profit!`);
+                }
+            });
+        });
+
+        // Simulation for demo
+        function startSimulation() {
+            if (isFlying) return;
+            isFlying = true;
+            currentMultiplier = 1.00;
+            multiplierDisplay.style.color = 'white';
+            trail = [];
+            let time = 0;
+            
+            function animate() {
+                time += 0.03;
+                // More realistic exponential growth like in Aviator
+                currentMultiplier = Math.exp(time * 0.15);
+                updateMultiplier(currentMultiplier);
+                
+                // Random crash point - more unpredictable like in Aviator
+                const crashPoint = 1.5 + Math.random() * 8; // Crash between 1.5x and 9.5x
+                if (currentMultiplier < crashPoint) {
+                    animationFrame = requestAnimationFrame(animate);
+                } else {
+                    handleCrash(currentMultiplier);
+                }
+            }
+            animate();
+        }
+
+        // Deposit modal
+        openDepositBtn.addEventListener('click', () => {
+            depositModal.style.display = 'flex';
+        });
+
+        closeDepositBtn.addEventListener('click', () => {
+            depositModal.style.display = 'none';
+        });
+
+        // Withdraw modal
+        openWithdrawBtn.addEventListener('click', () => {
+            withdrawModal.style.display = 'flex';
+        });
+
+        closeWithdrawBtn.addEventListener('click', () => {
+            withdrawModal.style.display = 'none';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === depositModal) {
+                depositModal.style.display = 'none';
+            }
+            if (e.target === withdrawModal) {
+                withdrawModal.style.display = 'none';
+            }
+        });
+
+        // Deposit form
+        document.querySelector('.deposit-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = document.getElementById('deposit-amount').value;
+            if (amount) {
+                // Update balance
+                const currentBalance = parseFloat(userBalance.textContent.replace('$', '').replace(',', ''));
+                const newBalance = currentBalance + parseFloat(amount);
+                userBalance.textContent = '$' + newBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                
+                // Close modal
+                depositModal.style.display = 'none';
+                
+                // Show notification
+                addChatMessage('System', `Deposit of $${amount} completed successfully!`);
+                
+                // Reset form
+                document.getElementById('deposit-amount').value = '';
+                document.getElementById('deposit-bonus').value = '';
+            }
+        });
+
+        // Withdraw form
+        document.querySelector('.withdraw-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = document.getElementById('withdraw-amount').value;
+            const address = document.getElementById('withdraw-address').value;
+            
+            if (amount && address) {
+                // Check if sufficient balance
+                const currentBalance = parseFloat(userBalance.textContent.replace('$', '').replace(',', ''));
+                
+                if (parseFloat(amount) > currentBalance) {
+                    addChatMessage('System', 'Insufficient balance for withdrawal!');
+                    return;
+                }
+                
+                // Update balance
+                const newBalance = currentBalance - parseFloat(amount);
+                userBalance.textContent = '$' + newBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                
+                // Close modal
+                withdrawModal.style.display = 'none';
+                
+                // Show notification
+                addChatMessage('System', `Withdrawal of $${amount} to ${address} completed successfully!`);
+                
+                // Reset form
+                document.getElementById('withdraw-amount').value = '';
+                document.getElementById('withdraw-address').value = '';
+            }
+        });
+
+        // Initialize
+        updateHistory([1.23, 2.45, 1.01, 5.67, 1.89, 3.21, 1.45, 2.89]);
+        updateLiveBets({user: 'Player123', amount: '25', multiplier: '2.50'});
+        updateLiveBets({user: 'GamerPro', amount: '50', multiplier: '1.75'});
+        updateLiveBets({user: 'LuckyStar', amount: '15', multiplier: '3.00'});
+        
+        // Initial chat messages
+        addChatMessage('System', 'Welcome to Dollar Magnet! Place your bets and watch the plane fly!');
+        addChatMessage('Player123', 'This game is so exciting!');
+        addChatMessage('GamerPro', 'Just won big on the last round!');
+        
+        // Draw initial canvas
+        drawBackground();
+        drawGraph(1.00);
+    </script>
+</body>
+</html>
