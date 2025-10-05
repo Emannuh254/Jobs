@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         },
         
+        
         // Initialize glass effects
         init() {
             // Apply glass effect to cards
@@ -408,3 +409,171 @@ document.addEventListener('DOMContentLoaded', function() {
     keyboardDetection.init();
     userProfileBadge.init();
 });
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Example: simple local check (you can replace this with API verification)
+    if (username === 'admin' && password === '1234') {
+      // ✅ Save login flag
+      localStorage.setItem('password', password); // or localStorage.setItem('loggedIn', 'true');
+      
+      // ✅ Redirect to home page
+      window.location.href = 'home.html';
+    } else {
+      alert('Invalid username or password');
+    }
+  });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Example: check for a stored token or password
+  const loggedIn = localStorage.getItem('password'); // or 'token', 'user', etc.
+
+  if (!loggedIn) {
+    // Not logged in → redirect to index.html
+    window.location.href = 'index.html';
+  }
+});
+// DOM Elements
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+const closeMobileMenu = document.getElementById('close-mobile-menu');
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const mobileDarkModeToggle = document.getElementById('mobile-dark-mode-toggle');
+const notificationToggle = document.getElementById('notification-toggle');
+const notificationPanel = document.getElementById('notification-panel');
+const closeNotifications = document.getElementById('close-notifications');
+const chatbotButton = document.getElementById('chatbot-button');
+const chatbotWindow = document.getElementById('chatbot-window');
+const chatbotClose = document.getElementById('chatbot-close');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotSend = document.getElementById('chatbot-send');
+const chatbotMessages = document.getElementById('chatbot-messages');
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    setupEventListeners();
+    checkDarkMode();
+});
+
+// Setup event listeners
+function setupEventListeners() {
+    // Mobile menu
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    closeMobileMenu.addEventListener('click', toggleMobileMenu);
+    mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+    
+    // Dark mode
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    mobileDarkModeToggle.addEventListener('click', toggleDarkMode);
+    
+    // Notifications
+    notificationToggle.addEventListener('click', toggleNotifications);
+    closeNotifications.addEventListener('click', toggleNotifications);
+    
+    // Chatbot
+    chatbotButton.addEventListener('click', toggleChatbot);
+    chatbotClose.addEventListener('click', toggleChatbot);
+    chatbotSend.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+    
+    // Close notifications when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!notificationPanel.contains(e.target) && !notificationToggle.contains(e.target) && !notificationPanel.classList.contains('hidden')) {
+            toggleNotifications();
+        }
+    });
+    
+    // Close chatbot when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!chatbotWindow.contains(e.target) && !chatbotButton.contains(e.target) && !chatbotWindow.classList.contains('hidden')) {
+            toggleChatbot();
+        }
+    });
+}
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    mobileMenu.classList.toggle('translate-x-full');
+    mobileMenuOverlay.classList.toggle('hidden');
+}
+
+// Toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    
+    // Update icons
+    const isDark = document.body.classList.contains('dark');
+    darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    mobileDarkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+
+// Check for saved dark mode preference
+function checkDarkMode() {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) {
+        document.body.classList.add('dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        mobileDarkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+}
+
+// Toggle notifications panel
+function toggleNotifications() {
+    notificationPanel.classList.toggle('hidden');
+}
+
+// Toggle chatbot window
+function toggleChatbot() {
+    chatbotWindow.classList.toggle('hidden');
+    if (!chatbotWindow.classList.contains('hidden')) {
+        chatbotInput.focus();
+    }
+}
+
+// Send a message in the chatbot
+function sendMessage() {
+    const message = chatbotInput.value.trim();
+    if (message === '') return;
+    
+    // Add user message
+    addMessage(message, 'sent');
+    chatbotInput.value = '';
+    
+    // Simulate bot response
+    setTimeout(() => {
+        const responses = [
+            "Thank you for your message. How can I assist you today?",
+            "I understand your concern. Let me help you with that.",
+            "Thanks for reaching out! Our team will get back to you soon.",
+            "I'm here to help. Could you provide more details?",
+            "That's a great question. Let me find the information for you."
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        addMessage(randomResponse, 'received');
+    }, 1000);
+}
+
+// Add a message to the chat
+function addMessage(text, type) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${type}`;
+    
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    messageDiv.innerHTML = `
+        <div>
+            <div class="message-bubble">${text}</div>
+            <div class="message-time">${time}</div>
+        </div>
+    `;
+    
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}

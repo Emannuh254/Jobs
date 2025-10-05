@@ -31,6 +31,23 @@ function createParticles() {
         particlesContainer.appendChild(particle);
     }
 }
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Example: simple local check (you can replace this with API verification)
+    if (username === 'admin' && password === '1234') {
+      // ✅ Save login flag
+      localStorage.setItem('password', password); // or localStorage.setItem('loggedIn', 'true');
+      
+      // ✅ Redirect to home page
+      window.location.href = 'home.html';
+    } else {
+      alert('Invalid username or password');
+    }
+  });
 
 // ===============================
 // Loader Utility (Enhanced)

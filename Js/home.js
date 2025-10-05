@@ -1,211 +1,175 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Load jobs on page load
-    loadJobs();
-    
-    // Set up event listeners
-    document.getElementById('load-more-jobs').addEventListener('click', loadMoreJobs);
-    document.getElementById('chatbot-button').addEventListener('click', toggleChatbot);
-    document.getElementById('chatbot-close').addEventListener('click', toggleChatbot);
-    document.getElementById('chatbot-send').addEventListener('click', sendMessage);
-    document.getElementById('chatbot-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') sendMessage();
-    });
-    
-    // Filter chips functionality
-    const filterChips = document.querySelectorAll('.filter-chip');
-    filterChips.forEach(chip => {
-        chip.addEventListener('click', function() {
-            filterChips.forEach(c => c.classList.remove('active'));
-            this.classList.add('active');
-            loadJobs(this.textContent);
-        });
-    });
+// API Configuration - Use the same endpoint as the admin panel
+const API_BASE = "https://admin-9hxq.onrender.com";
+// DOM Elements
+const jobListings = document.getElementById('job-listings');
+const searchInput = document.querySelector('.search-input');
+const searchButton = document.querySelector('.search-button');
+const loadMoreButton = document.getElementById('load-more-jobs');
+const filterChips = document.querySelectorAll('.filter-chip');
+
+// State
+let jobs = [];
+let currentPage = 1;
+let jobsPerPage = 6;
+let currentFilter = 'All Jobs';
+let searchQuery = '';
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', () => {
+    fetchJobs();
+    setupEventListeners();
 });
 
-let currentPage = 1;
-let currentFilter = 'All Jobs';
+// Setup event listeners
+function setupEventListeners() {
+    // Search functionality
+    searchButton.addEventListener('click', handleSearch);
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch();
+    });
 
-function loadJobs(filter = 'All Jobs') {
-    currentFilter = filter;
-    currentPage = 1;
-    
-    // Show loading state
-    const jobListings = document.getElementById('job-listings');
-    jobListings.innerHTML = '<div class="col-span-full text-center py-8"><i class="fas fa-spinner fa-spin text-2xl text-indigo-600"></i></div>';
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-        // In a real app, this would be a fetch request to your backend
-        // fetch(`/api/jobs?page=${currentPage}&filter=${encodeURIComponent(filter)}`)
-        //   .then(response => response.json())
-        //   .then(data => renderJobs(data))
-        //   .catch(error => console.error('Error loading jobs:', error));
-        
-        // For demo purposes, we'll use mock data
-        const mockJobs = generateMockJobs(filter);
-        renderJobs(mockJobs);
-    }, 800);
+    // Filter chips
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => handleFilter(chip));
+    });
+
+    // Load more button
+    loadMoreButton.addEventListener('click', loadMoreJobs);
 }
 
-function loadMoreJobs() {
-    currentPage++;
-    
-    // Show loading state
-    const loadMoreBtn = document.getElementById('load-more-jobs');
-    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
-    loadMoreBtn.disabled = true;
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-        // In a real app, this would be a fetch request to your backend
-        // fetch(`/api/jobs?page=${currentPage}&filter=${encodeURIComponent(currentFilter)}`)
-        //   .then(response => response.json())
-        //   .then(data => appendJobs(data))
-        //   .catch(error => console.error('Error loading more jobs:', error));
+// Fetch jobs from API - using the same endpoint as admin
+async function fetchJobs() {
+    try {
+        // Use the same endpoint as the admin panel: /jobs/
+        const response = await fetch(`${API_BASE}/jobs/?page=${currentPage}&limit=${jobsPerPage}&search=${searchQuery}`);
+        const data = await response.json();
         
-        // For demo purposes, we'll use mock data
-        const mockJobs = generateMockJobs(currentFilter, currentPage);
-        appendJobs(mockJobs);
-        
-        loadMoreBtn.innerHTML = 'Load More Jobs';
-        loadMoreBtn.disabled = false;
-    }, 800);
+        if (data && data.length > 0) {
+            jobs = currentPage === 1 ? data : [...jobs, ...data];
+            renderJobs();
+            
+            // Hide load more button if no more jobs
+            if (data.length < jobsPerPage) {
+                loadMoreButton.style.display = 'none';
+            } else {
+                loadMoreButton.style.display = 'block';
+            }
+        } else if (currentPage === 1) {
+            // No jobs found
+            jobListings.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-briefcase text-gray-400 text-5xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">No jobs found</h3>
+                    <p class="text-gray-500">Try adjusting your search or filter criteria</p>
+                </div>
+            `;
+            loadMoreButton.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        jobListings.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <i class="fas fa-exclamation-circle text-red-500 text-5xl mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Error loading jobs</h3>
+                <p class="text-gray-500">Please try again later</p>
+            </div>
+        `;
+        loadMoreButton.style.display = 'none';
+    }
 }
 
-function renderJobs(jobs) {
-    const jobListings = document.getElementById('job-listings');
+// Render jobs in the grid
+function renderJobs() {
     jobListings.innerHTML = '';
     
-    if (jobs.length === 0) {
-        jobListings.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">No jobs found matching your criteria.</div>';
-        return;
-    }
-    
     jobs.forEach(job => {
-        jobListings.appendChild(createJobCard(job));
+        const jobCard = createJobCard(job);
+        jobListings.appendChild(jobCard);
     });
 }
 
-function appendJobs(jobs) {
-    const jobListings = document.getElementById('job-listings');
-    
-    jobs.forEach(job => {
-        jobListings.appendChild(createJobCard(job));
-    });
-}
-
+// Create a job card element
 function createJobCard(job) {
     const card = document.createElement('div');
     card.className = 'job-card';
+    
+    // Format tags
+    let tagsHtml = '';
+    if (job.tags) {
+        const tags = typeof job.tags === 'string' ? job.tags.split(',') : job.tags;
+        tagsHtml = tags.map(tag => `<span class="job-tag">${tag.trim()}</span>`).join('');
+    }
+    
+    // Format date
+    const datePosted = job.date_posted ? new Date(job.date_posted).toLocaleDateString() : 'Recently';
+    
     card.innerHTML = `
         <div class="job-card-header">
-            <div class="job-logo">
-                <img src="${job.companyLogo || 'https://via.placeholder.com/60'}" alt="${job.company}">
+            <div>
+                <h3>${job.title || 'Job Title'}</h3>
+                <div class="company">
+                    <i class="fas fa-building"></i>
+                    <span>${job.company || 'Company Name'}</span>
+                </div>
             </div>
-            <div class="job-type ${job.type.toLowerCase().replace('-', '')}">${job.type}</div>
+            <span class="job-type ${job.type?.toLowerCase() || 'full-time'}">${job.type || 'Full-time'}</span>
         </div>
-        <div class="job-title">${job.title}</div>
-        <div class="job-company">${job.company}</div>
-        <div class="job-location">
-            <i class="fas fa-map-marker-alt mr-1"></i> ${job.location}
+        <div class="job-card-body">
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>${job.location || 'Location'}</span>
+            </div>
+            <div class="description">
+                ${job.description || 'Job description not available.'}
+            </div>
+            <div class="job-tags">
+                ${tagsHtml}
+            </div>
         </div>
-        <div class="job-description">${job.description}</div>
-        <div class="job-tags">
-            ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
-        </div>
-        <div class="job-footer">
-            <div class="job-salary">${job.salary}</div>
-            <button class="btn-primary apply-btn" data-job-id="${job.id}">Apply Now</button>
+        <div class="job-card-footer">
+            <div class="salary">${job.salary || 'Salary not specified'}</div>
+            <div class="text-sm text-gray-500">${datePosted}</div>
         </div>
     `;
-    
-    // Add event listener to apply button
-    card.querySelector('.apply-btn').addEventListener('click', function() {
-        const jobId = this.getAttribute('data-job-id');
-        // In a real app, this would redirect to an application page or open a modal
-        alert(`Applying for job ID: ${jobId}`);
-    });
     
     return card;
 }
 
-function generateMockJobs(filter = 'All Jobs', page = 1) {
-    const jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Remote'];
-    const locations = ['Nairobi, Kenya', 'Mombasa, Kenya', 'Kisumu, Kenya', 'Remote', 'Eldoret, Kenya'];
-    const companies = ['Tech Innovations Ltd', 'Global Solutions Inc', 'Digital Dynamics', 'Future Systems', 'Creative Minds'];
-    const titles = ['Frontend Developer', 'Backend Engineer', 'UI/UX Designer', 'Project Manager', 'Data Analyst', 'DevOps Engineer'];
-    const tags = ['JavaScript', 'React', 'Node.js', 'Python', 'Design', 'Management', 'Remote', 'Entry Level'];
+// Handle search
+function handleSearch() {
+    searchQuery = searchInput.value.trim();
+    currentPage = 1;
+    jobs = [];
+    loadMoreButton.style.display = 'block';
+    fetchJobs();
+}
+
+// Handle filter
+function handleFilter(chip) {
+    // Update active state
+    filterChips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
     
-    const jobs = [];
-    const jobsPerPage = 6;
-    const startIndex = (page - 1) * jobsPerPage;
+    // Update current filter
+    currentFilter = chip.textContent.trim();
     
-    for (let i = 0; i < jobsPerPage; i++) {
-        const jobType = filter === 'All Jobs' 
-            ? jobTypes[Math.floor(Math.random() * jobTypes.length)]
-            : filter;
-            
-        const job = {
-            id: startIndex + i + 1,
-            title: titles[Math.floor(Math.random() * titles.length)],
-            company: companies[Math.floor(Math.random() * companies.length)],
-            location: locations[Math.floor(Math.random() * locations.length)],
-            type: jobType,
-            description: 'We are looking for a talented professional to join our team and help us build amazing products.',
-            salary: 'KSh ' + (Math.floor(Math.random() * 200) + 50) + ',000 - ' + (Math.floor(Math.random() * 300) + 200) + ',000',
-            tags: Array.from({length: Math.floor(Math.random() * 4) + 2}, () => tags[Math.floor(Math.random() * tags.length)]),
-            companyLogo: `https://picsum.photos/seed/company${Math.floor(Math.random() * 100)}/60/60.jpg`
-        };
-        
-        jobs.push(job);
+    // Reset and fetch jobs
+    currentPage = 1;
+    jobs = [];
+    loadMoreButton.style.display = 'block';
+    
+    // If filter is not "All Jobs", add it to search query
+    if (currentFilter !== 'All Jobs') {
+        searchQuery = currentFilter.toLowerCase();
+    } else {
+        searchQuery = '';
     }
     
-    return jobs;
+    fetchJobs();
 }
 
-// Chatbot functionality
-function toggleChatbot() {
-    const chatbotWindow = document.getElementById('chatbot-window');
-    chatbotWindow.classList.toggle('active');
-}
-
-function sendMessage() {
-    const input = document.getElementById('chatbot-input');
-    const message = input.value.trim();
-    
-    if (message === '') return;
-    
-    // Add user message
-    addMessage(message, 'sent');
-    input.value = '';
-    
-    // Simulate bot response after delay
-    setTimeout(() => {
-        const responses = [
-            "Thank you for your message. How can I assist you with your job search today?",
-            "I'd be happy to help you find your dream job. Could you tell me more about what you're looking for?",
-            "Our support team is here to help. Do you have questions about a specific job or application?",
-            "I can help you with job recommendations, application tips, or general questions about our platform."
-        ];
-        const response = responses[Math.floor(Math.random() * responses.length)];
-        addMessage(response, 'received');
-    }, 1000);
-}
-
-function addMessage(text, type) {
-    const messagesContainer = document.getElementById('chatbot-messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${type}`;
-    
-    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
-    messageDiv.innerHTML = `
-        <div>
-            <div class="message-bubble">${text}</div>
-            <div class="message-time">${time}</div>
-        </div>
-    `;
-    
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+// Load more jobs
+function loadMoreJobs() {
+    currentPage++;
+    fetchJobs();
 }

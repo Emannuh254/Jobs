@@ -9,69 +9,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Professional Color Scheme */
         :root {
-            /* Primary Colors */
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
-            --primary-light: #60a5fa;
             --secondary: #7c3aed;
-            --secondary-dark: #6d28d9;
-            --secondary-light: #a78bfa;
-            
-            /* Neutral Colors */
             --dark: #0f172a;
             --light: #f8fafc;
-            --card-bg: #ffffff;
             --text-primary: #1e293b;
             --text-secondary: #64748b;
-            --text-muted: #94a3b8;
             --border-color: #e2e8f0;
             --hover-bg: #f1f5f9;
-            --input-bg: #f9fafb;
-            
-            /* Accent Colors */
-            --accent: #f59e0b;
             --success: #10b981;
-            --info: #3b82f6;
             --warning: #f59e0b;
             --danger: #ef4444;
-            
-            /* Shadows */
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            
-            /* Transitions */
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Spacing */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 0.75rem;
-            --spacing-md: 1rem;
-            --spacing-lg: 1.5rem;
-            --spacing-xl: 2rem;
-            --spacing-2xl: 3rem;
-            
-            /* Border Radius */
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --radius-full: 9999px;
-            
-            /* Typography */
-            --font-primary: 'Poppins', sans-serif;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.125rem;
-            --font-size-xl: 1.25rem;
-            --font-size-2xl: 1.5rem;
-            --font-size-3xl: 1.875rem;
-            --font-size-4xl: 2.25rem;
-            --font-weight-medium: 500;
-            --font-weight-semibold: 600;
-            --font-weight-bold: 700;
-            
-            /* Glass Effect Variables */
             --glass-bg-light: rgba(255, 255, 255, 0.25);
             --glass-bg-dark: rgba(30, 41, 59, 0.25);
             --glass-border-light: rgba(255, 255, 255, 0.18);
@@ -79,24 +29,18 @@
             --glass-blur: 10px;
         }
 
-        /* Dark Mode Variables */
         body.dark {
             --primary: #60a5fa;
             --primary-dark: #3b82f6;
             --secondary: #a78bfa;
-            --secondary-dark: #8b5cf6;
             --dark: #0f172a;
             --light: #1e293b;
-            --card-bg: #1e293b;
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
-            --text-muted: #64748b;
             --border-color: #334155;
             --hover-bg: #334155;
-            --input-bg: #0f172a;
         }
 
-        /* Global Reset */
         * {
             margin: 0;
             padding: 0;
@@ -105,11 +49,10 @@
 
         html {
             scroll-behavior: smooth;
-            font-size: 16px;
         }
 
         body {
-            font-family: var(--font-primary);
+            font-family: 'Poppins', sans-serif;
             background-color: var(--light);
             color: var(--text-primary);
             line-height: 1.6;
@@ -117,29 +60,14 @@
             overflow-x: hidden;
         }
 
-        /* Focus styles for accessibility */
-        :focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* Container */
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-md);
-        }
-
-        /* Glass Effect Base Styles */
         .glass {
             background: var(--glass-bg-light);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border-light);
-            box-shadow: var(--shadow);
-            border-radius: var(--radius-lg);
-            transition: var(--transition);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
         }
 
         body.dark .glass {
@@ -147,17 +75,16 @@
             border-color: var(--glass-border-dark);
         }
 
-        /* Header Styles */
         .header {
             background: var(--glass-bg-light);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border-bottom: 1px solid var(--glass-border-light);
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         body.dark .header {
@@ -166,26 +93,26 @@
         }
 
         .logo {
-            font-size: var(--font-size-xl);
-            font-weight: var(--font-weight-bold);
+            font-size: 1.25rem;
+            font-weight: 700;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm);
+            gap: 0.5rem;
             text-decoration: none;
         }
 
         .nav-link {
-            font-weight: var(--font-weight-medium);
+            font-weight: 500;
             color: var(--text-primary);
-            transition: var(--transition);
+            transition: all 0.3s ease;
             position: relative;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: 0.5rem 1rem;
             text-decoration: none;
-            border-radius: var(--radius-md);
+            border-radius: 0.5rem;
         }
 
         .nav-link:hover {
@@ -209,203 +136,24 @@
             border-radius: 2px;
         }
 
-        /* Dark Mode Toggle */
-        #dark-mode-toggle, #mobile-dark-mode-toggle {
-            background: var(--glass-bg-light);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border-light);
-            color: var(--text-primary);
-            font-size: var(--font-size-lg);
-            cursor: pointer;
-            padding: var(--spacing-xs);
-            border-radius: var(--radius-full);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-        }
-
-        body.dark #dark-mode-toggle, body.dark #mobile-dark-mode-toggle {
-            background: var(--glass-bg-dark);
-            border-color: var(--glass-border-dark);
-        }
-
-        /* Notification Panel */
-        #notification-panel {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            width: 350px;
-            max-width: 90vw;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .notification-panel-header {
-            padding: var(--spacing-md);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-panel-header h3 {
-            margin: 0;
-            font-size: var(--font-size-lg);
-            font-weight: var(--font-weight-semibold);
-            color: var(--text-primary);
-        }
-
-        .notification-item {
-            padding: var(--spacing-md);
-            display: flex;
-            align-items: flex-start;
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background: var(--hover-bg);
-        }
-
-        .notification-item.unread {
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .notification-icon {
-            margin-right: var(--spacing-md);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--hover-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .notification-text {
-            flex-grow: 1;
-        }
-
-        .notification-text p {
-            margin: 0 0 var(--spacing-xs) 0;
-        }
-
-        .notification-time {
-            font-size: var(--font-size-xs);
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-
-        /* Mobile Menu */
-        #mobile-side-navbar {
-            position: fixed;
-            top: 0;
-            right: -320px;
-            width: 320px;
-            height: 100vh;
-            background: var(--glass-bg-light);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            border-left: 1px solid var(--glass-border-light);
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            z-index: 1001;
-            transition: right 0.3s ease;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        body.dark #mobile-side-navbar {
-            background: var(--glass-bg-dark);
-            border-left: 1px solid var(--glass-border-dark);
-        }
-
-        #mobile-side-navbar.open {
-            right: 0;
-        }
-
-        .mobile-nav-link {
-            display: flex;
-            align-items: center;
-            padding: var(--spacing-sm) var(--spacing-md);
-            margin-bottom: var(--spacing-sm);
-            color: var(--text-primary);
-            border-radius: var(--radius-md);
-            transition: var(--transition);
-            text-decoration: none;
-            gap: var(--spacing-md);
-        }
-
-        .mobile-nav-link:hover {
-            background: var(--hover-bg);
-            color: var(--primary);
-            transform: translateX(-5px);
-        }
-
-        .mobile-nav-link.active {
-            background: var(--hover-bg);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-        }
-
-        /* Mobile Menu Overlay */
-        #mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        #mobile-menu-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: var(--radius-xl);
-            padding: var(--spacing-2xl) var(--spacing-xl);
+            border-radius: 1rem;
+            padding: 3rem 2rem;
             color: white;
-            margin-bottom: var(--spacing-xl);
-            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .hero-section h1 {
-            font-size: var(--font-size-4xl);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--spacing-md);
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        /* Search Box */
         .search-box {
             position: relative;
             max-width: 600px;
@@ -414,21 +162,21 @@
 
         .search-input {
             width: 100%;
-            padding: var(--spacing-md) var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
+            padding: 1rem 1rem 1rem 2.5rem;
             background: var(--glass-bg-light);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border-light);
-            border-radius: var(--radius-lg);
-            font-size: var(--font-size-base);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             color: var(--text-primary);
         }
 
         .search-input:focus {
             outline: none;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         body.dark .search-input {
@@ -439,16 +187,16 @@
 
         .search-button {
             position: absolute;
-            right: var(--spacing-sm);
+            right: 0.5rem;
             top: 50%;
             transform: translateY(-50%);
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: var(--radius-md);
-            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -458,12 +206,11 @@
             background: var(--primary-dark);
         }
 
-        /* Filter Section */
         .filter-container {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-md);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .filter-chip {
@@ -472,14 +219,14 @@
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border-light);
             color: var(--primary);
-            border-radius: var(--radius-full);
-            padding: var(--spacing-xs) var(--spacing-md);
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-medium);
+            border-radius: 9999px;
+            padding: 0.25rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             white-space: nowrap;
         }
 
@@ -492,7 +239,7 @@
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .filter-chip.active {
@@ -500,12 +247,11 @@
             color: white;
         }
 
-        /* Job Cards */
         .job-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-2xl);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
         .job-card {
@@ -513,9 +259,9 @@
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border-light);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             position: relative;
             height: 100%;
             display: flex;
@@ -525,11 +271,11 @@
 
         .job-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .job-card-header {
-            padding: var(--spacing-lg);
+            padding: 1.5rem;
             border-bottom: 1px solid var(--glass-border-light);
             display: flex;
             justify-content: space-between;
@@ -537,15 +283,15 @@
         }
 
         .job-card-body {
-            padding: var(--spacing-lg);
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-md);
+            gap: 1rem;
             flex-grow: 1;
         }
 
         .job-card-footer {
-            padding: var(--spacing-md) var(--spacing-lg);
+            padding: 1rem 1.5rem;
             background: var(--glass-bg-light);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -555,18 +301,18 @@
         }
 
         .job-card h3 {
-            font-size: var(--font-size-xl);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--spacing-xs);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
             color: var(--text-primary);
         }
 
         .job-card .company {
-            font-weight: var(--font-weight-medium);
+            font-weight: 500;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: var(--spacing-xs);
+            gap: 0.25rem;
         }
 
         .job-card .company i {
@@ -574,10 +320,10 @@
         }
 
         .job-type {
-            font-size: var(--font-size-xs);
-            font-weight: var(--font-weight-semibold);
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
             display: inline-block;
             background: #e0e7ff;
             color: var(--primary);
@@ -595,24 +341,24 @@
 
         .job-type.part-time {
             background: rgba(59, 130, 246, 0.1);
-            color: var(--info);
+            color: var(--primary);
         }
 
         .job-card .location {
             display: flex;
             align-items: center;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 1rem;
             color: var(--text-secondary);
         }
 
         .job-card .location i {
             color: var(--text-secondary);
-            margin-right: var(--spacing-sm);
+            margin-right: 0.5rem;
         }
 
         .job-card .description {
             color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 1rem;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -622,20 +368,20 @@
         .job-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--spacing-xs);
-            margin-bottom: var(--spacing-md);
+            gap: 0.25rem;
+            margin-bottom: 1rem;
         }
 
         .job-tag {
             background: var(--hover-bg);
             color: var(--text-secondary);
-            font-size: var(--font-size-xs);
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
         }
 
         .job-card .salary {
-            font-weight: var(--font-weight-semibold);
+            font-weight: 600;
             color: var(--success);
         }
 
@@ -652,12 +398,11 @@
             background: var(--glass-bg-dark);
         }
 
-        /* Button Styles */
         .btn {
-            font-weight: var(--font-weight-semibold);
-            padding: var(--spacing-sm) var(--spacing-lg);
-            border-radius: var(--radius-md);
-            transition: var(--transition);
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
             display: inline-flex;
@@ -666,21 +411,20 @@
             position: relative;
             overflow: hidden;
             text-decoration: none;
-            font-size: var(--font-size-base);
+            font-size: 1rem;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        /* WhatsApp Chatbot */
         .chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -695,13 +439,13 @@
             background: #25D366;
             color: white;
             border: none;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: var(--font-size-2xl);
-            transition: var(--transition);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
         }
 
         #chatbot-button:hover, #mobile-chatbot-toggle:hover {
@@ -720,8 +464,8 @@
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border-light);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -741,7 +485,7 @@
         .chatbot-header {
             background: #25D366;
             color: white;
-            padding: var(--spacing-md);
+            padding: 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -757,7 +501,7 @@
             height: 40px;
             border-radius: 50%;
             background: white;
-            margin-right: var(--spacing-sm);
+            margin-right: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -765,24 +509,24 @@
         }
 
         .chatbot-header-name {
-            font-weight: var(--font-weight-semibold);
+            font-weight: 600;
         }
 
         .chatbot-header-status {
-            font-size: var(--font-size-xs);
+            font-size: 0.75rem;
             opacity: 0.8;
         }
 
         #chatbot-messages {
             flex-grow: 1;
-            padding: var(--spacing-md);
+            padding: 1rem;
             overflow-y: auto;
             background: #f8fafc;
             background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a0aec0' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
         }
 
         .message {
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 1rem;
             display: flex;
             animation: fadeIn 0.3s ease-out;
         }
@@ -793,9 +537,9 @@
 
         .message-bubble {
             max-width: 70%;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: 0.5rem 1rem;
             border-radius: 18px;
-            font-size: var(--font-size-sm);
+            font-size: 0.875rem;
             line-height: 1.4;
             position: relative;
         }
@@ -803,7 +547,7 @@
         .message.received .message-bubble {
             background: white;
             border-bottom-left-radius: 5px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .message.sent .message-bubble {
@@ -812,14 +556,14 @@
         }
 
         .message-time {
-            font-size: var(--font-size-xs);
+            font-size: 0.75rem;
             color: #999;
-            margin-top: var(--spacing-xs);
+            margin-top: 0.25rem;
             text-align: right;
         }
 
         .chatbot-input-container {
-            padding: var(--spacing-md);
+            padding: 1rem;
             background: var(--glass-bg-light);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -835,17 +579,17 @@
             flex-grow: 1;
             border: none;
             border-radius: 20px;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: 0.5rem 1rem;
             background: white;
-            font-size: var(--font-size-sm);
+            font-size: 0.875rem;
             outline: none;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
             color: var(--text-primary);
         }
 
         #chatbot-input:focus {
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         body.dark #chatbot-input {
@@ -860,12 +604,12 @@
             background: #25D366;
             color: white;
             border: none;
-            margin-left: var(--spacing-sm);
+            margin-left: 0.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         #chatbot-send:hover {
@@ -873,33 +617,32 @@
             transform: scale(1.1);
         }
 
-        /* Footer */
         .footer {
             background: linear-gradient(135deg, var(--dark), #1e293b);
             color: #cbd5e1;
-            padding: var(--spacing-2xl) 0 var(--spacing-xl);
+            padding: 3rem 0 2rem;
             margin-top: auto;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-xl);
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .footer-section h3 {
             color: white;
-            font-weight: var(--font-weight-semibold);
-            margin-bottom: var(--spacing-md);
-            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
         }
 
         .footer-link {
             color: #a5b4fc;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             display: block;
-            padding: var(--spacing-xs) 0;
+            padding: 0.25rem 0;
             text-decoration: none;
         }
 
@@ -910,15 +653,15 @@
 
         .footer-newsletter-form {
             display: flex;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 1rem;
         }
 
         .footer input {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: var(--spacing-sm);
-            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+            padding: 0.5rem;
+            border-radius: 0.25rem 0 0 0.25rem;
             flex-grow: 1;
         }
 
@@ -929,11 +672,11 @@
         .footer button {
             background: var(--primary);
             color: white;
-            padding: var(--spacing-sm) var(--spacing-md);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 0.5rem 1rem;
+            border-radius: 0 0.25rem 0.25rem 0;
             border: none;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .footer button:hover {
@@ -942,34 +685,33 @@
 
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: var(--spacing-lg);
+            padding-top: 1rem;
             text-align: center;
-            font-size: var(--font-size-sm);
+            font-size: 0.875rem;
             color: #94a3b8;
         }
 
-        /* User Profile Badge */
         .user-profile-badge {
             display: flex;
             align-items: center;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: 0.5rem 1rem;
             background: var(--glass-bg-light);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border-light);
-            border-radius: var(--radius-full);
-            transition: var(--transition);
+            border-radius: 9999px;
+            transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             max-width: 280px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .user-profile-badge:hover {
             background: var(--hover-bg);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         body.dark .user-profile-badge {
@@ -986,9 +728,9 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-size-lg);
-            margin-right: var(--spacing-sm);
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-right: 0.5rem;
             flex-shrink: 0;
         }
 
@@ -999,20 +741,20 @@
         }
 
         .user-profile-name {
-            font-weight: var(--font-weight-semibold);
+            font-weight: 600;
             color: var(--text-primary);
-            font-size: var(--font-size-base);
+            font-size: 1rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .user-profile-id {
-            font-size: var(--font-size-xs);
+            font-size: 0.75rem;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: var(--spacing-xs);
+            gap: 0.25rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1021,7 +763,7 @@
         .user-profile-id::before {
             content: '@';
             color: var(--primary);
-            font-weight: var(--font-weight-medium);
+            font-weight: 500;
         }
 
         .user-profile-badge .status-indicator {
@@ -1040,7 +782,6 @@
             border-color: var(--card-bg);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -1051,17 +792,17 @@
             }
             
             .hero-section {
-                padding: var(--spacing-lg);
-                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                border-radius: 0.75rem;
             }
             
             .hero-section h1 {
-                font-size: var(--font-size-2xl);
+                font-size: 1.875rem;
             }
             
             .job-grid {
                 grid-template-columns: 1fr;
-                gap: var(--spacing-md);
+                gap: 1rem;
             }
             
             .chatbot-container {
@@ -1077,7 +818,7 @@
             
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: var(--spacing-lg);
+                gap: 1.5rem;
             }
         }
 
@@ -1098,60 +839,53 @@
                 bottom: 75px;
                 right: 0;
                 left: 0;
-                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            }
-            
-            #notification-panel {
-                top: 70px;
-                right: 10px;
-                left: 10px;
-                width: auto;
+                border-radius: 0.75rem 0.75rem 0 0;
             }
             
             .hero-section {
-                padding: var(--spacing-md);
+                padding: 1rem;
             }
             
             .hero-section h1 {
-                font-size: var(--font-size-xl);
+                font-size: 1.5rem;
             }
             
             .filter-chip {
-                padding: var(--spacing-xs) var(--spacing-sm);
-                font-size: var(--font-size-xs);
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
             }
             
             .btn-primary {
-                padding: var(--spacing-xs) var(--spacing-md);
-                font-size: var(--font-size-sm);
+                padding: 0.25rem 1rem;
+                font-size: 0.875rem;
             }
             
             .logo {
-                font-size: var(--font-size-lg);
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 480px) {
             .hero-section {
-                padding: var(--spacing-md);
+                padding: 1rem;
             }
             
             .hero-section h1 {
-                font-size: var(--font-size-lg);
+                font-size: 1.25rem;
             }
             
             .filter-chip {
-                padding: var(--spacing-xs) var(--spacing-sm);
-                font-size: var(--font-size-xs);
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
             }
             
             .btn-primary {
-                padding: var(--spacing-xs) var(--spacing-md);
-                font-size: var(--font-size-sm);
+                padding: 0.25rem 1rem;
+                font-size: 0.875rem;
             }
             
             .logo {
-                font-size: var(--font-size-base);
+                font-size: 1rem;
             }
             
             .chatbot-container {
@@ -1163,7 +897,7 @@
             #chatbot-button {
                 width: 50px;
                 height: 50px;
-                font-size: var(--font-size-lg);
+                font-size: 1.25rem;
             }
             
             #chatbot-window {
@@ -1181,7 +915,7 @@
             
             .user-profile-avatar {
                 margin-right: 0;
-                margin-bottom: var(--spacing-sm);
+                margin-bottom: 0.5rem;
             }
         }
     </style>
@@ -1238,133 +972,116 @@
         </div>
     </header>
 
-    <!-- Notification Panel -->
-    <div class="notification-panel" id="notification-panel">
-        <div class="notification-panel-header">
-            <h3>Notifications</h3>
-            <button id="close-notifications" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="notification-panel-content">
-            <div class="notification-item unread">
-                <div class="notification-icon">
-                    <i class="fas fa-briefcase text-indigo-500"></i>
-                </div>
-                <div class="notification-text">
-                    <p class="font-medium">New job match</p>
-                    <p class="text-sm text-gray-500">A new position matches your skills</p>
-                </div>
-                <div class="notification-time">2 hours ago</div>
-            </div>
-            <div class="notification-item unread">
-                <div class="notification-icon">
-                    <i class="fas fa-user-friends text-green-500"></i>
-                </div>
-                <div class="notification-text">
-                    <p class="font-medium">Referral update</p>
-                    <p class="text-sm text-gray-500">Your referral has been viewed</p>
-                </div>
-                <div class="notification-time">1 day ago</div>
-            </div>
-            <div class="notification-item">
-                <div class="notification-icon">
-                    <i class="fas fa-calendar text-blue-500"></i>
-                </div>
-                <div class="notification-text">
-                    <p class="font-medium">Interview scheduled</p>
-                    <p class="text-sm text-gray-500">Your interview is tomorrow at 10 AM</p>
-                </div>
-                <div class="notification-time">2 days ago</div>
-            </div>
-            <div class="notification-item">
-                <div class="notification-icon">
-                    <i class="fas fa-check-circle text-green-500"></i>
-                </div>
-                <div class="notification-text">
-                    <p class="font-medium">Application received</p>
-                    <p class="text-sm text-gray-500">Your application was successfully submitted</p>
-                </div>
-                <div class="notification-time">3 days ago</div>
-            </div>
-        </div>
-        <div class="notification-panel-footer">
-            <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">View all notifications</a>
-        </div>
-    </div>
-
-    <!-- Mobile Side Navbar -->
-    <div class="mobile-side-navbar" id="mobile-side-navbar">
-        <div class="mobile-side-navbar-header">
-            <div class="flex items-center justify-between">
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="mobile-menu-overlay"></div>
+    <div class="fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-800 z-50 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <div class="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
                         <i class="fas fa-briefcase text-white text-sm"></i>
                     </div>
-                    <span class="text-white font-bold">Derrick Mawira Jobs</span>
+                    <span class="text-gray-800 dark:text-white font-bold">Derrick Mawira Jobs</span>
                 </div>
-                <button class="text-white" id="close-mobile-menu">
+                <button class="text-gray-600 dark:text-gray-300" id="close-mobile-menu">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
         </div>
         
-        <div class="mobile-side-navbar-content">
-            <div class="mobile-user-profile">
-                <div class="flex items-center space-x-3">
-                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
-                    <div>
-                        <div class="text-white font-medium">John Doe</div>
-                        <div class="text-gray-300 text-sm">Senior Frontend Developer</div>
-                    </div>
+        <div class="p-4">
+            <div class="flex items-center space-x-3 mb-6">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Profile" class="w-12 h-12 rounded-full">
+                <div>
+                    <div class="text-gray-800 dark:text-white font-medium">John Doe</div>
+                    <div class="text-gray-500 dark:text-gray-300 text-sm">Senior Frontend Developer</div>
                 </div>
             </div>
             
-            <nav class="mobile-nav">
-                <a href="home.html" class="mobile-nav-link active">
+            <nav class="space-y-2">
+                <a href="home.html" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-home mr-3"></i> Jobs
                 </a>
-                <a href="referrals.html" class="mobile-nav-link">
+                <a href="referrals.html" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-user-friends mr-3"></i> Referrals
                 </a>
-                <a href="about.html" class="mobile-nav-link">
+                <a href="about.html" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-info-circle mr-3"></i> About
                 </a>
-                <a href="profile.html" class="mobile-nav-link">
+                <a href="profile.html" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-user mr-3"></i> Profile
                 </a>
-                <a href="settings.html" class="mobile-nav-link">
+                <a href="settings.html" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-cog mr-3"></i> Settings
                 </a>
-                <a href="help.html" class="mobile-nav-link">
+                <a href="help.html" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
                     <i class="fas fa-question-circle mr-3"></i> Help
                 </a>
-            </nav>
-            
-            <div class="mobile-nav-section">
-                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Account</h3>
-                <a href="account.html" class="mobile-nav-link">
-                    <i class="fas fa-user-circle mr-3"></i> My Account
-                </a>
-                <button class="mobile-nav-link" id="mobile-dark-mode-toggle">
+                <button class="block w-full text-left px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" id="mobile-dark-mode-toggle">
                     <i class="fas fa-moon mr-3"></i> Dark Mode
                 </button>
-            </div>
-            
-            <div class="mobile-nav-section">
-                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-2">Support</h3>
-                <button class="mobile-nav-link" id="mobile-chatbot-toggle">
-                    <i class="fab fa-whatsapp mr-3"></i> Chat Support
-                </button>
-                <a href="#" class="mobile-nav-link">
-                    <i class="fas fa-envelope mr-3"></i> Contact Us
-                </a>
-            </div>
+            </nav>
         </div>
     </div>
 
-    <!-- Overlay for mobile menu -->
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <!-- Notification Panel -->
+    <div class="fixed top-16 right-4 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 hidden" id="notification-panel">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Notifications</h3>
+                <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" id="close-notifications">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="max-h-96 overflow-y-auto">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center">
+                            <i class="fas fa-briefcase text-indigo-600 dark:text-indigo-300"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">New job match</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">A new position matches your skills</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2 hours ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                            <i class="fas fa-user-friends text-green-600 dark:text-green-300"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">Referral update</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Your referral has been viewed</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 day ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                            <i class="fas fa-calendar text-blue-600 dark:text-blue-300"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">Interview scheduled</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Your interview is tomorrow at 10 AM</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2 days ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm">View all notifications</a>
+        </div>
+    </div>
     
     <!-- Main Content -->
     <main class="flex-grow">
